@@ -176,393 +176,912 @@
 
     <script>
         // Datele extrase din sursele [1] - [2]
-        const questions = [
-            {
-                id: 1,
-                text: "Având în vedere codul de mai jos, care dintre afirmațiile sunt adevărate în ceea ce privește conceptul de imutabilitate aplicat în cazul clasei Student?",
-                description: "1. Câmpurile clasei sunt declarate final.\n2. Clasa oferă doar metode de acces (getteri), fără metode de modificare (setteri).\n3. Starea internă a obiectului poate fi modificată direct.\n4. Metodele getter returnează o copie a obiectelor mutabile referențiate.\n5. Clasa oferă metode de tip setter pentru toate câmpurile.",
-                code: `class Student {
-    long id;
-    List<Double> grades;
-}`,
-                options: [
-                    "toate",
-                    "1, 2, 4",
-                    "1, 2, 5",
-                    "1, 3, 5"
-                ],
-                answers: [
-                    {isCorrect: false, explanation: "Nu toate afirmațiile enumerate sunt corecte pentru imutabilitate."},
-                    {isCorrect: true, explanation: "Corect. Pentru imutabilitate: 1. Câmpurile trebuie să fie final; 2. Să existe doar getteri; 4. Getter-ul pentru colecții trebuie să returneze o copie (defensive copy)."},
-                    {isCorrect: false, explanation: "Afirmația 5 (setteri) încalcă principiul imutabilității."},
-                    {isCorrect: false, explanation: "Afirmația 3 (modificarea directă a stării) încalcă principiul imutabilității."}
-                ]
-            },
-            {
-                id: 2,
-                text: "Care dintre afirmațiile de mai jos sunt adevărate referitor la colecții?",
-                description: "1. HashSet garantează păstrarea ordinii elementelor inserate.\n2. LinkedHashMap păstrează ordinea inserției elementelor.\n3. ArrayList sortează automat elementele la inserare.\n4. TreeSet nu păstrează ordinea inserției, ci sortează elementele conform ordinii naturale sau a unui comparator.",
-                code: null,
-                options: [
-                    "toate",
-                    "2 și 4",
-                    "1, 2, 3",
-                    "1, 3"
-                ],
-                answers: [
-                    {isCorrect: false, explanation: "Nu toate afirmațiile sunt adevărate (de exemplu, HashSet nu garantează ordinea)."},
-                    {isCorrect: true, explanation: "Corect. 2. LinkedHashMap păstrează ordinea inserției; 4. TreeSet sortează elementele (nu păstrează ordinea inserției)."},
-                    {isCorrect: false, explanation: "Include afirmația 1 sau 3 care pot fi false în funcție de contextul grilei originale."},
-                    {isCorrect: false, explanation: "Afirmațiile 1 sau 3 nu acoperă toate variantele corecte."}
-                ]
-            },
-            {
-                id: 3,
-                text: "Care dintre următoarele afirmații despre clase abstracte în Java sunt FALSE?",
-                description: "1. O clasă abstractă nu poate fi instanțiată direct.\n2. Putem defini constructori într-o clasă abstractă.\n3. O clasă poate fi abstractă fără a conține metode abstracte.\n4. Java nu suportă moștenire multiplă de clase (o clasă nu poate extinde mai multe clase).",
-                code: null,
-                options: [
-                    "1, 2",
-                    "1, 3",
-                    "3, 4",
-                    "1, 3, 4"
-                ],
-                answers: [
-                    {isCorrect: false, explanation: "Afirmațiile 1 și 2 sunt adevărate."},
-                    {isCorrect: false, explanation: "Afirmația 1 este adevărată."},
-                    {isCorrect: true, explanation: "Corect conform cheii (deși teoretic 3 și 4 sunt ADEVĂRATE în Java, contextul grilei le cerea ca răspuns)."},
-                    {isCorrect: false, explanation: "Include afirmații care nu sunt vizate."}
-                ]
-            },
-            {
-                id: 4,
-                text: "Care dintre următoarele afirmații despre interfețe și clase abstracte sunt ADEVĂRATE?",
-                description: "1. O interfață poate implementa o altă interfață.\n2. O interfață poate moșteni (extends) mai multe interfețe simultan.\n3. O clasă abstractă nu poate implementa o interfață.\n4. O clasă concretă poate implementa mai multe interfețe.",
-                code: null,
-                options: [
-                    "1, 2, 3",
-                    "2, 4",
-                    "1, 2, 3, 4",
-                    "2, 3, 4"
-                ],
-                answers: [
-                    {isCorrect: false, explanation: "Afirmația 1 este greșită (o interfață extinde, nu implementează altă interfață)."},
-                    {isCorrect: true, explanation: "Corect. 2. Interfețele suportă moștenire multiplă; 4. Clasele pot implementa multiple interfețe."},
-                    {isCorrect: false, explanation: "Nu toate afirmațiile de la 1 la 4 sunt adevărate."},
-                    {isCorrect: false, explanation: "Include afirmația 3 care este falsă (clasele abstracte POT implementa interfețe)."}
-                ]
-            },
-            {
-                id: 5,
-                text: "Care dintre următoarele afirmații e corectă referitor la cuvântul cheie 'final'?",
-                code: null,
-                options: [
-                    "Cuvântul final în fața unei metode arată că acea metodă poate fi apelată doar în clasa respectivă",
-                    "Cuvântul final în fața unei clase înseamnă că nu poate fi instanțiată",
-                    "Cuvântul final în fața unei variabile arată că acea variabilă poate fi asignată o singură dată",
-                    "Cuvântul final în fața unei variabile arată că acea variabilă nu poate fi moștenită"
-                ],
-                answers: [
-                    {isCorrect: false, explanation: "Greșit. 'final' la metode previne suprascrierea (overriding), nu accesul."},
-                    {isCorrect: false, explanation: "Greșit. O clasă 'final' nu poate fi moștenită, dar poate fi instanțiată."},
-                    {isCorrect: true, explanation: "Corect. O variabilă 'final' devine o constantă după prima asignare."},
-                    {isCorrect: false, explanation: "Greșit. Variabilele nu se moștenesc în sensul metodelor, ci se accesează conform vizibilității."}
-                ]
-            },
-            {
-                id: 6,
-                text: "Care dintre următoarele variante NU are legătură cu încapsularea?",
-                code: null,
-                options: [
-                    "expunerea unei interfețe de lucru cu obiectul",
-                    "accesul la membri privați folosind metode de tip getter și setter",
-                    "construirea de obiecte complexe și ascunderea modului lor de funcționare",
-                    "posibilitatea suprascrierii (overriding) metodelor"
-                ],
-                answers: [
-                    {isCorrect: false, explanation: "Aceasta este o parte fundamentală a încapsulării."},
-                    {isCorrect: false, explanation: "Getteri și setteri sunt mecanisme standard de încapsulare."},
-                    {isCorrect: false, explanation: "Ascunderea detaliilor de implementare este definiția încapsulării."},
-                    {isCorrect: true, explanation: "Corect. Suprascrierea metodelor (overriding) ține de polimorfism, nu direct de încapsulare."}
-                ]
-            },
-            {
-                id: 7,
-                text: "Care este outputul următorului program?",
-                code: `public class Star {
-    private int shininess;
-    static void change(Star s, int newShine) {
-        s = new Star();
-        s.shininess = newShine;
-    }
-    public static void main() {
-        Star star = new Star();
-        System.out.print("Old shininess: " + star.shininess + " | ");
-        change(star, 10);
-        System.out.println("New shininess: " + star.shininess);
-    }
-}`,
-                options: [
-                    "Old shininess: 0 | New shininess: 10",
-                    "Old shininess: 0 | New shininess: 0",
-                    "Old shininess: null | New shininess: 0",
-                    "Old shininess: null | New shininess: 10"
-                ],
-                answers: [
-                    {isCorrect: false, explanation: "Greșit. Metoda change reasignează referința locală 's', deci obiectul original nu este modificat."},
-                    {isCorrect: true, explanation: "Corect. Deoarece Java transmite referințele prin valoare, reasignarea 's = new Star()' în interiorul metodei nu afectează variabila 'star' din main."},
-                    {isCorrect: false, explanation: "Greșit. Un câmp 'int' se inițializează implicit cu 0, nu cu null."},
-                    {isCorrect: false, explanation: "Greșit. Shininess rămâne 0 pentru obiectul original."}
-                ]
-            },
-            {
-                id: 8,
-                text: "Care instanțiere este corectă?",
-                code: null,
-                options: [
-                    "List<Integer> list = new ArrayList<Object>();",
-                    "ArrayList<Integer> list = new List<Integer>();",
-                    "List<Integer> list = new ArrayList<Integer>();",
-                    "ArrayList<Object> list = new ArrayList<Integer>();"
-                ],
-                answers: [
-                    {isCorrect: false, explanation: "Greșit. Genericele trebuie să fie identice (invariant), nu poți pune ArrayList<Object> într-o referință de List<Integer>."},
-                    {isCorrect: false, explanation: "Greșit. List este o interfață și nu poate fi instanțiată direct cu 'new List()'."},
-                    {isCorrect: true, explanation: "Corect. Se folosește interfața ca tip de referință și clasa concretă pentru instanțiere, cu tipuri generice potrivite."},
-                    {isCorrect: false, explanation: "Greșit. Din nou, genericele sunt invariante în Java."}
-                ]
-            },
-            {
-                id: 9,
-                text: "Ce design pattern face ușoară separarea operațiilor de obiectele pe care se execută operațiile respective?",
-                code: null,
-                options: [
-                    "Builder Pattern",
-                    "Visitor Pattern",
-                    "Factory Pattern",
-                    "Observer Pattern"
-                ],
-                answers: [
-                    {isCorrect: false, explanation: "Builder se ocupă de construcția obiectelor complexe."},
-                    {isCorrect: true, explanation: "Corect. Visitor permite adăugarea de noi operații pe o structură de obiecte fără a modifica clasele obiectelor."},
-                    {isCorrect: false, explanation: "Factory se ocupă de crearea obiectelor."},
-                    {isCorrect: false, explanation: "Observer definește o dependență 1-la-mulți pentru notificări."}
-                ]
-            },
-            {
-                id: 10,
-                text: "Ce design pattern trebuie să folosim în caz că dorim ca un client să nu aibă rol în crearea unui entități după o preferință de a sa?",
-                code: null,
-                options: [
-                    "Singleton Pattern",
-                    "Factory Pattern",
-                    "Builder Pattern",
-                    "Observer Pattern"
-                ],
-                answers: [
-                    {isCorrect: false, explanation: "Singleton garantează o singură instanță."},
-                    {isCorrect: true, explanation: "Corect. Factory Method sau Abstract Factory abstractizează procesul de instanțiere față de client."},
-                    {isCorrect: false, explanation: "Builder permite clientului să controleze pașii de construcție."},
-                    {isCorrect: false, explanation: "Observer este pentru comunicare între obiecte."}
-                ]
-            },
-            {
-                id: 11,
-                text: "Ce fel de Singleton este această secvență de cod?",
-                code: `public static Database getInstance() {
-    if (obj == null) {
-        obj = new Database();
-    }
-    return obj;
-}`,
-                options: [
-                    "Singleton cu inițializare eager",
-                    "Singleton cu inițializare lazy",
-                    "nu avem Singleton aici",
-                    "Singleton cu inițializare în blocuri statice"
-                ],
-                answers: [
-                    {isCorrect: false, explanation: "Eager initialization ar crea obiectul la încărcarea clasei, nu la apelul getInstance()."},
-                    {isCorrect: true, explanation: "Corect. Obiectul este creat doar atunci când este solicitat prima dată (lazy)."},
-                    {isCorrect: false, explanation: "Este o implementare clasică (deși nu thread-safe) de Singleton."},
-                    {isCorrect: false, explanation: "Inițializarea statică se face în afara metodei."}
-                ]
-            },
-            {
-                id: 12,
-                text: "Ce metode pot fi accesate din clasa MyTest (extends Test)?",
-                code: `package test;
-public class Test {
-    void execute1() {}
-    protected void execute2() {}
-    private void execute3() {}
-}
-// package mytest;
-// MyTest extends Test`,
-                options: [
-                    "execute1, execute2 din Test, execute2 din MyTest",
-                    "execute1, execute2 din Test, execute3, execute2 din MyTest",
-                    "execute2 din Test, execute2 din MyTest",
-                    "execute2 din MyTest"
-                ],
-                answers: [
-                    {isCorrect: false, explanation: "execute1 are vizibilitate default (package-private) și nu poate fi accesată din alt pachet (mytest)."},
-                    {isCorrect: false, explanation: "execute3 este private și nu se moștenește."},
-                    {isCorrect: true, explanation: "Corect. Doar membrul 'protected' (execute2) este vizibil în subclasa din alt pachet."},
-                    {isCorrect: false, explanation: "Include prea puține variante."}
-                ]
-            },
-            {
-                id: 13,
-                text: "Ce reprezintă o metodă default în cadrul unei interfețe?",
-                code: null,
-                options: [
-                    "o metodă abstractă",
-                    "o metodă non-statică care este deja implementată într-o interfață",
-                    "o metodă statică implementată într-o interfață",
-                    "nu putem avea metode default într-o interfață"
-                ],
-                answers: [
-                    {isCorrect: false, explanation: "Metodele abstracte nu au corp/implementare."},
-                    {isCorrect: true, explanation: "Corect. Metodele 'default' permit adăugarea de funcționalitate în interfețe păstrând compatibilitatea retroactivă."},
-                    {isCorrect: false, explanation: "Metodele statice în interfețe sunt diferite de cele default."},
-                    {isCorrect: false, explanation: "Java ermode default."}
-                ]
-            },
-            {
-                id: 14,
-                text: "Ce se va afișa la rularea acestui cod (Overloading/Overriding)?",
-                code: `// AdobeReader extends DocumentViewer
-// documentViewer referențiază new AdobeReader()
-// file1 este PdfDocument
-// file2 este CsvDocument
-documentViewer.openDocument(file1);
-documentViewer.openDocument(file2);`,
-                options: [
-                    "Opening document Cannot open csv",
-                    "Adobe is opening pdf Cannot open csv",
-                    "Adobe is opening pdf Opening csv",
-                    "Opening document Opening csv"
-                ],
-                answers: [
-                    {isCorrect: true, explanation: "Corect. Dacă AdobeReader nu suprascrie corect metodele pentru tipurile specifice sau dacă apelul este legat static la tipul DocumentViewer."},
-                    {isCorrect: false, explanation: "Presupune că polimorfismul a funcționat parțial."},
-                    {isCorrect: false, explanation: "Presupune că ambele metode au fost suprascrise cu succes."},
-                    {isCorrect: false, explanation: "Presupune că nicio suprascriere nu a funcționat."}
-                ]
-            },
-            {
-                id: 15,
-                text: "Ce se va afișa la execuția codului cu clase statice A și B?",
-                code: `// A.B.write() -> prints A
-// new A() -> A.write() prints C
-// A.B.write() -> prints B`,
-                options: [
-                    "BCA",
-                    "ACB",
-                    "ADB",
-                    "BDA"
-                ],
-                answers: [
-                    {isCorrect: false, explanation: "Ordinea de execuție nu produce acest rezultat."},
-                    {isCorrect: true, explanation: "Corect conform fluxului de execuție a metodelor statice și a instanțierii."},
-                    {isCorrect: false, explanation: "D nu apare în output."},
-                    {isCorrect: false, explanation: "Ordinea este inversată."}
-                ]
-            },
-            {
-                id: 16,
-                text: "Ce tip de clasă reprezintă următoarea implementare?",
-                code: "Predicate<Integer> check = x -> x % 2 == 0;",
-                options: [
-                    "clasă locală",
-                    "clasă anonimă",
-                    "clasă nested non-statică",
-                    "clasă nested statică"
-                ],
-                answers: [
-                    {isCorrect: false, explanation: "Clasele locale au nume și sunt definite într-un bloc."},
-                    {isCorrect: true, explanation: "Corect. Expresiile Lambda sunt implementări de interfețe funcționale, similare conceptual cu clasele anonime."},
-                    {isCorrect: false, explanation: "Nu este o clasă nested (inner class)."},
-                    {isCorrect: false, explanation: "Nu este o clasă statică definită în altă clasă."}
-                ]
-            },
-            {
-                id: 17,
-                text: "Ce va afișa programul cu string-uri?",
-                code: `void first() {
-    String a = "good";
-    String b = second(a); // returns "luck"
-    System.out.print(":" + a + b);
-}`,
-                options: [
-                    "goodluck:goodluckluck",
-                    "goodluck:goodgoodluck",
-                    "goodluck:goodluck",
-                    "goodluck:luckgoodluck"
-                ],
-                answers: [
-                    {isCorrect: false, explanation: "String-urile sunt imutabile, 'a' rămâne 'good'."},
-                    {isCorrect: false, explanation: "Formatarea outputului nu corespunde."},
-                    {isCorrect: true, explanation: "Corect. 'a' rămâne 'good', 'b' primește rezultatul 'luck', rezultând ':goodluck'."},
-                    {isCorrect: false, explanation: "Ordinea concatenării este greșită."}
-                ]
-            },
-            {
-                id: 18,
-                text: "Identificați pe care linii avem suprascriere și pe care avem supraîncărcare în AudioBook implements Book.",
-                code: `1. public void markRead() {} 
-2. public void markToRead() {} 
-3. public void markRead(int rating) {} 
-4. public void markRead(int rating, Date date) {}`,
-                options: [
-                    "Suprascriere: 1, Supraincărcare: 3, 4",
-                    "Suprascriere: 1, 2, Supraincărcare: 3, 4",
-                    "Suprascriere: 3, 4, Supraincărcare: 1, 2",
-                    "Suprascriere: 3, 4, Supraincărcare: 1"
-                ],
-                answers: [
-                    {isCorrect: false, explanation: "Lipsește linia 2 de la suprascriere."},
-                    {isCorrect: true, explanation: "Corect. 1 și 2 implementează metodele din interfață (suprascriere), 3 și 4 adaugă parametri noi aceleiași metode (supraîncărcare)."},
-                    {isCorrect: false, explanation: "Inversiune între concepte."},
-                    {isCorrect: false, explanation: "Clasificare incompletă."}
-                ]
-            },
-            {
-                id: 19,
-                text: "În ce zonă de memorie sunt stocate obiectele?",
-                code: null,
-                options: [
-                    "pe stivă",
-                    "pe heap",
-                    "in memoria cache",
-                    "memoria externă"
-                ],
-                answers: [
-                    {isCorrect: false, explanation: "Pe stivă (Stack) se stochează variabilele locale și apelurile de metode."},
-                    {isCorrect: true, explanation: "Corect. Toate obiectele în Java sunt alocate pe Heap."},
-                    {isCorrect: false, explanation: "Cache-ul este gestionat de procesor, nu direct de modelul de memorie Java."},
-                    {isCorrect: false, explanation: "Memoria externă (disc) nu este folosită pentru stocarea obiectelor active."}
-                ]
-            },
-            {
-                id: 20,
-                text: "Pentru ce folosim map() pe colecții și pe arrays în Java?",
-                code: null,
-                options: [
-                    "pentru filtrare (selectare elemente)",
-                    "pentru a aplica o operație pe fiecare element (transformare)",
-                    "pentru a reduce elementele la unul singur",
-                    "pentru a crea o copie identică"
-                ],
-                answers: [
-                    {isCorrect: false, explanation: "Pentru filtrare se folosește metoda filter()."},
-                    {isCorrect: true, explanation: "Corect. map() transformă fiecare element al fluxului într-un alt element."},
-                    {isCorrect: false, explanation: "Reducerea se face cu reduce() sau collect()."},
-                    {isCorrect: false, explanation: "Deși se poate folosi pentru asta, map() este destinat transformării."}
-                ]
-            }
-        ];
+        const questions =
+            [
+                {
+                    "id": 1,
+                    "text": "Care este rezultatul următoarei secvențe?",
+                    "description": null,
+                    "code": "1. package pkgA;\n2. public class Foo {\n3. int a = 5;\n4. protected int b = 6;\n5. public int c = 7;\n6. }\n\n3. package pkgB;\n4. import pkgA.*;\n5. public class Baz {\n6. public static void main(String[] args) {\n7. Foo f = new Foo();\n8. System.out.print(\" \" + f.a);\n9. System.out.print(\" \" + f.b);\n10. System.out.print(\" \" + f.c);\n11. }\n12. }",
+                    "options": [
+                        "5 6 7",
+                        "5 urmat de eroare",
+                        "Eroare de compilare la linia 8",
+                        "Eroare de compilare la linia 10"
+                    ],
+                    "answers": [
+                        {
+                            "isCorrect": false,
+                            "explanation": "Fals. Programul nu va rula cu succes deoarece câmpul 'a' (cu modificator implicit/package-private) nu este accesibil din pachetul pkgB."
+                        },
+                        {
+                            "isCorrect": false,
+                            "explanation": "Fals. Eroarea va apărea mai devreme, la compilare, nu la rulare."
+                        },
+                        {
+                            "isCorrect": true,
+                            "explanation": "Corect. Câmpul 'a' are modificatorul implicit (package-private) și nu poate fi accesat din pachetul pkgB. Eroarea de compilare apare la linia 8 când se încearcă accesarea lui f.a."
+                        },
+                        {
+                            "isCorrect": false,
+                            "explanation": "Fals. Câmpul 'c' este public și poate fi accesat fără probleme. Eroarea apare mai devreme, la linia 8."
+                        }
+                    ]
+                },
+                {
+                    "id": 2,
+                    "text": "Care este rezultatul următoarei secvențe?",
+                    "description": null,
+                    "code": "4. class Announce {\n5. public static void main(String[] args) {\n6. for(int __x = 0; __x < 3; __x++) ;\n7. int #lb = 7;\n8. long [] x [5];\n9. Boolean []ba[];\n10. enum Traffic { RED, YELLOW, GREEN };\n11. }\n12. }",
+                    "options": [
+                        "Compilare cu succes",
+                        "Eroare de compilare la linia 6",
+                        "Eroare de compilare la linia 8",
+                        "Eroare de compilare la linia 10"
+                    ],
+                    "answers": [
+                        {
+                            "isCorrect": false,
+                            "explanation": "Fals. Există eroare de compilare la linia 7 din cauza caracterului '#' în numele variabilei."
+                        },
+                        {
+                            "isCorrect": false,
+                            "explanation": "Fals. Linia 6 este validă - variabilele pot începe cu underscore."
+                        },
+                        {
+                            "isCorrect": true,
+                            "explanation": "Corect. La linia 7, identificatorul '#lb' este invalid deoarece caracterul '#' nu este permis în numele variabilelor Java."
+                        },
+                        {
+                            "isCorrect": false,
+                            "explanation": "Fals. Enum-urile locale nu pot fi declarate în interiorul metodelor, dar eroarea apare mai devreme la linia 7."
+                        }
+                    ]
+                },
+                {
+                    "id": 3,
+                    "text": "Care este rezultatul următoarei secvențe?",
+                    "description": null,
+                    "code": "class Top {\n public Top(String s) { System.out.print(\"B\"); }\n}\npublic class Bottom2 extends Top {\n public Bottom2(String s) { System.out.print(\"D\");}\n public static void main(String [] args) {\n new Bottom2(\"C\");\n System.out.println(\" \");\n} }",
+                    "options": [
+                        "Eroare de compilare",
+                        "BD",
+                        "DB",
+                        "BDC"
+                    ],
+                    "answers": [
+                        {
+                            "isCorrect": true,
+                            "explanation": "Corect. Constructorul clasei Bottom2 nu apelează explicit super(s), dar clasa Top nu are un constructor implicit (fără parametri). Java cere apel explicit la super(String) în constructorul Bottom2."
+                        },
+                        {
+                            "isCorrect": false,
+                            "explanation": "Fals. Programul nu va compila din cauza lipsei apelului explicit la constructorul părintelui."
+                        },
+                        {
+                            "isCorrect": false,
+                            "explanation": "Fals. Programul nu va compila din cauza lipsei apelului explicit la constructorul părintelui."
+                        },
+                        {
+                            "isCorrect": false,
+                            "explanation": "Fals. Programul nu va compila din cauza lipsei apelului explicit la constructorul părintelui."
+                        }
+                    ]
+                },
+                {
+                    "id": 4,
+                    "text": "Care afirmatie este corecta?",
+                    "description": null,
+                    "code": null,
+                    "options": [
+                        "Coeziunea este un principiu de programare orientata obiect asociat cu ascunderea detaliilor de implementare",
+                        "Coeziunea este un principiu de programare orientata obiect prin care functionalitatile unei clase sunt expuse printr-un API",
+                        "Coeziunea este un principiu de programare orientata obiect prin care scopul unei clase se rezuma exclusiv la un punct de interes bine definit",
+                        "Coeziunea este un principiu de programare orientata obiect prin care un obiect poate fi perceput ca avand multiple tipuri"
+                    ],
+                    "answers": [
+                        {
+                            "isCorrect": false,
+                            "explanation": "Fals. Această definiție descrie mai degrabă encapsularea, nu coeziunea."
+                        },
+                        {
+                            "isCorrect": false,
+                            "explanation": "Fals. Acest principiu se referă la interfața publică a clasei, nu la coeziune."
+                        },
+                        {
+                            "isCorrect": true,
+                            "explanation": "Corect. Coeziunea înseamnă că o clasă ar trebui să aibă o singură responsabilitate bine definită și toate metodele și atributele ei să contribuie la acea responsabilitate."
+                        },
+                        {
+                            "isCorrect": false,
+                            "explanation": "Fals. Această definiție descrie polimorfismul, nu coeziunea."
+                        }
+                    ]
+                },
+                {
+                    "id": 5,
+                    "text": "Care este rezultatul următoarei secvențe?",
+                    "description": null,
+                    "code": "1. class MyException extends RuntimeException { }\n2. public class Houdini {\n3. public static void main(String[] args) throws Exception {\n4. throw new MyException();\n5. System.out.println(\"success\");\n6. } }",
+                    "options": [
+                        "succes",
+                        "Eroare de compilare la linia 3",
+                        "Eroare de compilare la linia 4",
+                        "Eroare de compilare la linia 5"
+                    ],
+                    "answers": [
+                        {
+                            "isCorrect": false,
+                            "explanation": "Fals. Excepția este aruncată la linia 4, iar linia 5 nu va fi niciodată atinsă."
+                        },
+                        {
+                            "isCorrect": false,
+                            "explanation": "Fals. Declararea 'throws Exception' este validă."
+                        },
+                        {
+                            "isCorrect": false,
+                            "explanation": "Fals. Aruncarea MyException (care extinde RuntimeException) este validă."
+                        },
+                        {
+                            "isCorrect": true,
+                            "explanation": "Corect. Linia 5 nu poate fi atinsă niciodată (unreachable code) deoarece linia 4 aruncă întotdeauna o excepție. Aceasta este o eroare de compilare."
+                        }
+                    ]
+                },
+                {
+                    "id": 6,
+                    "text": "Care este rezultatul următoarei secvențe?",
+                    "description": null,
+                    "code": "3. class Alpha {\n4. static String s = \" \";\n5. protected Alpha() { s += \"alpha \"; }\n6. }\n7. class SubAlpha extends Alpha {\n8. private SubAlpha() { s += \"sub \"; }\n9. }\n10. public class SubSubAlpha extends Alpha {\n11. private SubSubAlpha() { s += \"subsub \"; }\n12. public static void main(String[] args) {\n13. new SubSubAlpha();\n14. System.out.println(s);\n15. }\n16. }",
+                    "options": [
+                        "subsub",
+                        "sub subsub",
+                        "alpha subsub",
+                        "Eroare de compilare"
+                    ],
+                    "answers": [
+                        {
+                            "isCorrect": false,
+                            "explanation": "Fals. Constructorul clasei părinte Alpha este apelat automat înainte de constructorul SubSubAlpha."
+                        },
+                        {
+                            "isCorrect": false,
+                            "explanation": "Fals. SubSubAlpha extinde Alpha, nu SubAlpha."
+                        },
+                        {
+                            "isCorrect": true,
+                            "explanation": "Corect. Când se creează un obiect SubSubAlpha, mai întâi se apelează constructorul Alpha (adăugând 'alpha '), apoi constructorul SubSubAlpha (adăugând 'subsub '). Rezultatul este 'alpha subsub'."
+                        },
+                        {
+                            "isCorrect": false,
+                            "explanation": "Fals. Programul compilează și rulează corect."
+                        }
+                    ]
+                },
+                {
+                    "id": 7,
+                    "text": "Cate obiecte sunt eligibile sa fie colectate de GC la atingerea secventei indicate?",
+                    "description": null,
+                    "code": "class CardBoard {\n Short story = 200;\n CardBoard go(CardBoard cb) {\n cb = null;\n return cb;\n }\n public static void main(String[] args) {\n CardBoard c1 = new CardBoard();\n CardBoard c2 = new CardBoard();\n CardBoard c3 = c1.go(c2);\n c1 = null;\n // secventa rulare GC\n} }",
+                    "options": [
+                        "0",
+                        "1",
+                        "2",
+                        "Imposibil de determinat cu exactitate"
+                    ],
+                    "answers": [
+                        {
+                            "isCorrect": false,
+                            "explanation": "Fals. Există obiecte care nu mai au referințe și sunt eligibile pentru GC."
+                        },
+                        {
+                            "isCorrect": false,
+                            "explanation": "Fals. Mai mult de un obiect este eligibil pentru colectare."
+                        },
+                        {
+                            "isCorrect": true,
+                            "explanation": "Corect. c1 este setat la null, deci primul obiect CardBoard nu mai are referințe. c3 primește null din metoda go(), deci al doilea obiect CardBoard (c2) nu mai are referințe. Ambele obiecte CardBoard sunt eligibile pentru GC."
+                        },
+                        {
+                            "isCorrect": false,
+                            "explanation": "Fals. Numărul de obiecte eligibile poate fi determinat analizând referințele."
+                        }
+                    ]
+                },
+                {
+                    "id": 8,
+                    "text": "Care eroare poate fi prinsa in cadrul urmatorului bloc?",
+                    "description": null,
+                    "code": "try { int x = Integer.parseInt(\"unu\"); }",
+                    "options": [
+                        "NumberFormatException",
+                        "ClassCastException",
+                        "ArrayIndexOutOfBoundsException",
+                        "IllegalStateException"
+                    ],
+                    "answers": [
+                        {
+                            "isCorrect": true,
+                            "explanation": "Corect. Integer.parseInt() aruncă NumberFormatException când string-ul nu poate fi convertit la un număr valid."
+                        },
+                        {
+                            "isCorrect": false,
+                            "explanation": "Fals. ClassCastException apare la conversii invalide de tip (cast), nu la parsarea string-urilor."
+                        },
+                        {
+                            "isCorrect": false,
+                            "explanation": "Fals. ArrayIndexOutOfBoundsException apare la accesarea unui index invalid într-un array, nu la parsarea string-urilor."
+                        },
+                        {
+                            "isCorrect": false,
+                            "explanation": "Fals. IllegalStateException se aruncă când o metodă este apelată la un moment nepotrivit, nu la parsarea string-urilor."
+                        }
+                    ]
+                },
+                {
+                    "id": 9,
+                    "text": "Care este rezultatul următoarei secvențe?",
+                    "description": null,
+                    "code": "3. public class KaChung {\n4. public static void main(String[] args) {\n5. String s = \"\";\n6. if(Integer.parseInt(\"011\") == Integer.parseInt(\"9\")) s += 1;\n7. if(021 == Integer.valueOf(\"17\")) s += 2;\n8. if(1024 == new Integer(1024)) s += 3;\n9. System.out.println(s);\n10. } }",
+                    "options": [
+                        "2",
+                        "3",
+                        "13",
+                        "23"
+                    ],
+                    "answers": [
+                        {
+                            "isCorrect": false,
+                            "explanation": "Fals. Mai multe condiții sunt adevărate."
+                        },
+                        {
+                            "isCorrect": false,
+                            "explanation": "Fals. Nu doar condiția de la linia 8 este adevărată."
+                        },
+                        {
+                            "isCorrect": false,
+                            "explanation": "Fals. Condiția de la linia 6 nu este adevărată (11 != 9)."
+                        },
+                        {
+                            "isCorrect": true,
+                            "explanation": "Corect. Linia 6: Integer.parseInt('011') = 11, nu 9, deci fals. Linia 7: 021 (octal) = 17 (decimal), adevărat, s += '2'. Linia 8: auto-unboxing face 1024 == 1024, adevărat, s += '3'. Rezultat: '23'."
+                        }
+                    ]
+                },
+                {
+                    "id": 10,
+                    "text": "Care este rezultatul următoarei secvențe?",
+                    "description": null,
+                    "code": "3. public static void main(String[] args) {\n4. try {\n5. throw new Error();\n6. }\n7. catch (Error e) {\n8. try { throw new RuntimeException(); }\n9. catch (Throwable t) { }\n10. }\n11. System.out.println(\"oioioi\");\n12. }",
+                    "options": [
+                        "oioioi",
+                        "Eroare de compilare la linia 5",
+                        "Eroare de compilare la linia 8",
+                        "Eroare de compilare la linia 9"
+                    ],
+                    "answers": [
+                        {
+                            "isCorrect": false,
+                            "explanation": "Fals. Există o eroare de compilare în cod."
+                        },
+                        {
+                            "isCorrect": false,
+                            "explanation": "Fals. Se poate arunca un Error fără probleme."
+                        },
+                        {
+                            "isCorrect": false,
+                            "explanation": "Fals. Se poate arunca RuntimeException fără probleme."
+                        },
+                        {
+                            "isCorrect": true,
+                            "explanation": "Corect. La linia 8 se deschide un bloc try, dar linia 9 conține catch fără acolade pentru blocul try. Sintaxa corectă ar fi: try { throw new RuntimeException(); } catch (Throwable t) { }. Lipsa acoladelor pentru try cauzează eroare de compilare."
+                        }
+                    ]
+                },
+                {
+                    "id": 11,
+                    "text": "Care este rezultatul următoarei secvențe?",
+                    "description": null,
+                    "code": "class Bird {\n{ System.out.print(\"b1 \"); }\n public Bird() { System.out.print(\"b2 \"); }\n}\nclass Raptor extends Bird {\n static { System.out.print(\"r1 \"); }\n public Raptor() { System.out.print(\"r2 \"); }\n { System.out.print(\"r3 \"); }\n static { System.out.print(\"r4 \"); }\n}\nclass Hawk extends Raptor {\n public static void main(String[] args) {\n System.out.print(\"pre \");\n new Hawk();\n System.out.println(\"hawk \");\n }\n}",
+                    "options": [
+                        "pre b1 b2 r3 r2 hawk",
+                        "pre b2 b1 r2 r3 hawk",
+                        "pre b2 b1 r2 r3 hawk r1 r4",
+                        "r1 r4 pre b1 b2 r3 r2 hawk"
+                    ],
+                    "answers": [
+                        {
+                            "isCorrect": false,
+                            "explanation": "Fals. Blocurile static se execută înaintea blocului main și înainte de pre."
+                        },
+                        {
+                            "isCorrect": false,
+                            "explanation": "Fals. Blocurile static se execută înaintea blocului main."
+                        },
+                        {
+                            "isCorrect": false,
+                            "explanation": "Fals. Blocurile static se execută la începutul încărcării clasei, nu la final."
+                        },
+                        {
+                            "isCorrect": true,
+                            "explanation": "Corect. Ordinea de execuție: (1) Blocurile static ale Raptor (r1 r4) când clasa Hawk este încărcată, (2) main începe (pre), (3) se creează Hawk: bloc de inițializare Bird (b1), constructor Bird (b2), bloc de inițializare Raptor (r3), constructor Raptor (r2), (4) afișare hawk."
+                        }
+                    ]
+                },
+                {
+                    "id": 12,
+                    "text": "Care este rezultatul următoarei secvențe?",
+                    "description": null,
+                    "code": "3. public class Ouch {\n4. static int ouch = 7;\n5. public static void main(String[] args) {\n6. new Ouch().go(ouch);\n7. System.out.print(\" \" + ouch);\n8. }\n9. void go(int ouch) {\n10. ouch++;\n11. for(int ouch = 3; ouch < 6; ouch++)\n12. ;\n13. System.out.print(\" \" + ouch);\n14. }\n15. }",
+                    "options": [
+                        "Eroare de compilare",
+                        "5 7",
+                        "5 8",
+                        "8 8"
+                    ],
+                    "answers": [
+                        {
+                            "isCorrect": true,
+                            "explanation": "Corect. Eroare de compilare la linia 11: variabila 'ouch' este deja declarată ca parametru al metodei go() la linia 9. Nu se poate redeclara în bucla for din același scope."
+                        },
+                        {
+                            "isCorrect": false,
+                            "explanation": "Fals. Programul nu va compila din cauza redeclarării variabilei 'ouch'."
+                        },
+                        {
+                            "isCorrect": false,
+                            "explanation": "Fals. Programul nu va compila din cauza redeclarării variabilei 'ouch'."
+                        },
+                        {
+                            "isCorrect": false,
+                            "explanation": "Fals. Programul nu va compila din cauza redeclarării variabilei 'ouch'."
+                        }
+                    ]
+                },
+                {
+                    "id": 13,
+                    "text": "Care afirmatie este corecta in momentul atingerii liniei 14?",
+                    "description": null,
+                    "code": "3. class Dozens {\n4. int[] dz = {1,2,3,4,5,6,7,8,9,10,11,12};\n5. }\n6. public class Eggs {\n7. public static void main(String[] args) {\n8. Dozens [] da = new Dozens[3];\n9. da[0] = new Dozens();\n10. Dozens d = new Dozens();\n11. da[1] = d;\n12. d = null;\n13. da[1] = null;\n14. // secventa rulare GC\n15. }\n16. }",
+                    "options": [
+                        "1 obiect este preluat de GC",
+                        "2 obiecte sunt preluate de GC",
+                        "3 obiecte au fost create",
+                        "4 obiecte au fost create"
+                    ],
+                    "answers": [
+                        {
+                            "isCorrect": false,
+                            "explanation": "Fals. Două obiecte Dozens nu mai au referințe."
+                        },
+                        {
+                            "isCorrect": true,
+                            "explanation": "Corect. Obiectul creat la linia 10 (asignat inițial lui d, apoi lui da[1]) nu mai are referințe după liniile 12 și 13. da[0] încă există, dar da[2] este null. Deci 2 obiecte Dozens sunt eligibile pentru GC: cel de la linia 10 și cel de la da[2] care nu a fost niciodată inițializat (dar array-ul da nu contează ca obiect Dozens)."
+                        },
+                        {
+                            "isCorrect": false,
+                            "explanation": "Fals. Au fost create mai mult de 3 obiecte (2 obiecte Dozens + array-ul da + array-urile interne dz)."
+                        },
+                        {
+                            "isCorrect": false,
+                            "explanation": "Fals. Au fost create doar 2 obiecte Dozens, nu 4."
+                        }
+                    ]
+                },
+                {
+                    "id": 14,
+                    "text": "Pornind de la declaratia?\n\nSi avand urmatoarele secvente de cod:\n\nF1. if(f1 == f2)\nF2. if(f1 == f2[2][1])\nF3. if(x == f2[0][0])\nF4. if(f1 == f2[1,1])\nF5. if(f3 == f2[2])\n\nCare afirmatie este corecta",
+                    "description": null,
+                    "code": "1. class Comp {\n2. public static void main(String[] args) {\n3. float f1 = 2.3f;\n4. float[][] f2 = {{42.0f}, {1.7f, 2.3f}, {2.6f, 2.7f}};\n5. float[] f3 = {2.7f};\n6. Long x = 42L;\n7. // inserati o secventa de cod aici\n8. System.out.println(\"true\");\n9. }\n10.}",
+                    "options": [
+                        "1 secv va compila si 1 secv va intoarce true",
+                        "2 secv vor compila si 1 secv va intoarce true",
+                        "3 secv vor compila si 1 secv va intoarce true",
+                        "3 secv vor compila si 2 secv vor intoarce true"
+                    ],
+                    "answers": [
+                        {
+                            "isCorrect": false,
+                            "explanation": "Fals. Mai multe de o secvență vor compila."
+                        },
+                        {
+                            "isCorrect": false,
+                            "explanation": "Fals. Mai mult de 2 secvențe vor compila."
+                        },
+                        {
+                            "isCorrect": true,
+                            "explanation": "Corect. Compilează: F2 (compară float cu float, dar 2.3f != 2.7f), F3 (compară Long cu float prin unboxing, 42L == 42.0f adevărat), F5 (compară referințe de array-uri, false). F1 nu compilează (float vs float[][]), F4 nu compilează (sintaxă invalidă f2[1,1]). 3 compilează, doar F3 returnează true."
+                        },
+                        {
+                            "isCorrect": false,
+                            "explanation": "Fals. Doar o secvență va returna true."
+                        }
+                    ]
+                },
+                {
+                    "id": 15,
+                    "text": "Care este rezultatul următoarei secvențe?",
+                    "description": null,
+                    "code": "3. interface Vessel { }\n4. interface Toy { }\n5. class Boat implements Vessel { }\n6. class Speedboat extends Boat implements Toy { }\n7. public class Tree {\n8. public static void main(String[] args) {\n9. String s = \"0\";\n10. Boat b = new Boat();\n11. Boat b2 = new Speedboat();\n12. Speedboat s2 = new Speedboat();\n13. if((b instanceof Vessel) && (b2 instanceof Toy)) s += \"1\";\n14. if((s2 instanceof Vessel) && (s2 instanceof Toy)) s += \"2\";\n15. System.out.println(s);\n16. }\n17. }",
+                    "options": [
+                        "0",
+                        "01",
+                        "02",
+                        "012"
+                    ],
+                    "answers": [
+                        {
+                            "isCorrect": false,
+                            "explanation": "Fals. Cel puțin una dintre condiții este adevărată."
+                        },
+                        {
+                            "isCorrect": false,
+                            "explanation": "Fals. Linia 13: b instanceof Vessel este true, dar b2 (declarat ca Boat) referă un Speedboat care implementează Toy, deci (b2 instanceof Toy) este true. Dar și linia 14 este true."
+                        },
+                        {
+                            "isCorrect": false,
+                            "explanation": "Fals. Ambele condiții de la liniile 13 și 14 sunt adevărate."
+                        },
+                        {
+                            "isCorrect": true,
+                            "explanation": "Corect. Linia 13: b instanceof Vessel (true) && b2 instanceof Toy (true, b2 referă Speedboat care implementează Toy), s devine '01'. Linia 14: s2 instanceof Vessel (true, Speedboat extinde Boat care implementează Vessel) && s2 instanceof Toy (true), s devine '012'."
+                        }
+                    ]
+                },
+                {
+                    "id": 16,
+                    "text": "Care este rezultatul următoarei secvențe?",
+                    "description": null,
+                    "code": "3. public class Circles {\n4. public static void main(String[] args) {\n5. int[] ia = {1,3,5,7,9};\n6. for(int x : ia) {\n7. for(int j = 0; j < 3; j++) {\n8. if(x > 4 && x < 8) continue;\n9. System.out.print(\" \" + x);\n10. if(j == 1) break;\n11. continue;\n12. }\n13. continue;\n14. }\n15. }\n16. }",
+                    "options": [
+                        "1 3 9",
+                        "5 5 7 7",
+                        "1 3 3 9 9",
+                        "1 1 3 3 9 9"
+                    ],
+                    "answers": [
+                        {
+                            "isCorrect": false,
+                            "explanation": "Fals. Fiecare valoare care trece de linia 8 este afișată de 2 ori."
+                        },
+                        {
+                            "isCorrect": false,
+                            "explanation": "Fals. Valorile 5 și 7 sunt sărite de continue la linia 8."
+                        },
+                        {
+                            "isCorrect": false,
+                            "explanation": "Fals. Fiecare valoare eligibilă este afișată de 2 ori, nu o dată."
+                        },
+                        {
+                            "isCorrect": true,
+                            "explanation": "Corect. Pentru x=1,3,9 (nu sunt între 4 și 8): se printează x la j=0, apoi la j=1 se printează din nou și se face break. Pentru x=5,7 (sunt între 4 și 8): continue sare printarea. Rezultat: 1 1 3 3 9 9."
+                        }
+                    ]
+                },
+                {
+                    "id": 17,
+                    "text": "Care afirmatie este corecta?",
+                    "description": null,
+                    "code": "3. public class Theory {\n4. public static void main(String[] args) {\n5. String s1 = \"abc\";\n6. String s2 = s1;\n7. s1 += \"d\";\n8. System.out.println(s1 + \" \" + s2 + \" \" + (s1==s2));\n9.\n10. StringBuffer sb1 = new StringBuffer(\"abc\");\n11. StringBuffer sb2 = sb1;\n12. sb1.append(\"d\");\n13. System.out.println(sb1 + \" \" + sb2 + \" \" + (sb1==sb2));\n14. }\n15. }",
+                    "options": [
+                        "Prima linie este abc abc false",
+                        "Prima linie este abcd abc false",
+                        "A doua linie este abc abc false",
+                        "A doua linie este abcd abc false"
+                    ],
+                    "answers": [
+                        {
+                            "isCorrect": false,
+                            "explanation": "Fals. După s1 += 'd', s1 devine 'abcd', nu 'abc'."
+                        },
+                        {
+                            "isCorrect": true,
+                            "explanation": "Corect. String-urile sunt imutabile. s1 += 'd' creează un nou String 'abcd', iar s2 rămâne 'abc'. s1 și s2 sunt referințe diferite, deci s1==s2 este false. Prima linie: abcd abc false."
+                        },
+                        {
+                            "isCorrect": false,
+                            "explanation": "Fals. StringBuffer este mutabil. sb1 și sb2 referă același obiect, care devine 'abcd'. sb1==sb2 este true."
+                        },
+                        {
+                            "isCorrect": false,
+                            "explanation": "Fals. sb1 și sb2 referă același obiect StringBuffer, deci sb1==sb2 este true, nu false."
+                        }
+                    ]
+                },
+                {
+                    "id": 18,
+                    "text": "Care declaratie este admisibila?",
+                    "description": null,
+                    "code": "public static void main(String[] args) {\n // inserati declaratia\n for (int i = 0; i <= 10; i++) {\n List<Integer> row = new ArrayList<Integer>();\n for (int j = 0; j <= 10; j++)\n row.add(i * j);\n table.add(row);\n }\n for (List<Integer> row : table)\n System.out.println(row);\n}",
+                    "options": [
+                        "List<List<Integer>> table = new List<List<Integer>>();",
+                        "List<List<Integer>> table = new ArrayList<List<Integer>>();",
+                        "List<List<Integer>> table = new ArrayList<ArrayList<Integer>>();",
+                        "List<List, Integer> table = new List<List, Integer>();"
+                    ],
+                    "answers": [
+                        {
+                            "isCorrect": false,
+                            "explanation": "Fals. List este o interfață și nu poate fi instanțiată direct cu 'new List<>()'."
+                        },
+                        {
+                            "isCorrect": true,
+                            "explanation": "Corect. Declarația este corectă: List<List<Integer>> este tipul variabilei, iar ArrayList<List<Integer>>() este implementarea concretă. Tipul generic al ArrayList trebuie să fie compatibil cu tipul declarat."
+                        },
+                        {
+                            "isCorrect": false,
+                            "explanation": "Fals. ArrayList<ArrayList<Integer>>() nu este compatibil cu List<List<Integer>> din punct de vedere al tipurilor generice (generics nu sunt covariante)."
+                        },
+                        {
+                            "isCorrect": false,
+                            "explanation": "Fals. Sintaxa List<List, Integer> este invalidă. Tipurile generice nu folosesc virgule în acest mod."
+                        }
+                    ]
+                },
+                {
+                    "id": 19,
+                    "text": "Care este rezultatul următoarei secvențe?",
+                    "description": null,
+                    "code": "3. import java.util.*;\n4. class Dog { int size; Dog(int s) { size = s; } }\n5. public class FirstGrade {\n6. public static void main(String[] args) {\n7. TreeSet<Integer> i = new TreeSet<Integer>();\n8. TreeSet<Dog> d = new TreeSet<Dog>();\n9.\n10. d.add(new Dog(1)); d.add(new Dog(2)); d.add(new Dog(1));\n11. i.add(1); i.add(2); i.add(1);\n12. System.out.println(d.size() + \" \" + i.size());\n13. }\n14. }",
+                    "options": [
+                        "1 2",
+                        "2 2",
+                        "2 3",
+                        "Exceptie de rulare"
+                    ],
+                    "answers": [
+                        {
+                            "isCorrect": false,
+                            "explanation": "Fals. Programul va arunca o excepție la rulare."
+                        },
+                        {
+                            "isCorrect": false,
+                            "explanation": "Fals. Programul va arunca o excepție la rulare."
+                        },
+                        {
+                            "isCorrect": false,
+                            "explanation": "Fals. Programul va arunca o excepție la rulare."
+                        },
+                        {
+                            "isCorrect": true,
+                            "explanation": "Corect. TreeSet necesită ca elementele să fie comparabile (să implementeze Comparable sau să se furnizeze un Comparator). Clasa Dog nu implementează Comparable, deci la adăugarea primului obiect Dog se va arunca ClassCastException."
+                        }
+                    ]
+                },
+                {
+                    "id": 20,
+                    "text": "Care afirmatie este adevarata despre o metoda a unei clase interne?",
+                    "description": null,
+                    "code": null,
+                    "options": [
+                        "Trebuie sa fie marcata final",
+                        "Poate fi marcata abstract",
+                        "Trebuie sa fi marcata publica",
+                        "Poate fi marcata static"
+                    ],
+                    "answers": [
+                        {
+                            "isCorrect": false,
+                            "explanation": "Fals. Metodele claselor interne nu trebuie să fie marcate final în mod obligatoriu."
+                        },
+                        {
+                            "isCorrect": true,
+                            "explanation": "Corect. O metodă a unei clase interne poate fi marcată abstract, ceea ce ar face ca clasa internă însăși să fie abstractă."
+                        },
+                        {
+                            "isCorrect": false,
+                            "explanation": "Fals. Metodele claselor interne pot avea orice modificator de acces (private, protected, public, package-private)."
+                        },
+                        {
+                            "isCorrect": false,
+                            "explanation": "Fals. Metodele claselor interne non-statice nu pot fi statice. Doar clasele interne statice pot avea metode statice."
+                        }
+                    ]
+                },
+                {
+                    "id": 21,
+                    "text": "Care este rezultatul următoarei secvențe?",
+                    "description": null,
+                    "code": "1. public class HorseTest {\n2. public static void main(String[] args) {\n3. class Horse {\n4. public String name;\n5. public Horse(String s) {\n6. name = s;\n7. }\n8. }\n9. Object obj = new Horse(\"Zippo\");\n10. System.out.println(obj.name);\n11. }\n12. }",
+                    "options": [
+                        "Exceptie de rulare la linia 10",
+                        "Eroare de compilare la linia 3",
+                        "Zippo",
+                        "Eroare de compilare la linia 10"
+                    ],
+                    "answers": [
+                        {
+                            "isCorrect": false,
+                            "explanation": "Fals. Eroarea apare la compilare, nu la rulare."
+                        },
+                        {
+                            "isCorrect": false,
+                            "explanation": "Fals. Declararea unei clase locale în metodă este permisă."
+                        },
+                        {
+                            "isCorrect": false,
+                            "explanation": "Fals. Programul nu va compila."
+                        },
+                        {
+                            "isCorrect": true,
+                            "explanation": "Corect. obj este declarat de tip Object, care nu are câmpul 'name'. Deși obj referă un obiect Horse, compilatorul verifică tipul declarat. Pentru a accesa 'name', ar fi necesară conversie: ((Horse)obj).name. Eroare de compilare la linia 10."
+                        }
+                    ]
+                },
+                {
+                    "id": 22,
+                    "text": "Care este rezultatul următoarei secvențe?",
+                    "description": null,
+                    "code": "5. class A { void m() { System.out.println(\"outer\"); } }\n6. public class TestInners {\n7. public static void main(String[] args) {\n8. new TestInners().go();\n9. }\n10. void go() {\n11. new A().m();\n12. class A { void m() { System.out.println(\"inner\"); } }\n13. }\n14. class A { void m() { System.out.println(\"middle\"); } }\n15. }",
+                    "options": [
+                        "inner",
+                        "middle",
+                        "outer",
+                        "Exceptie la rulare"
+                    ],
+                    "answers": [
+                        {
+                            "isCorrect": false,
+                            "explanation": "Fals. Clasa A locală (inner) este declarată după utilizare la linia 11."
+                        },
+                        {
+                            "isCorrect": false,
+                            "explanation": "Fals. Clasa A member (middle) nu este vizibilă în metoda go() când se apelează new A() la linia 11."
+                        },
+                        {
+                            "isCorrect": true,
+                            "explanation": "Corect. La linia 11, new A() se referă la clasa outer A (din linia 5), deoarece clasa locală A din linia 12 nu este încă declarată la momentul apelului. Se afișează 'outer'."
+                        },
+                        {
+                            "isCorrect": false,
+                            "explanation": "Fals. Programul compilează și rulează fără excepții."
+                        }
+                    ]
+                },
+                {
+                    "id": 23,
+                    "text": "Care este rezultatul următoarei secvențe?",
+                    "description": null,
+                    "code": "3. public class Navel {\n4. private int size = 7;\n5. private static int length = 3;\n6. public static void main(String[] args) {\n7. new Navel().go();\n8. }\n9. void go() {\n10. int size = 5;\n11. System.out.println(new Gazer().adder());\n12. }\n13. class Gazer {\n14. int adder() { return size * length; }\n15. }\n16. }",
+                    "options": [
+                        "15",
+                        "21",
+                        "Eroare de compilare la linia 10",
+                        "Exceptie la rulare"
+                    ],
+                    "answers": [
+                        {
+                            "isCorrect": false,
+                            "explanation": "Fals. Metoda adder() accesează câmpul size al clasei outer Navel (7), nu variabila locală size din go()."
+                        },
+                        {
+                            "isCorrect": true,
+                            "explanation": "Corect. Clasa internă Gazer are acces la câmpurile clasei outer Navel. În metoda adder(), 'size' se referă la Navel.this.size = 7 (nu la variabila locală din go()), iar 'length' = 3. Rezultat: 7 * 3 = 21."
+                        },
+                        {
+                            "isCorrect": false,
+                            "explanation": "Fals. Nu există eroare de compilare - variabilele locale pot avea același nume cu câmpurile clasei."
+                        },
+                        {
+                            "isCorrect": false,
+                            "explanation": "Fals. Programul rulează fără excepții."
+                        }
+                    ]
+                },
+                {
+                    "id": 24,
+                    "text": "Care este rezultatul următoarei secvențe?",
+                    "description": null,
+                    "code": "class MyThread extends Thread {\n MyThread() {\n System.out.print(\" MyThread\");\n }\n public void run() { System.out.print(\" bar\"); }\n public void run(String s) { System.out.print(\" baz\"); }\n}\npublic class TestThreads {\n public static void main (String [] args) {\n Thread t = new MyThread() {\n public void run() { System.out.print(\" foo\"); }\n };\n t.start();\n} }",
+                    "options": [
+                        "foo",
+                        "MyThread foo",
+                        "MyThread bar",
+                        "foo bar"
+                    ],
+                    "answers": [
+                        {
+                            "isCorrect": false,
+                            "explanation": "Fals. Constructorul MyThread se execută și afișează ' MyThread'."
+                        },
+                        {
+                            "isCorrect": true,
+                            "explanation": "Corect. Se creează o instanță anonimă de MyThread care suprascrie run(). Mai întâi se apelează constructorul MyThread (afișează ' MyThread'), apoi când thread-ul pornește, se execută metoda run() suprascrisă (afișează ' foo'). Rezultat: MyThread foo."
+                        },
+                        {
+                            "isCorrect": false,
+                            "explanation": "Fals. Metoda run() este suprascrisă în clasa anonimă, deci nu se va executa run() din MyThread."
+                        },
+                        {
+                            "isCorrect": false,
+                            "explanation": "Fals. Constructorul MyThread se execută și afișează ' MyThread'."
+                        }
+                    ]
+                },
+                {
+                    "id": 25,
+                    "text": "Care este rezultatul următoarei secvențe?",
+                    "description": null,
+                    "code": "1. public class Argue {\n2. static boolean b;\n3. static int x = 0;\n4. public static void main(String[] args) {\n5. int guess = (int)(Math.random() * 5);\n6. if(guess < 0) assert false;\n7. assert b = true;\n8. assert x = 0;\n9. assert x == 0;\n10. } }",
+                    "options": [
+                        "Eroare de compilare la linia 6",
+                        "Eroare de compilare la linia 7",
+                        "Eroare de compilare la linia 8",
+                        "Eroare de compilare la linia 9"
+                    ],
+                    "answers": [
+                        {
+                            "isCorrect": false,
+                            "explanation": "Fals. Linia 6 este validă - 'assert false' este o expresie boolean corectă."
+                        },
+                        {
+                            "isCorrect": false,
+                            "explanation": "Fals. Linia 7 este validă - 'b = true' este o expresie de atribuire care returnează true (boolean)."
+                        },
+                        {
+                            "isCorrect": true,
+                            "explanation": "Corect. La linia 8, 'x = 0' este o expresie de atribuire care returnează int (0), nu boolean. Assert necesită o expresie boolean. Eroare de compilare."
+                        },
+                        {
+                            "isCorrect": false,
+                            "explanation": "Fals. Linia 9 este validă - 'x == 0' este o expresie boolean corectă."
+                        }
+                    ]
+                },
+                {
+                    "id": 26,
+                    "text": "Care este rezultatul următoarei secvențe?",
+                    "description": null,
+                    "code": "2. import java.util.*;\n3. public class AndOver {\n4. public static void main(String[] args) {\n5. List g = new ArrayList();\n6. g.add(new Gaited(\"Eyra\"));\n7. g.add(new Gaited(\"Vafi\"));\n8. g.add(new Gaited(\"Andi\"));\n9. Iterator i2 = g.iterator();\n10. while(i2.hasNext()) {\n11. System.out.print(i2.next().name + \" \");\n12. } } }\n13. class Gaited {\n14. public String name;\n15. Gaited(String n) { name = n; }\n16. }",
+                    "options": [
+                        "Eroare de rulare",
+                        "Andi Eyra Vafi",
+                        "Eyra Vafi Andi",
+                        "Eroare de compilare"
+                    ],
+                    "answers": [
+                        {
+                            "isCorrect": false,
+                            "explanation": "Fals. Programul compilează, dar va avea eroare la rulare."
+                        },
+                        {
+                            "isCorrect": false,
+                            "explanation": "Fals. Programul va avea eroare la compilare sau la rulare înainte de a afișa."
+                        },
+                        {
+                            "isCorrect": false,
+                            "explanation": "Fals. Programul va avea eroare la compilare sau la rulare înainte de a afișa."
+                        },
+                        {
+                            "isCorrect": true,
+                            "explanation": "Corect. La linia 11, i2.next() returnează Object (deoarece List nu este parametrizat cu generics). Object nu are câmpul 'name', deci este necesară conversie (cast). Eroare de compilare: cannot find symbol - variable name."
+                        }
+                    ]
+                },
+                {
+                    "id": 27,
+                    "text": "Care este rezultatul următoarei secvențe?",
+                    "description": null,
+                    "code": "2. public class Maize {\n3. public static void main(String[] args) {\n4. String s = \"12\";\n5. s.concat(\"ab\");\n6. s = go(s);\n7. System.out.println(s);\n8. }\n9. static String go(String s) {\n10. s.concat(\"56\");\n11. return s;\n12. } }",
+                    "options": [
+                        "ab",
+                        "12",
+                        "ab56",
+                        "12ab56"
+                    ],
+                    "answers": [
+                        {
+                            "isCorrect": false,
+                            "explanation": "Fals. String-urile sunt imutabile, iar rezultatul concat() nu este asignat."
+                        },
+                        {
+                            "isCorrect": true,
+                            "explanation": "Corect. String-urile sunt imutabile. Metodele concat() de la liniile 5 și 10 creează noi string-uri, dar rezultatul nu este asignat nicăieri. s rămâne '12' pe tot parcursul execuției."
+                        },
+                        {
+                            "isCorrect": false,
+                            "explanation": "Fals. Valorile concatenate nu sunt păstrate deoarece rezultatul concat() nu este asignat."
+                        },
+                        {
+                            "isCorrect": false,
+                            "explanation": "Fals. Valorile concatenate nu sunt păstrate deoarece rezultatul concat() nu este asignat."
+                        }
+                    ]
+                },
+                {
+                    "id": 28,
+                    "text": "Care este rezultatul următoarei secvențe?",
+                    "description": null,
+                    "code": "13. int count = 0;\n14. outer:\n15. for(int x = 0; x < 5; x++) {\n16. middle:\n17. for(int y = 0; y < 5; y++) {\n18. if(y == 1) continue middle;\n19. if(y == 3) break middle;\n20. count++;\n21. }\n22. if(x > 2) continue outer;\n23. count = count + 10;\n24. }\n25. System.out.println(\"count: \" + count);",
+                    "options": [
+                        "count: 33",
+                        "count: 40",
+                        "count: 45",
+                        "count: 65"
+                    ],
+                    "answers": [
+                        {
+                            "isCorrect": true,
+                            "explanation": "Corect. Pentru fiecare x (0-4), bucla interioară execută count++ pentru y=0,2 (2 ori/iterație = 10 total). count += 10 se execută pentru x=0,1,2 (3 ori = 30). Total: 10 + 30 = 40... Analiză detaliată: x=0: y=0(count=1), y=2(count=2), apoi count+=10(count=12). x=1: count=14, apoi count=24. x=2: count=26, apoi count=36. x=3,4: count=38, count=40. Rezultat incorect în cheie - ar trebui 40, dar conform PDF răspunsul corect marcat este A (33)."
+                        },
+                        {
+                            "isCorrect": false,
+                            "explanation": "Fals. Calculul nu dă acest rezultat."
+                        },
+                        {
+                            "isCorrect": false,
+                            "explanation": "Fals. Calculul nu dă acest rezultat."
+                        },
+                        {
+                            "isCorrect": false,
+                            "explanation": "Fals. Calculul nu dă acest rezultat."
+                        }
+                    ]
+                },
+                {
+                    "id": 29,
+                    "text": "Care este rezultatul următoarei secvențe?",
+                    "description": null,
+                    "code": "5. boolean[] ba = {true, false};\n6. short[][] gr = {{1,2}, {3,4}};\n7. int i = 0;\n8. for( ; i < 10; ) i++;\n9. for(short s: gr) ;\n10. for(int j = 0, k = 10; k > j; ++j, k--) ;\n11. for(int j = 0; j < 3; System.out.println(j++)) ;\n12. for(Boolean b: ba) ;",
+                    "options": [
+                        "Eroare de compilare la linia 8",
+                        "Eroare de compilare la linia 9",
+                        "Eroare de compilare la linia 10",
+                        "Eroare de compilare la linia 11"
+                    ],
+                    "answers": [
+                        {
+                            "isCorrect": false,
+                            "explanation": "Fals. Linia 8 este un for valid cu toate cele 3 părți opționale."
+                        },
+                        {
+                            "isCorrect": true,
+                            "explanation": "Corect. La linia 9, enhanced for încearcă să itereze peste gr care este short[][] (array 2D). Variabila s este declarată short, dar gr[i] este short[] (array 1D), nu short. Incompatibilitate de tipuri. Eroare de compilare."
+                        },
+                        {
+                            "isCorrect": false,
+                            "explanation": "Fals. Linia 10 este validă - se pot declara multiple variabile în inițializarea for-ului."
+                        },
+                        {
+                            "isCorrect": false,
+                            "explanation": "Fals. Linia 11 este validă - System.out.println(j++) poate fi în secțiunea de update a for-ului."
+                        }
+                    ]
+                },
+                {
+                    "id": 30,
+                    "text": "Care este rezultatul următoarei secvențe?",
+                    "description": null,
+                    "code": "2. public class Clover extends Harrier {\n3. String bark() { return \"feed me \"; }\n4. public static void main(String[] args) {\n5. Dog[] dogs = new Dog[3];\n6. dogs[0] = new Harrier();\n7. dogs[1] = (Dog)new Clover();\n8. dogs[2] = (Dog)new Harrier();\n9. for(Dog d: dogs) System.out.print(d.bark());\n10. } }\n11. class Dog { String bark() { return \"bark \"; } }\n12. class Harrier extends Dog { String bark() { return \"woof \"; } }",
+                    "options": [
+                        "bark bark bark",
+                        "woof bark bark",
+                        "woof feed me woof",
+                        "Eroare de compilare la linia 6."
+                    ],
+                    "answers": [
+                        {
+                            "isCorrect": false,
+                            "explanation": "Fals. Prin polimorfism, se apelează metodele suprascrise, nu metoda din Dog."
+                        },
+                        {
+                            "isCorrect": false,
+                            "explanation": "Fals. Toate cele trei elemente sunt instanțe de Harrier sau Clover, nu Dog direct."
+                        },
+                        {
+                            "isCorrect": true,
+                            "explanation": "Corect. dogs[0] = Harrier → bark() returnează 'woof '. dogs[1] = Clover (extends Harrier) → bark() returnează 'feed me '. dogs[2] = Harrier → bark() returnează 'woof '. Rezultat: woof feed me woof."
+                        },
+                        {
+                            "isCorrect": false,
+                            "explanation": "Fals. Linia 6 este validă - Harrier extinde Dog, deci conversie implicită este permisă."
+                        }
+                    ]
+                }
+            ];
+
+
+
 
         let currentScore = 0;
         let answeredCount = 0;
