@@ -207,6 +207,7 @@
             <label for="quizSelector">Alege testul: </label>
             <select id="quizSelector" onchange="switchQuiz(this.value)">
                 <option value="examExCB">Examen exemplu - CB</option>
+                <option value="examCA2021">Examen CA 2021</option>
                 <option value="javaBasics">Java Basics (Test)</option>
             </select>
         </div>
@@ -1127,6 +1128,580 @@
             }
         ];
 
+        const questionsExamenCa2021 = [
+            {
+                "id": 1,
+                "text": "Având în vedere codul de mai jos, care dintre afirmațiile de mai jos sunt adevărate în ceea ce privește conceptul de imutabilitate aplicat în cazul clasei Student?",
+                "description": null,
+                "code": "class Student {\n    long id;\n    List<Double> grades;\n}",
+                "options": ["toate", "1, 2, 4", "1, 2, 5", "1, 3, 5"],
+                "answers": [
+                    {
+                        "isCorrect": false,
+                        "explanation": "Fals. Nu toate afirmațiile sunt adevărate. Afirmația 3 (să avem metode getter și setter) contravine principiului imutabilității, iar afirmația 5 (întoarcerea directă a listei grades) ar permite modificarea acesteia din exterior."
+                    },
+                    {
+                        "isCorrect": true,
+                        "explanation": "Corect. Pentru imutabilitate: câmpurile trebuie finale (1), doar getters (2), și getter pentru grades trebuie să returneze o copie (4), astfel încât obiectul grades să nu poată fi modificat din exterior."
+                    },
+                    {
+                        "isCorrect": false,
+                        "explanation": "Fals. Afirmația 5 este greșită deoarece întoarcerea directă a referinței grades ar permite modificarea listei din exterior, compromițând imutabilitatea."
+                    },
+                    {
+                        "isCorrect": false,
+                        "explanation": "Fals. Afirmația 3 (metode getter și setter) este greșită pentru imutabilitate, iar afirmația 5 permite modificarea obiectului grades din exterior."
+                    }
+                ]
+            },
+            {
+                "id": 2,
+                "text": "Care dintre afirmațiile de mai jos sunt adevărate?",
+                "description": "1. Într-un Set putem avea duplicate\n2. În LinkedHashMap se păstrează ordinea de inserție a elementelor\n3. Interfața Map extinde interfața Collection\n4. În TreeSet nu se păstrează ordinea de inserție a elementelor",
+                "code": null,
+                "options": ["toate", "2 și 4", "1, 2, 3", "1, 3"],
+                "answers": [
+                    {
+                        "isCorrect": false,
+                        "explanation": "Fals. Afirmațiile 1 (Set permite duplicate) și 3 (Map extinde Collection) sunt false. Set nu permite duplicate, iar Map nu extinde Collection."
+                    },
+                    {
+                        "isCorrect": true,
+                        "explanation": "Corect. LinkedHashMap păstrează ordinea de inserție a elementelor (2) și TreeSet nu păstrează ordinea de inserție, ci sortează elementele natural sau prin comparator (4)."
+                    },
+                    {
+                        "isCorrect": false,
+                        "explanation": "Fals. Afirmația 1 este greșită deoarece Set nu permite duplicate, iar afirmația 3 este greșită deoarece Map nu extinde interfața Collection."
+                    },
+                    {
+                        "isCorrect": false,
+                        "explanation": "Fals. Ambele afirmații sunt false. Set nu permite duplicate (1) și Map nu extinde Collection (3)."
+                    }
+                ]
+            },
+            {
+                "id": 3,
+                "text": "Care dintre următoarele afirmații despre clase abstracte în Java sunt false:",
+                "description": "1. Dacă derivăm o clasă abstractă și nu implementăm toate metodele abstracte, atunci clasă derivată trebuie de asemenea să fie abstractă\n2. Clasele abstracte pot avea constructori\n3. O clasă nu poate fi abstractă fără o metodă abstractă\n4. O clasă abstractă poate moșteni de la mai multe clase abstracte",
+                "code": null,
+                "options": ["1, 2", "1, 3", "3, 4", "1, 3, 4"],
+                "answers": [
+                    {
+                        "isCorrect": false,
+                        "explanation": "Fals. Afirmația 1 este adevărată (o clasă care nu implementează toate metodele abstracte trebuie să fie abstractă), iar afirmația 2 este de asemenea adevărată (clasele abstracte pot avea constructori)."
+                    },
+                    {
+                        "isCorrect": false,
+                        "explanation": "Fals. Afirmația 1 este adevărată. Doar afirmația 3 este falsă în acest set."
+                    },
+                    {
+                        "isCorrect": true,
+                        "explanation": "Corect. Afirmația 3 este falsă deoarece o clasă poate fi abstractă fără metode abstracte. Afirmația 4 este falsă deoarece Java nu suportă moștenire multiplă - o clasă poate moșteni de la o singură clasă (abstractă sau nu)."
+                    },
+                    {
+                        "isCorrect": false,
+                        "explanation": "Fals. Afirmația 1 este adevărată - o clasă care nu implementează toate metodele abstracte trebuie să fie abstractă."
+                    }
+                ]
+            },
+            {
+                "id": 4,
+                "text": "Care dintre următoarele afirmații despre interfețe și clase abstracte sunt adevărate?",
+                "description": "1. O clasă poate moșteni în același timp mai multe clase abstracte\n2. O interfață poate moșteni mai multe interfețe în același timp\n3. O interfață poate moșteni o clasă abstractă care are doar metode abstracte\n4. O clasă poate implementa mai multe interfețe în același timp",
+                "code": null,
+                "options": ["1, 2, 3", "2, 4", "1, 2, 3, 4", "2, 3, 4"],
+                "answers": [
+                    {
+                        "isCorrect": false,
+                        "explanation": "Fals. Afirmația 1 este falsă deoarece Java nu permite moștenire multiplă a claselor. Afirmația 3 este de asemenea falsă - o interfață nu poate moșteni o clasă."
+                    },
+                    {
+                        "isCorrect": true,
+                        "explanation": "Corect. O interfață poate moșteni (extends) mai multe interfețe în același timp (2) și o clasă poate implementa (implements) mai multe interfețe simultan (4)."
+                    },
+                    {
+                        "isCorrect": false,
+                        "explanation": "Fals. Afirmația 1 este falsă (nu există moștenire multiplă în Java) și afirmația 3 este falsă (o interfață nu poate moșteni o clasă)."
+                    },
+                    {
+                        "isCorrect": false,
+                        "explanation": "Fals. Afirmația 3 este falsă - o interfață nu poate moșteni o clasă abstractă. Interfețele pot moșteni doar alte interfețe."
+                    }
+                ]
+            },
+            {
+                "id": 5,
+                "text": "Care dintre următoarele afirmații e corectă?",
+                "description": null,
+                "code": null,
+                "options": [
+                    "Cuvântul final în fața unei metode arată faptul că acea metodă poate fi apelată doar în clasa respectivă",
+                    "Cuvântul final în fața unei clase înseamnă că nu poate fi instantiată",
+                    "Cuvântul final în fața unei variabile arată că acea variabilă poate fi asignată o singură dată",
+                    "Cuvântul final în fața unei variabile arată că acea variabilă nu poate fi moștenită"
+                ],
+                "answers": [
+                    {
+                        "isCorrect": false,
+                        "explanation": "Fals. Cuvântul final în fața unei metode înseamnă că metoda nu poate fi suprascrisă (overridden) în subclase, nu că poate fi apelată doar în clasa respectivă."
+                    },
+                    {
+                        "isCorrect": false,
+                        "explanation": "Fals. Cuvântul final în fața unei clase înseamnă că clasa nu poate fi moștenită (extended), nu că nu poate fi instantiată."
+                    },
+                    {
+                        "isCorrect": true,
+                        "explanation": "Corect. Cuvântul final la o variabilă o transformă într-o constantă, ceea ce înseamnă că poate primi o valoare o singură dată și apoi nu mai poate fi modificată."
+                    },
+                    {
+                        "isCorrect": false,
+                        "explanation": "Fals. Variabilele nu se moștenesc în mod direct. Cuvântul final la o variabilă înseamnă că valoarea ei nu poate fi modificată după inițializare."
+                    }
+                ]
+            },
+            {
+                "id": 6,
+                "text": "Care dintre următoarele variante nu are legătură cu încapsularea?",
+                "description": null,
+                "code": null,
+                "options": [
+                    "expunerea unei interfețe de lucru cu obiectul",
+                    "accesul la membri privați folosind metode de tip getter și setter",
+                    "construirea de obiecte complexe și ascunderea modului lor de funcționare",
+                    "posibilitatea suprascrierii (overriding) metodelor"
+                ],
+                "answers": [
+                    {
+                        "isCorrect": false,
+                        "explanation": "Fals. Expunerea unei interfețe publice pentru lucrul cu obiectul este un aspect fundamental al încapsulării - ascundem detaliile interne și oferim doar metodele necesare."
+                    },
+                    {
+                        "isCorrect": false,
+                        "explanation": "Fals. Getters și setters sunt instrumente cheie ale încapsulării, permițând accesul controlat la câmpurile private ale unei clase."
+                    },
+                    {
+                        "isCorrect": false,
+                        "explanation": "Fals. Ascunderea detaliilor de implementare și expunerea doar a funcționalității este esența încapsulării."
+                    },
+                    {
+                        "isCorrect": true,
+                        "explanation": "Corect. Overriding-ul (suprascrierea metodelor) este legat de polimorfism, nu de încapsulare. Încapsularea se ocupă de ascunderea detaliilor interne și controlul accesului la date."
+                    }
+                ]
+            },
+            {
+                "id": 7,
+                "text": "Care este outputul următorului program?",
+                "description": null,
+                "code": "public class Star {\n    private int shininess;\n\n    static void change(Star s, int newShine) {\n        s = new Star();\n        s.shininess = newShine;\n    }\n\n    public static void main() {\n        Star star = new Star();\n        System.out.print(\"Old shininess:\" + star.shininess + \"|\");\n        change(star, newShine: 10);\n        System.out.println(\"New shininess:\" + star.shininess);\n    }\n}",
+                "options": [
+                    "Old shininess: 0 | New shininess: 10",
+                    "Old shininess: 0 | New shininess: 0",
+                    "Old shininess: null | New shininess: 0",
+                    "Old shininess: null | New shininess: 10"
+                ],
+                "answers": [
+                    {
+                        "isCorrect": false,
+                        "explanation": "Fals. Parametrul s în metoda change este pasat prin valoare (copia referinței). Când creăm un nou obiect în metodă, modificăm doar copia locală, nu obiectul original star."
+                    },
+                    {
+                        "isCorrect": true,
+                        "explanation": "Corect. În Java, parametrii sunt pasați prin valoare. Când s = new Star() este executat în change(), se creează un nou obiect și s (copia referinței)PointEază către el, dar obiectul original star rămâne neschimbat cu shininess = 0 (valoarea default pentru int)."
+                    },
+                    {
+                        "isCorrect": false,
+                        "explanation": "Fals. Câmpul shininess este de tip int (tip primitiv), care are valoarea default 0, nu null. Null se aplică doar referințelor la obiecte."
+                    },
+                    {
+                        "isCorrect": false,
+                        "explanation": "Fals. Shininess este int, nu Object, deci nu poate fi null. De asemenea, modificarea din change() nu afectează obiectul original."
+                    }
+                ]
+            },
+            {
+                "id": 8,
+                "text": "Care instanțiere este corectă?",
+                "description": null,
+                "code": null,
+                "options": [
+                    "List<Integer> list = new ArrayList<Object>();",
+                    "ArrayList<Integer> list = new List<Integer>();",
+                    "List<Integer> list = new ArrayList<Integer>();",
+                    "ArrayList<Object> list = new ArrayList<Integer>();"
+                ],
+                "answers": [
+                    {
+                        "isCorrect": false,
+                        "explanation": "Fals. List<Integer> nu este compatibil cu ArrayList<Object> chiar dacă Object este superclasă. În Java, generics nu sunt covariant - List<Object> nu este supertip pentru List<Integer>."
+                    },
+                    {
+                        "isCorrect": false,
+                        "explanation": "Fals. List este o interfață și nu poate fi instantiată direct. Trebuie să instantiem o implementare concretă (ArrayList, LinkedList, etc.)."
+                    },
+                    {
+                        "isCorrect": true,
+                        "explanation": "Corect. Tipul din stânga (List<Integer>) este interfața, iar tipul din dreapta (ArrayList<Integer>) este implementarea concretă. ArrayList implementează List, deci această atribuire este validă."
+                    },
+                    {
+                        "isCorrect": false,
+                        "explanation": "Fals. ArrayList<Object> și ArrayList<Integer> nu sunt compatibile. Generics în Java sunt invariante - ArrayList<Integer> nu este subtip al ArrayList<Object>."
+                    }
+                ]
+            },
+            {
+                "id": 9,
+                "text": "Ce design pattern face ușoară separarea operațiilor de obiectele pe care se execută operațiile respective?",
+                "description": null,
+                "code": null,
+                "options": [
+                    "Builder Pattern",
+                    "Visitor Pattern",
+                    "Factory Pattern",
+                    "Observer Pattern"
+                ],
+                "answers": [
+                    {
+                        "isCorrect": false,
+                        "explanation": "Fals. Builder Pattern este folosit pentru construirea treptată a obiectelor complexe, nu pentru separarea operațiilor de obiecte."
+                    },
+                    {
+                        "isCorrect": true,
+                        "explanation": "Corect. Visitor Pattern permite definirea de noi operații fără a modifica clasele elementelor pe care operează. Separează algoritmul de structura obiectului, facilitând adăugarea de noi operații."
+                    },
+                    {
+                        "isCorrect": false,
+                        "explanation": "Fals. Factory Pattern se ocupă de crearea obiectelor fără a specifica clasa exactă, nu de separarea operațiilor de obiecte."
+                    },
+                    {
+                        "isCorrect": false,
+                        "explanation": "Fals. Observer Pattern definește o dependență one-to-many între obiecte pentru notificarea automată la schimbări de stare."
+                    }
+                ]
+            },
+            {
+                "id": 10,
+                "text": "Ce design pattern trebuie să folosim în caz că dorim ca un client să nu aibă rol în crearea unui entități după o preferință de a sa?",
+                "description": null,
+                "code": null,
+                "options": [
+                    "Singleton Pattern",
+                    "Factory Pattern",
+                    "Builder Pattern",
+                    "Observer Pattern"
+                ],
+                "answers": [
+                    {
+                        "isCorrect": false,
+                        "explanation": "Fals. Singleton Pattern asigură că o clasă are o singură instanță și oferă un punct global de acces la ea, nu se ocupă de crearea entităților după preferințe."
+                    },
+                    {
+                        "isCorrect": true,
+                        "explanation": "Corect. Factory Pattern permite crearea obiectelor fără ca clientul să specifice clasa exactă. Clientul solicită un obiect pe baza unor criterii, iar factory-ul decide ce tip concret să instantieze."
+                    },
+                    {
+                        "isCorrect": false,
+                        "explanation": "Fals. Builder Pattern este folosit pentru construirea treptată a obiectelor complexe, dar clientul rămâne implicat în procesul de configurare."
+                    },
+                    {
+                        "isCorrect": false,
+                        "explanation": "Fals. Observer Pattern se ocupă de notificarea automată a observatorilor când se schimbă starea unui subiect, nu de crearea obiectelor."
+                    }
+                ]
+            },
+            {
+                "id": 11,
+                "text": "Ce fel de Singleton este această secvență de cod?",
+                "description": null,
+                "code": "public class Database {\n    private static Database obj = null;\n\n    private Database() {\n    }\n\n    public static Database getInstance() {\n        if (obj == null) {\n            obj = new Database();\n        }\n        return obj;\n    }\n}",
+                "options": [
+                    "Singleton cu inițializare eager",
+                    "Singleton cu inițializare lazy",
+                    "nu avem Singleton aici",
+                    "Singleton cu inițializare în blocuri statice"
+                ],
+                "answers": [
+                    {
+                        "isCorrect": false,
+                        "explanation": "Fals. Inițializarea eager înseamnă că instanța este creată la încărcarea clasei (ex: private static Database obj = new Database();). Aici instanța este creată la cerere."
+                    },
+                    {
+                        "isCorrect": true,
+                        "explanation": "Corect. Singleton cu lazy initialization - obiectul este creat doar când este solicitat prima dată prin getInstance(). Instanța este null inițial și se creează la primul apel al metodei."
+                    },
+                    {
+                        "isCorrect": false,
+                        "explanation": "Fals. Aceasta este o implementare clasică Singleton: constructor privat, instanță statică și metodă publică getInstance()."
+                    },
+                    {
+                        "isCorrect": false,
+                        "explanation": "Fals. Inițializarea în blocuri statice ar folosi un bloc static {} pentru a crea instanța la încărcarea clasei. Aici instanța se creează în getInstance()."
+                    }
+                ]
+            },
+            {
+                "id": 12,
+                "text": "Ce metode pot fi accesate din clasa MyTest?",
+                "description": null,
+                "code": "package test;\npublic class Test {\n    void execute1() {}\n    protected void execute2() {}\n    private void execute3() {}\n}\n\n....\npackage mytest;\npublic class MyTest extends Test {\n    public void execute2() {}\n}",
+                "options": [
+                    "execute1, execute2 din Test, execute2 din MyTest",
+                    "execute1, execute2 din Test, execute3, execute2 din MyTest",
+                    "execute2 din Test, execute2 din MyTest",
+                    "execute2 din MyTest"
+                ],
+                "answers": [
+                    {
+                        "isCorrect": false,
+                        "explanation": "Fals. execute1() are acces default (package-private) și poate fi accesată doar în același pachet (test). MyTest este în pachetul mytest, deci nu are acces la execute1()."
+                    },
+                    {
+                        "isCorrect": false,
+                        "explanation": "Fals. execute1() nu este accesibilă (package-private din alt pachet), iar execute3() este privată și nu poate fi accesată din subclase."
+                    },
+                    {
+                        "isCorrect": true,
+                        "explanation": "Corect. MyTest poate accesa: execute2() din Test (moștenită, protected), și execute2() din MyTest (override public). execute1() este package-private și nu este accesibilă din alt pachet. execute3() este privată."
+                    },
+                    {
+                        "isCorrect": false,
+                        "explanation": "Fals. MyTest are acces și la execute2() din Test (metoda protected moștenită), nu doar la versiunea override."
+                    }
+                ]
+            },
+            {
+                "id": 13,
+                "text": "Ce reprezintă o metodă default în cadrul unei interfețe?",
+                "description": null,
+                "code": null,
+                "options": [
+                    "o metodă abstractă",
+                    "o metodă non-statică care este deja implementată într-o interfață",
+                    "o metodă statică implementată într-o interfață",
+                    "nu putem avea metode default într-o interfață"
+                ],
+                "answers": [
+                    {
+                        "isCorrect": false,
+                        "explanation": "Fals. Metodele default nu sunt abstracte - ele au implementare în interfață. Metodele abstracte nu au corp și trebuie implementate de clasele care implementează interfața."
+                    },
+                    {
+                        "isCorrect": true,
+                        "explanation": "Corect. Metodele default în interfețe (introduse în Java 8) sunt metode non-statice cu implementare completă. Permit adăugarea de funcționalitate nouă la interfețe fără a rupe compatibilitatea cu clasele existente."
+                    },
+                    {
+                        "isCorrect": false,
+                        "explanation": "Fals. Metodele default sunt non-statice. Interfețele pot avea și metode statice, dar acestea sunt diferite de metodele default."
+                    },
+                    {
+                        "isCorrect": false,
+                        "explanation": "Fals. Din Java 8, interfețele pot conține metode default cu implementare, alături de metodele abstracte și statice."
+                    }
+                ]
+            },
+            {
+                "id": 14,
+                "text": "Ce se afișează la rularea acestui cod?",
+                "description": null,
+                "code": "class Document {\n}\n\nclass PdfDocument extends Document {\n}\n\nclass CsvDocument extends Document {\n}\n\nclass DocumentViewer {\n    public void openDocument(Document document) {\n        System.out.println(\"Opening document\");\n    }\n\n    public void openDocument(PdfDocument document) {\n        System.out.println(\"Opening pdf\");\n    }\n\n    public void openDocument(CsvDocument document) {\n        System.out.println(\"Opening csv\");\n    }\n}\n\nclass AdobeReader extends DocumentViewer {\n    public void openDocument(PdfDocument document) {\n        System.out.println(\"Adobe is opening pdf\");\n    }\n\n    public void openDocument(CsvDocument document) {\n        System.out.println(\"Cannot open csv\");\n    }\n}\n\nclass DocumentTest {\n    public static void main(String[] args) {\n        DocumentViewer documentViewer = new AdobeReader();\n        Document file1 = new PdfDocument();\n        CsvDocument file2 = new CsvDocument();\n\n        documentViewer.openDocument(file1);\n        documentViewer.openDocument(file2);\n    }\n}",
+                "options": [
+                    "Opening document Cannot open csv",
+                    "Adobe is opening pdf Cannot open csv",
+                    "Adobe is opening pdf Opening csv",
+                    "Opening document Opening csv"
+                ],
+                "answers": [
+                    {
+                        "isCorrect": true,
+                        "explanation": "Corect. file1 este declarat ca Document (compile-time type), deci se alege openDocument(Document) la compilare, iar la runtime se execută override-ul din AdobeReader. Dar AdobeReader nu override openDocument(Document), deci se execută din DocumentViewer. file2 este CsvDocument, se face override corect."
+                    },
+                    {
+                        "isCorrect": false,
+                        "explanation": "Fals. file1 are tipul compile-time Document, nu PdfDocument, deci se apelează openDocument(Document). Overloading se rezolvă la compile-time bazat pe tipul declarat, nu pe tipul runtime."
+                    },
+                    {
+                        "isCorrect": false,
+                        "explanation": "Fals. Pentru file1 se apelează openDocument(Document), nu openDocument(PdfDocument), deoarece tipul declarat este Document."
+                    },
+                    {
+                        "isCorrect": false,
+                        "explanation": "Fals. Pentru file2, care este de tip CsvDocument, se apelează versiunea override din AdobeReader care printează \"Cannot open csv\", nu \"Opening csv\"."
+                    }
+                ]
+            },
+            {
+                "id": 15,
+                "text": "Ce se va afișa la execuția codului de mai jos?",
+                "description": null,
+                "code": "public class Test {\n    public static void main(String[] args){\n        A.B.write();\n        A a = new A();\n        A.write();\n        A.B.write();\n    }\n}\n\nclass A {\n    static boolean x = false;\n    A(){\n        x = false;\n        B.x = true;\n    }\n    static class B {\n        static boolean x = false;\n\n        public static void write(){\n            x = !x;\n            if (x) System.out.print(\"A\");\n            else System.out.print(\"B\");\n        }\n    }\n    public static void write(){\n        x = !x;\n        if (x) System.out.print(\"C\");\n        else System.out.print(\"D\");\n    }\n}",
+                "options": ["BCA", "ACB", "ADB", "BDA"],
+                "answers": [
+                    {
+                        "isCorrect": false,
+                        "explanation": "Fals. Secvența corectă este: A.B.write() -> B.x devine true -> A, new A() setează B.x = true (rămâne true), A.write() -> A.x devine true -> C, A.B.write() -> B.x devine false -> B. Rezultatul este ACB."
+                    },
+                    {
+                        "isCorrect": true,
+                        "explanation": "Corect. 1) A.B.write(): B.x devine true -> printează \"A\". 2) new A(): setează A.x=false și B.x=true. 3) A.write(): A.x devine true -> printează \"C\". 4) A.B.write(): B.x devine false -> printează \"B\". Output: ACB."
+                    },
+                    {
+                        "isCorrect": false,
+                        "explanation": "Fals. Prima apelare A.B.write() face B.x = true, deci se printează \"A\", nu \"B\". A doua apelare A.write() face A.x = true, printând \"C\"."
+                    },
+                    {
+                        "isCorrect": false,
+                        "explanation": "Fals. Inițial B.x este false, deci prima apelare A.B.write() va printa \"A\" (B.x devine true), nu \"B\"."
+                    }
+                ]
+            },
+            {
+                "id": 16,
+                "text": "Ce tip de clasă reprezintă următoarea implementare?",
+                "description": null,
+                "code": "Predicate<Integer> check = x -> x % 2 == 0;",
+                "options": [
+                    "clasă locală",
+                    "clasă anonimă",
+                    "clasă nested non-statică",
+                    "clasă nested statică"
+                ],
+                "answers": [
+                    {
+                        "isCorrect": false,
+                        "explanation": "Fals. O clasă locală este definită într-o metodă cu un nume explicit (class NumeClasa {...}). Lambda expression-urile nu sunt clase locale."
+                    },
+                    {
+                        "isCorrect": true,
+                        "explanation": "Corect. Lambda expression este o formă concisă de a implementa o interfață funcțională (cu o singură metodă abstractă). Compilatorul o transformă într-o clasă anonimă care implementează interfața Predicate."
+                    },
+                    {
+                        "isCorrect": false,
+                        "explanation": "Fals. O clasă nested non-statică (inner class) este definită în interiorul altei clase fără modificatorul static. Lambda-urile nu sunt clase nested."
+                    },
+                    {
+                        "isCorrect": false,
+                        "explanation": "Fals. O clasă nested statică este o clasă membră cu modificatorul static. Lambda expression-urile nu sunt clase nested statice."
+                    }
+                ]
+            },
+            {
+                "id": 17,
+                "text": "Ce va afișa programul?",
+                "description": null,
+                "code": "public class Test {\n    public static void main(String[] args) {\n        Test obj = new Test();\n        obj.first();\n    }\n\n    void first() {\n        String a = \"good\";\n        String b = second(a);\n        System.out.print(\":\" + a + b);\n    }\n\n    String second(String a) {\n        a = a + \"luck\";\n        System.out.print(a);\n        return \"luck\";\n    }\n}",
+                "options": [
+                    "goodluck:goodluckluck",
+                    "goodluck:goodgoodluck",
+                    "goodluck:goodluck",
+                    "goodluck:luckgoodluck"
+                ],
+                "answers": [
+                    {
+                        "isCorrect": false,
+                        "explanation": "Fals. În first(), variabila a rămâne \"good\" deoarece String este imutabil. Operația a + \"luck\" din second() creează un string nou local, fără a modifica string-ul original."
+                    },
+                    {
+                        "isCorrect": false,
+                        "explanation": "Fals. String-urile sunt imutabile în Java. Modificarea lui a în second() nu afectează variabila a din first(). a rămâne \"good\" în first()."
+                    },
+                    {
+                        "isCorrect": true,
+                        "explanation": "Corect. 1) În second(), a devine \"goodluck\" local (String imutabil) și se printează \"goodluck\". 2) second() returnează \"luck\" care devine b. 3) În first(), a rămâne \"good\" (imutabil), se printează \":\" + \"good\" + \"luck\" = \":goodluck\". Total: \"goodluck:goodluck\"."
+                    },
+                    {
+                        "isCorrect": false,
+                        "explanation": "Fals. b primește valoarea returnată \"luck\", nu \"goodluck\". String-ul modificat în second() este local și nu afectează valoarea returnată."
+                    }
+                ]
+            },
+            {
+                "id": 18,
+                "text": "Identificați pe care linii avem suprascriere (overriding) și pe care avem supraîncărcare (overloading) corecte, fără erori de compilare:",
+                "description": null,
+                "code": "public class Test {\n    public static void main(String[] args) {\n        AudioBook book = new AudioBook();\n    }\n}\n\nclass BookException extends Exception {\n}\n\ninterface Book {\n    void markRead();\n    void markToRead() throws BookException;\n}\n\nclass AudioBook implements Book {\n    public void markRead() {\n    } // 1\n\n    public void markToRead() {\n    } // 2\n\n    public void markRead(int rating) {\n    } // 3\n\n    public void markRead(int rating, Date date) {\n    } // 4\n}",
+                "options": [
+                    "Suprascriere: 1, Supraîncărcare: 3, 4",
+                    "Suprascriere: 1, 2, Supraîncărcare: 3,4",
+                    "Suprascriere: 3, 4, Supraîncărcare: 1, 2",
+                    "Suprascriere: 3, 4, Supraîncărcare: 1"
+                ],
+                "answers": [
+                    {
+                        "isCorrect": false,
+                        "explanation": "Fals. Linia 2 este de asemenea suprascriere (override) a metodei markToRead() din interfața Book. O metodă override poate să nu declare excepții chiar dacă metoda din interfață le declară."
+                    },
+                    {
+                        "isCorrect": true,
+                        "explanation": "Corect. Overriding (implementare interfață): liniile 1 și 2 implementează metodele din Book. Overloading (aceeași metodă, parametri diferiți): liniile 3 și 4 sunt versiuni supraîncărcate ale markRead() cu parametri diferiți."
+                    },
+                    {
+                        "isCorrect": false,
+                        "explanation": "Fals. Liniile 1 și 2 sunt overriding (implementare de interfață), nu overloading. Liniile 3 și 4 sunt overloading al metodei markRead()."
+                    },
+                    {
+                        "isCorrect": false,
+                        "explanation": "Fals. Linia 1 este overriding (implementare markRead() din Book), iar linia 2 este de asemenea overriding (implementare markToRead() din Book)."
+                    }
+                ]
+            },
+            {
+                "id": 19,
+                "text": "În ce zonă de memorie sunt stocate obiectele?",
+                "description": null,
+                "code": null,
+                "options": ["pe stivă", "pe heap", "în memoria cache", "memoria externă"],
+                "answers": [
+                    {
+                        "isCorrect": false,
+                        "explanation": "Fals. Stiva (stack) stochează variabilele locale, parametrii metodelor și referințele la obiecte, nu obiectele în sine."
+                    },
+                    {
+                        "isCorrect": true,
+                        "explanation": "Corect. Obiectele în Java sunt alocate pe heap (memoria dinamică). Referințele la aceste obiecte sunt stocate pe stack, dar obiectele propriu-zise sunt pe heap și sunt gestionate de Garbage Collector."
+                    },
+                    {
+                        "isCorrect": false,
+                        "explanation": "Fals. Memoria cache este o memorie hardware rapidă folosită de procesor pentru optimizare, nu o zonă explicită de alocare a obiectelor în Java."
+                    },
+                    {
+                        "isCorrect": false,
+                        "explanation": "Fals. Memoria externă (disk) nu este folosită implicit pentru stocarea obiectelor în timpul execuției. Obiectele sunt în RAM, pe heap."
+                    }
+                ]
+            },
+            {
+                "id": 20,
+                "text": "Pentru ce folosim map() pe colecții și pe arrays în Java?",
+                "description": null,
+                "code": null,
+                "options": [
+                    "pentru a selecta elementele dintr-o colecție / dintr-un array care respectă o condiție reprezentată de funcția lambda dată că parametru",
+                    "pentru a aplica o operație pe fiecare element din cadrul colecției sau al array-ului, operație reprezentată de funcția lambda dată că parametru",
+                    "pentru a reduce elementele unei colecții / unui array la un singur element prin operația reprezentată de funcția lambda dată că parametru",
+                    "pentru a crea o nouă copie a colecției / al array-ului"
+                ],
+                "answers": [
+                    {
+                        "isCorrect": false,
+                        "explanation": "Fals. Pentru selectarea elementelor care respectă o condiție se folosește filter(), nu map(). Filter returnează un stream cu elementele care îndeplinesc condiția."
+                    },
+                    {
+                        "isCorrect": true,
+                        "explanation": "Corect. map() aplică o funcție de transformare pe fiecare element și returnează un nou stream/array cu rezultatele. De exemplu, list.stream().map(x -> x * 2) înmulțește fiecare element cu 2."
+                    },
+                    {
+                        "isCorrect": false,
+                        "explanation": "Fals. Pentru reducerea elementelor la o singură valoare se folosește reduce(), nu map(). Reduce acumulează valorile folosind o operație binară."
+                    },
+                    {
+                        "isCorrect": false,
+                        "explanation": "Fals. map() nu creează o copie simplă, ci transformă fiecare element folosind funcția dată. Pentru copiere simplă există alte metode (clone(), copyOf(), etc.)."
+                    }
+                ]
+            }
+        ];
+
+
         const questionsJavaBasics = [
             {
                 "id": 1,
@@ -1185,6 +1760,10 @@
             "examExCB": {
                 title: "Examen exemplu - CB",
                 data: questionsExamCBExemplu
+            },
+            "examCA2021": {
+                title: "Examen CA 2021",
+                data: questionsExamenCa2021
             },
             "javaBasics": {
                 title: "Java Basics (Test)",
