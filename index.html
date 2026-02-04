@@ -1108,8 +1108,8 @@
 
 
 
-        let currentScore = 0;
-        let answeredCount = 0;
+        // Store state for each question: null = unanswered, true = correct, false = incorrect
+        const questionState = new Array(questions.length).fill(null);
 
         function escapeHTML(str) {
             if (!str) return "";
@@ -1176,10 +1176,13 @@
             const q = questions[qIndex];
             const resultBox = document.getElementById(`result-${qIndex}`);
             const labels = document.querySelectorAll(`[id^="label-${qIndex}-"]`);
-            const inputs = document.querySelectorAll(`input[name="q${qIndex}"]`);
 
-            // Disable all inputs for this question to prevent changing answer
-            inputs.forEach(input => input.disabled = true);
+            // Note: We no longer disable inputs to allow changing answers
+
+            // Reset visual state for this question
+            labels.forEach(label => {
+                label.classList.remove('correct', 'incorrect');
+            });
 
             // Show result box
             resultBox.style.display = 'block';
@@ -1188,11 +1191,16 @@
             const selectedAnswer = q.answers[selectedValue];
 
             if (selectedAnswer.isCorrect) {
-                currentScore++;
+                // Update state
+                questionState[qIndex] = true;
+
                 resultBox.innerHTML = "Corect!";
                 resultBox.classList.add('correct-answer');
                 document.getElementById(`label-${qIndex}-${selectedValue}`).classList.add('correct');
             } else {
+                // Update state
+                questionState[qIndex] = false;
+
                 // Find correct answer index
                 const correctIndex = q.answers.findIndex(a => a.isCorrect);
                 const correctOptionText = q.options[correctIndex];
@@ -1207,12 +1215,13 @@
                 resultBox.innerHTML += `<div class="explanation">${escapeHTML(selectedAnswer.explanation)}</div>`;
             }
 
-            answeredCount++;
             updateScoreDisplay();
         }
 
         function updateScoreDisplay() {
             const finalDiv = document.getElementById('finalScore');
+            const currentScore = questionState.filter(s => s === true).length;
+            const answeredCount = questionState.filter(s => s !== null).length;
             finalDiv.innerText = `Scor: ${currentScore} / ${questions.length} (Răspunsuri: ${answeredCount})`;
         }
 
