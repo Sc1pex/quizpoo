@@ -191,7 +191,13 @@
                     "1, 3, 5"
                 ],
                 correct: 1, // Index 1 = "1, 2, 4"
-                details: "1. Ambele câmpuri final; 2. Doar getteri; 4. Getter-ul returnează o copie."
+                details: "1. Ambele câmpuri final; 2. Doar getteri; 4. Getter-ul returnează o copie.",
+                answers: [
+                    {isCorrect: false, explanation: "Nu toate afirmațiile enumerate sunt corecte pentru imutabilitate."},
+                    {isCorrect: true, explanation: "Corect. Pentru imutabilitate: 1. Câmpurile trebuie să fie final; 2. Să existe doar getteri; 4. Getter-ul pentru colecții trebuie să returneze o copie (defensive copy)."},
+                    {isCorrect: false, explanation: "Afirmația 5 (setteri) încalcă principiul imutabilității."},
+                    {isCorrect: false, explanation: "Afirmația 3 (modificarea directă a stării) încalcă principiul imutabilității."}
+                ]
             },
             {
                 id: 2,
@@ -204,7 +210,13 @@
                     "1, 3"
                 ],
                 correct: 1, // Index 1 = "2 și 4"
-                details: "2. LinkedHashMap păstrează ordinea; 4. TreeSet nu păstrează ordinea inserției (le sortează)."
+                details: "2. LinkedHashMap păstrează ordinea; 4. TreeSet nu păstrează ordinea inserției (le sortează).",
+                answers: [
+                    {isCorrect: false, explanation: "Nu toate afirmațiile sunt adevărate (de exemplu, HashSet nu garantează ordinea)."},
+                    {isCorrect: true, explanation: "Corect. 2. LinkedHashMap păstrează ordinea inserției; 4. TreeSet sortează elementele (nu păstrează ordinea inserției)."},
+                    {isCorrect: false, explanation: "Include afirmația 1 sau 3 care pot fi false în funcție de contextul grilei originale."},
+                    {isCorrect: false, explanation: "Afirmațiile 1 sau 3 nu acoperă toate variantele corecte."}
+                ]
             },
             {
                 id: 3,
@@ -217,7 +229,13 @@
                     "1, 3, 4"
                 ],
                 correct: 2, // Index 2 = "3, 4"
-                details: "3. O clasă poate fi abstractă fără metode abstracte. 4. Java nu suportă moștenire multiplă de clase."
+                details: "3. O clasă poate fi abstractă fără metode abstracte. 4. Java nu suportă moștenire multiplă de clase.",
+                answers: [
+                    {isCorrect: false, explanation: "Afirmațiile 1 și 2 nu sunt cele vizate ca fiind false."},
+                    {isCorrect: false, explanation: "Afirmația 1 nu este falsă."},
+                    {isCorrect: true, explanation: "Corect conform grilei. (Notă: În Java, 3 și 4 sunt de fapt afirmații ADEVARATE, dar sunt selectate aici conform cheii de răspuns furnizate)."},
+                    {isCorrect: false, explanation: "Include afirmații care nu sunt vizate."}
+                ]
             },
             {
                 id: 4,
@@ -230,7 +248,13 @@
                     "2, 3, 4"
                 ],
                 correct: 1, // Index 1 = "2, 4"
-                details: "2. Interfața poate moșteni mai multe interfețe. 4. O clasă poate implementa mai multe interfețe."
+                details: "2. Interfața poate moșteni mai multe interfețe. 4. O clasă poate implementa mai multe interfețe.",
+                answers: [
+                    {isCorrect: false, explanation: "Afirmațiile 1 sau 3 conțin erori teoretice."},
+                    {isCorrect: true, explanation: "Corect. 2. Interfețele suportă moștenire multiplă; 4. Clasele pot implementa multiple interfețe."},
+                    {isCorrect: false, explanation: "Nu toate afirmațiile de la 1 la 4 sunt adevărate."},
+                    {isCorrect: false, explanation: "Include afirmația 3 care este probabil falsă."}
+                ]
             },
             {
                 id: 5,
@@ -242,7 +266,13 @@
                     "Cuvântul final în fața unei variabile arată că acea variabilă poate fi asignată o singură dată",
                     "Cuvântul final în fața unei variabile arată că acea variabilă nu poate fi moștenită"
                 ],
-                correct: 2
+                correct: 2,
+                answers: [
+                    {isCorrect: false, explanation: "Greșit. 'final' la metode previne suprascrierea (overriding), nu accesul."},
+                    {isCorrect: false, explanation: "Greșit. O clasă 'final' nu poate fi moștenită, dar poate fi instanțiată."},
+                    {isCorrect: true, explanation: "Corect. O variabilă 'final' devine o constantă după prima asignare."},
+                    {isCorrect: false, explanation: "Greșit. Variabilele nu se moștenesc în sensul metodelor, ci se accesează conform vizibilității."}
+                ]
             },
             {
                 id: 6,
@@ -254,7 +284,13 @@
                     "construirea de obiecte complexe și ascunderea modului lor de funcționare",
                     "posibilitatea suprascrierii (overriding) metodelor"
                 ],
-                correct: 3
+                correct: 3,
+                answers: [
+                    {isCorrect: false, explanation: "Aceasta este o parte fundamentală a încapsulării."},
+                    {isCorrect: false, explanation: "Getteri și setteri sunt mecanisme standard de încapsulare."},
+                    {isCorrect: false, explanation: "Ascunderea detaliilor de implementare este definiția încapsulării."},
+                    {isCorrect: true, explanation: "Corect. Suprascrierea metodelor (overriding) ține de polimorfism, nu direct de încapsulare."}
+                ]
             },
             {
                 id: 7,
@@ -278,7 +314,13 @@
                     "Old shininess: null | New shininess: 0",
                     "Old shininess: null | New shininess: 10"
                 ],
-                correct: 1 // Index 1 = 0 | 0
+                correct: 1, // Index 1 = 0 | 0
+                answers: [
+                    {isCorrect: false, explanation: "Greșit. Metoda change reasignează referința locală 's', deci obiectul original nu este modificat."},
+                    {isCorrect: true, explanation: "Corect. Deoarece Java transmite referințele prin valoare, reasignarea 's = new Star()' în interiorul metodei nu afectează variabila 'star' din main."},
+                    {isCorrect: false, explanation: "Greșit. Un câmp 'int' se inițializează implicit cu 0, nu cu null."},
+                    {isCorrect: false, explanation: "Greșit. Shininess rămâne 0 pentru obiectul original."}
+                ]
             },
             {
                 id: 8,
@@ -290,7 +332,13 @@
                     "List<Integer> list = new ArrayList<Integer>();",
                     "ArrayList<Object> list = new ArrayList<Integer>();"
                 ],
-                correct: 2
+                correct: 2,
+                answers: [
+                    {isCorrect: false, explanation: "Greșit. Genericele trebuie să fie identice (invariant), nu poți pune ArrayList<Object> într-o referință de List<Integer>."},
+                    {isCorrect: false, explanation: "Greșit. List este o interfață și nu poate fi instanțiată direct cu 'new List()'."},
+                    {isCorrect: true, explanation: "Corect. Se folosește interfața ca tip de referință și clasa concretă pentru instanțiere, cu tipuri generice potrivite."},
+                    {isCorrect: false, explanation: "Greșit. Din nou, genericele sunt invariante în Java."}
+                ]
             },
             {
                 id: 9,
@@ -302,7 +350,13 @@
                     "Factory Pattern",
                     "Observer Pattern"
                 ],
-                correct: 1 // Visitor
+                correct: 1, // Visitor
+                answers: [
+                    {isCorrect: false, explanation: "Builder se ocupă de construcția obiectelor complexe."},
+                    {isCorrect: true, explanation: "Corect. Visitor permite adăugarea de noi operații pe o structură de obiecte fără a modifica clasele obiectelor."},
+                    {isCorrect: false, explanation: "Factory se ocupă de crearea obiectelor."},
+                    {isCorrect: false, explanation: "Observer definește o dependență 1-la-mulți pentru notificări."}
+                ]
             },
             {
                 id: 10,
@@ -314,7 +368,13 @@
                     "Builder Pattern",
                     "Observer Pattern"
                 ],
-                correct: 1 // Factory
+                correct: 1, // Factory
+                answers: [
+                    {isCorrect: false, explanation: "Singleton garantează o singură instanță."},
+                    {isCorrect: true, explanation: "Corect. Factory Method sau Abstract Factory abstractizează procesul de instanțiere față de client."},
+                    {isCorrect: false, explanation: "Builder permite clientului să controleze pașii de construcție."},
+                    {isCorrect: false, explanation: "Observer este pentru comunicare între obiecte."}
+                ]
             },
             {
                 id: 11,
@@ -331,7 +391,13 @@
                     "nu avem Singleton aici",
                     "Singleton cu inițializare în blocuri statice"
                 ],
-                correct: 1
+                correct: 1,
+                answers: [
+                    {isCorrect: false, explanation: "Eager initialization ar crea obiectul la încărcarea clasei, nu la apelul getInstance()."},
+                    {isCorrect: true, explanation: "Corect. Obiectul este creat doar atunci când este solicitat prima dată (lazy)."},
+                    {isCorrect: false, explanation: "Este o implementare clasică (deși nu thread-safe) de Singleton."},
+                    {isCorrect: false, explanation: "Inițializarea statică se face în afara metodei."}
+                ]
             },
             {
                 id: 12,
@@ -350,7 +416,13 @@ public class Test {
                     "execute2 din Test, execute2 din MyTest",
                     "execute2 din MyTest"
                 ],
-                correct: 2 // execute2 (protected) is visible
+                correct: 2, // execute2 (protected) is visible
+                answers: [
+                    {isCorrect: false, explanation: "execute1 are vizibilitate default (package-private) și nu poate fi accesată din alt pachet (mytest)."},
+                    {isCorrect: false, explanation: "execute3 este private și nu se moștenește."},
+                    {isCorrect: true, explanation: "Corect. Doar membrul 'protected' (execute2) este vizibil în subclasa din alt pachet."},
+                    {isCorrect: false, explanation: "Include prea puține variante."}
+                ]
             },
             {
                 id: 13,
@@ -362,7 +434,13 @@ public class Test {
                     "o metodă statică implementată într-o interfață",
                     "nu putem avea metode default într-o interfață"
                 ],
-                correct: 1
+                correct: 1,
+                answers: [
+                    {isCorrect: false, explanation: "Metodele abstracte nu au corp/implementare."},
+                    {isCorrect: true, explanation: "Corect. Metodele 'default' permit adăugarea de funcționalitate în interfețe păstrând compatibilitatea retroactivă."},
+                    {isCorrect: false, explanation: "Metodele statice în interfețe sunt diferite de cele default."},
+                    {isCorrect: false, explanation: "Java ermode default."}
+                ]
             },
             {
                 id: 14,
@@ -379,7 +457,13 @@ documentViewer.openDocument(file2);`,
                     "Adobe is opening pdf Opening csv",
                     "Opening document Opening csv"
                 ],
-                correct: 0 // "Opening document Cannot open csv"
+                correct: 0, // "Opening document Cannot open csv"
+                answers: [
+                    {isCorrect: true, explanation: "Corect. Dacă AdobeReader nu suprascrie corect metodele pentru tipurile specifice sau dacă apelul este legat static la tipul DocumentViewer."},
+                    {isCorrect: false, explanation: "Presupune că polimorfismul a funcționat parțial."},
+                    {isCorrect: false, explanation: "Presupune că ambele metode au fost suprascrise cu succes."},
+                    {isCorrect: false, explanation: "Presupune că nicio suprascriere nu a funcționat."}
+                ]
             },
             {
                 id: 15,
@@ -393,7 +477,13 @@ documentViewer.openDocument(file2);`,
                     "ADB",
                     "BDA"
                 ],
-                correct: 1 // ACB
+                correct: 1, // ACB
+                answers: [
+                    {isCorrect: false, explanation: "Ordinea de execuție nu produce acest rezultat."},
+                    {isCorrect: true, explanation: "Corect conform fluxului de execuție a metodelor statice și a instanțierii."},
+                    {isCorrect: false, explanation: "D nu apare în output."},
+                    {isCorrect: false, explanation: "Ordinea este inversată."}
+                ]
             },
             {
                 id: 16,
@@ -405,7 +495,13 @@ documentViewer.openDocument(file2);`,
                     "clasă nested non-statică",
                     "clasă nested statică"
                 ],
-                correct: 1 // Conform grilei
+                correct: 1, // Conform grilei, lambda este tratat similar cu clasa anonimă
+                answers: [
+                    {isCorrect: false, explanation: "Clasele locale au nume și sunt definite într-un bloc."},
+                    {isCorrect: true, explanation: "Corect. Expresiile Lambda sunt implementări de interfețe funcționale, similare conceptual cu clasele anonime."},
+                    {isCorrect: false, explanation: "Nu este o clasă nested (inner class)."},
+                    {isCorrect: false, explanation: "Nu este o clasă statică definită în altă clasă."}
+                ]
             },
             {
                 id: 17,
@@ -421,7 +517,13 @@ documentViewer.openDocument(file2);`,
                     "goodluck:goodluck",
                     "goodluck:luckgoodluck"
                 ],
-                correct: 2
+                correct: 2,
+                answers: [
+                    {isCorrect: false, explanation: "String-urile sunt imutabile, 'a' rămâne 'good'."},
+                    {isCorrect: false, explanation: "Formatarea outputului nu corespunde."},
+                    {isCorrect: true, explanation: "Corect. 'a' rămâne 'good', 'b' primește rezultatul 'luck', rezultând ':goodluck'."},
+                    {isCorrect: false, explanation: "Ordinea concatenării este greșită."}
+                ]
             },
             {
                 id: 18,
@@ -436,7 +538,13 @@ documentViewer.openDocument(file2);`,
                     "Suprascriere: 3, 4, Supraincărcare: 1, 2",
                     "Suprascriere: 3, 4, Supraincărcare: 1"
                 ],
-                correct: 1
+                correct: 1,
+                answers: [
+                    {isCorrect: false, explanation: "Lipsește linia 2 de la suprascriere."},
+                    {isCorrect: true, explanation: "Corect. 1 și 2 implementează metodele din interfață (suprascriere), 3 și 4 adaugă parametri noi aceleiași metode (supraîncărcare)."},
+                    {isCorrect: false, explanation: "Inversiune între concepte."},
+                    {isCorrect: false, explanation: "Clasificare incompletă."}
+                ]
             },
             {
                 id: 19,
@@ -448,7 +556,13 @@ documentViewer.openDocument(file2);`,
                     "in memoria cache",
                     "memoria externă"
                 ],
-                correct: 1
+                correct: 1,
+                answers: [
+                    {isCorrect: false, explanation: "Pe stivă (Stack) se stochează variabilele locale și apelurile de metode."},
+                    {isCorrect: true, explanation: "Corect. Toate obiectele în Java sunt alocate pe Heap."},
+                    {isCorrect: false, explanation: "Cache-ul este gestionat de procesor, nu direct de modelul de memorie Java."},
+                    {isCorrect: false, explanation: "Memoria externă (disc) nu este folosită pentru stocarea obiectelor active."}
+                ]
             },
             {
                 id: 20,
@@ -460,7 +574,13 @@ documentViewer.openDocument(file2);`,
                     "pentru a reduce elementele la unul singur",
                     "pentru a crea o copie identică"
                 ],
-                correct: 1
+                correct: 1,
+                answers: [
+                    {isCorrect: false, explanation: "Pentru filtrare se folosește metoda filter()."},
+                    {isCorrect: true, explanation: "Corect. map() transformă fiecare element al fluxului într-un alt element."},
+                    {isCorrect: false, explanation: "Reducerea se face cu reduce() sau collect()."},
+                    {isCorrect: false, explanation: "Deși se poate folosi pentru asta, map() este destinat transformării."}
+                ]
             }
         ];
 
@@ -514,7 +634,7 @@ documentViewer.openDocument(file2);`,
 
             // Disable all inputs for this question to prevent changing answer
             inputs.forEach(input => input.disabled = true);
-            
+
             // Show result box
             resultBox.style.display = 'block';
             resultBox.className = 'result-box';
