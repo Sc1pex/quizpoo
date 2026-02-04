@@ -211,6 +211,7 @@
           <option value="setNou1">Set Nou 1 - Stil CB</option>
           <option value="setNou2">Set Nou 2 - Stil CB</option>
           <option value="setNou3">Set Nou 3 - Avansat</option>
+          <option value="setNou4">Set Nou 4 - Avansat</option>
         </select>
       </div>
       <div class="stats">Quiz Interactiv</div>
@@ -5371,6 +5372,907 @@
         },
       ];
 
+      const questionsSetNou4 = [
+        {
+          id: 1,
+          text: "Care este rezultatul următoarei secvențe?",
+          description: "CompletableFuture și async programming",
+          code: '1. import java.util.concurrent.*;\n2. public class FutureTest {\n3.     public static void main(String[] args) throws Exception {\n4.         CompletableFuture<String> cf = CompletableFuture\n5.             .supplyAsync(() -> "Hello")\n6.             .thenApply(s -> s + " World")\n7.             .thenApply(String::toUpperCase);\n8.         System.out.print(cf.get());\n9.     }\n10. }',
+          options: [
+            "Hello",
+            "Hello World",
+            "HELLO WORLD",
+            "CompletableFuture[HELLO WORLD]",
+          ],
+          answers: [
+            {
+              isCorrect: false,
+              explanation: "Fals. thenApply transformă rezultatul.",
+            },
+            {
+              isCorrect: false,
+              explanation: "Fals. Al doilea thenApply aplică toUpperCase.",
+            },
+            {
+              isCorrect: true,
+              explanation:
+                "Corect. supplyAsync produce 'Hello'. Primul thenApply adaugă ' World' -> 'Hello World'. Al doilea thenApply aplică toUpperCase -> 'HELLO WORLD'. get() extrage valoarea.",
+            },
+            {
+              isCorrect: false,
+              explanation:
+                "Fals. get() returnează valoarea, nu reprezentarea CompletableFuture.",
+            },
+          ],
+        },
+        {
+          id: 2,
+          text: "Care este rezultatul următoarei secvențe?",
+          description: "Method hiding vs overriding cu excepții",
+          code: '1. class Parent {\n2.     void test() throws Exception { System.out.print("Parent "); }\n3. }\n4. class Child extends Parent {\n5.     void test() throws RuntimeException { System.out.print("Child "); }\n6. }\n7. public class Test {\n8.     public static void main(String[] args) throws Exception {\n9.         Parent p = new Child();\n10.         p.test();\n11.     }\n12. }',
+          options: [
+            "Parent",
+            "Child",
+            "Eroare de compilare - excepție incompatibilă",
+            "Parent Child",
+          ],
+          answers: [
+            {
+              isCorrect: false,
+              explanation: "Fals. Polimorfismul apelează metoda din Child.",
+            },
+            {
+              isCorrect: true,
+              explanation:
+                "Corect. RuntimeException este subtip al Exception, deci Child.test() poate declara o excepție mai specifică sau unchecked. Polimorfismul asigură apelarea Child.test().",
+            },
+            {
+              isCorrect: false,
+              explanation:
+                "Fals. Metoda suprascrisă poate declara excepții mai specifice sau unchecked (RuntimeException).",
+            },
+            {
+              isCorrect: false,
+              explanation: "Fals. Se apelează doar o metodă.",
+            },
+          ],
+        },
+        {
+          id: 3,
+          text: "Care este rezultatul următoarei secvențe?",
+          description: "CopyOnWriteArrayList și iterare",
+          code: '1. import java.util.concurrent.*;\n2. import java.util.*;\n3. public class COWTest {\n4.     public static void main(String[] args) {\n5.         List<String> list = new CopyOnWriteArrayList<>();\n6.         list.add("A"); list.add("B"); list.add("C");\n7.         for (String s : list) {\n8.             if (s.equals("B")) list.remove(s);\n9.             System.out.print(s + " ");\n10.         }\n11.         System.out.print(list);\n12.     }\n13. }',
+          options: [
+            "A B C [A, C]",
+            "ConcurrentModificationException",
+            "A C [A, C]",
+            "A B C [A, B, C]",
+          ],
+          answers: [
+            {
+              isCorrect: true,
+              explanation:
+                "Corect. CopyOnWriteArrayList permite modificarea în timpul iterării. Iterator-ul lucrează pe un snapshot. Se printează A B C (snapshot-ul original), dar lista finală este [A, C] după remove.",
+            },
+            {
+              isCorrect: false,
+              explanation:
+                "Fals. CopyOnWriteArrayList NU aruncă CME - este thread-safe pentru iterare.",
+            },
+            {
+              isCorrect: false,
+              explanation:
+                "Fals. Iterator-ul vede snapshot-ul original cu A, B, C.",
+            },
+            {
+              isCorrect: false,
+              explanation: "Fals. remove() modifică lista reală.",
+            },
+          ],
+        },
+        {
+          id: 4,
+          text: "Care este rezultatul următoarei secvențe?",
+          description: "WeakReference și Garbage Collection",
+          code: '1. import java.lang.ref.*;\n2. public class WeakRefTest {\n3.     public static void main(String[] args) {\n4.         String strong = new String("Hello");\n5.         WeakReference<String> weak = new WeakReference<>(strong);\n6.         System.out.print(weak.get() + " ");\n7.         strong = null;\n8.         System.gc();\n9.         System.out.print(weak.get());\n10.     }\n11. }',
+          options: [
+            "Hello Hello",
+            "Hello null (cel mai probabil)",
+            "null null",
+            "Eroare de compilare",
+          ],
+          answers: [
+            {
+              isCorrect: false,
+              explanation: "Fals. După GC, weak reference poate fi cleared.",
+            },
+            {
+              isCorrect: true,
+              explanation:
+                "Corect. Prima dată, strong încă referă obiectul -> 'Hello'. După strong=null și GC, nu mai există strong references, deci GC poate colecta obiectul și weak.get() returnează null. (GC nu e garantat, dar cel mai probabil rulează).",
+            },
+            {
+              isCorrect: false,
+              explanation: "Fals. Prima accesare este înainte de GC.",
+            },
+            {
+              isCorrect: false,
+              explanation: "Fals. Codul este valid.",
+            },
+          ],
+        },
+        {
+          id: 5,
+          text: "Care este rezultatul următoarei secvențe?",
+          description: "record classes (Java 14+)",
+          code: '1. record Point(int x, int y) {\n2.     Point {\n3.         if (x < 0 || y < 0) throw new IllegalArgumentException();\n4.     }\n5.     Point(int v) { this(v, v); }\n6. }\n7. public class RecordTest {\n8.     public static void main(String[] args) {\n9.         Point p = new Point(5);\n10.         System.out.print(p.x() + " " + p.y() + " " + p);\n11.     }\n12. }',
+          options: [
+            "5 5 Point[x=5, y=5]",
+            "5 5 Point@hashcode",
+            "Eroare de compilare - record nu poate avea constructori",
+            "5 5 (5, 5)",
+          ],
+          answers: [
+            {
+              isCorrect: true,
+              explanation:
+                "Corect. Records pot avea compact constructor (validare) și constructori adiționali. Point(5) apelează this(5,5). toString() generat automat returnează Point[x=5, y=5]. Accesorii sunt x() și y().",
+            },
+            {
+              isCorrect: false,
+              explanation: "Fals. Records au toString() generat automat.",
+            },
+            {
+              isCorrect: false,
+              explanation:
+                "Fals. Records pot avea constructori adiționali care apelează canonical constructor.",
+            },
+            {
+              isCorrect: false,
+              explanation:
+                "Fals. toString() generat pentru records are formatul Type[field=value].",
+            },
+          ],
+        },
+        {
+          id: 6,
+          text: "Care este rezultatul următoarei secvențe?",
+          description: "sealed classes (Java 17+)",
+          code: "1. sealed interface Shape permits Circle, Rectangle {}\n2. final class Circle implements Shape { int radius = 5; }\n3. non-sealed class Rectangle implements Shape { int w = 3, h = 4; }\n4. class Square extends Rectangle { int side = 2; }\n5. public class SealedTest {\n6.     public static void main(String[] args) {\n7.         Shape s = new Square();\n8.         System.out.print(s instanceof Rectangle);\n9.     }\n10. }",
+          options: [
+            "true",
+            "false",
+            "Eroare de compilare - Square nu poate extinde Rectangle",
+            "Eroare de compilare - Square trebuie permis în sealed",
+          ],
+          answers: [
+            {
+              isCorrect: true,
+              explanation:
+                "Corect. Rectangle este non-sealed, deci poate fi extins liber de Square. Square este Rectangle (moștenire). s instanceof Rectangle returnează true.",
+            },
+            {
+              isCorrect: false,
+              explanation:
+                "Fals. Square extend Rectangle, deci instanceof Rectangle este true.",
+            },
+            {
+              isCorrect: false,
+              explanation: "Fals. non-sealed permite extindere liberă.",
+            },
+            {
+              isCorrect: false,
+              explanation:
+                "Fals. Doar subclasele directe ale sealed trebuie permise. Square extinde non-sealed Rectangle.",
+            },
+          ],
+        },
+        {
+          id: 7,
+          text: "Care este rezultatul următoarei secvențe?",
+          description: "var și type inference (Java 10+)",
+          code: '1. import java.util.*;\n2. public class VarTest {\n3.     public static void main(String[] args) {\n4.         var list = new ArrayList<String>();\n5.         list.add("Hello");\n6.         var item = list.get(0);\n7.         // item = 123;\n8.         System.out.print(item.getClass().getSimpleName());\n9.     }\n10. }',
+          options: ["Object", "String", "ArrayList", "Eroare de compilare"],
+          answers: [
+            {
+              isCorrect: false,
+              explanation: "Fals. var inferează tipul concret, nu Object.",
+            },
+            {
+              isCorrect: true,
+              explanation:
+                "Corect. var inferează tipul la compile-time. list este ArrayList<String>, list.get(0) returnează String, deci item este String. Linia comentată (item=123) ar cauza eroare dacă ar fi decomentata.",
+            },
+            {
+              isCorrect: false,
+              explanation: "Fals. item este rezultatul get(), nu lista.",
+            },
+            {
+              isCorrect: false,
+              explanation: "Fals. Codul este valid.",
+            },
+          ],
+        },
+        {
+          id: 8,
+          text: "Care este rezultatul următoarei secvențe?",
+          description: "Pattern matching pentru instanceof (Java 16+)",
+          code: '1. public class PatternMatch {\n2.     public static void main(String[] args) {\n3.         Object obj = "Hello";\n4.         if (obj instanceof String s && s.length() > 3) {\n5.             System.out.print(s.toUpperCase());\n6.         } else if (obj instanceof String s) {\n7.             System.out.print(s.toLowerCase());\n8.         }\n9.     }\n10. }',
+          options: [
+            "Hello",
+            "HELLO",
+            "hello",
+            "Eroare de compilare - s redeclarat",
+          ],
+          answers: [
+            {
+              isCorrect: false,
+              explanation: "Fals. Se aplică transformația din if.",
+            },
+            {
+              isCorrect: true,
+              explanation:
+                "Corect. Pattern matching: 'String s' declară și verifică tipul simultan. 'Hello' are length 5 > 3, deci prima condiție este true. s.toUpperCase() = 'HELLO'. Variabila s din else if are scope diferit, nu e conflict.",
+            },
+            {
+              isCorrect: false,
+              explanation: "Fals. Prima condiție este satisfăcută.",
+            },
+            {
+              isCorrect: false,
+              explanation:
+                "Fals. Variabilele din pattern matching au scope limitat la branch-ul respectiv.",
+            },
+          ],
+        },
+        {
+          id: 9,
+          text: "Care este rezultatul următoarei secvențe?",
+          description: "Text blocks (Java 15+)",
+          code: '1. public class TextBlock {\n2.     public static void main(String[] args) {\n3.         String s = """\n4.                    Hello\n5.                    World""";\n6.         System.out.print(s.lines().count() + " ");\n7.         System.out.print(s.contains("\\n"));\n8.     }\n9. }',
+          options: ["2 false", "2 true", "3 true", "1 false"],
+          answers: [
+            {
+              isCorrect: false,
+              explanation:
+                "Fals. Text block-ul conține newline real, nu escaped.",
+            },
+            {
+              isCorrect: true,
+              explanation:
+                "Corect. Text block are 2 linii (Hello\\nWorld). lines() returnează 2. contains('\\\\n') caută literal backslash-n, dar text block-ul conține newline REAL (caracterul), nu secvența '\\n'. True deoarece... wait, \"\\\\n\" în cod e newline real, deci s conține newline -> true.",
+            },
+            {
+              isCorrect: false,
+              explanation: "Fals. Nu există linie goală la început.",
+            },
+            {
+              isCorrect: false,
+              explanation: "Fals. Sunt 2 linii în text block.",
+            },
+          ],
+        },
+        {
+          id: 10,
+          text: "Care este rezultatul următoarei secvențe?",
+          description: "switch expressions (Java 14+)",
+          code: '1. public class SwitchExpr {\n2.     public static void main(String[] args) {\n3.         int day = 3;\n4.         String result = switch(day) {\n5.             case 1, 2, 3, 4, 5 -> "Weekday";\n6.             case 6, 7 -> "Weekend";\n7.             default -> throw new IllegalArgumentException();\n8.         };\n9.         System.out.print(result);\n10.     }\n11. }',
+          options: [
+            "Weekday",
+            "Weekend",
+            "Eroare de compilare - switch nu poate returna",
+            "Weekday Weekend",
+          ],
+          answers: [
+            {
+              isCorrect: true,
+              explanation:
+                "Corect. Switch expressions (Java 14+) pot returna valori. Arrow syntax (->) nu necesită break. day=3 se potrivește cu case 1,2,3,4,5 -> returnează 'Weekday'.",
+            },
+            {
+              isCorrect: false,
+              explanation: "Fals. day=3 este weekday, nu weekend.",
+            },
+            {
+              isCorrect: false,
+              explanation: "Fals. Switch expressions sunt valide din Java 14.",
+            },
+            {
+              isCorrect: false,
+              explanation:
+                "Fals. Switch expression returnează o singură valoare.",
+            },
+          ],
+        },
+        {
+          id: 11,
+          text: "Care este rezultatul următoarei secvențe?",
+          description: "Collectors.teeing (Java 12+)",
+          code: "1. import java.util.*;\n2. import java.util.stream.*;\n3. public class TeeingTest {\n4.     public static void main(String[] args) {\n5.         var result = Stream.of(1, 2, 3, 4, 5).collect(\n6.             Collectors.teeing(\n7.                 Collectors.summingInt(i -> i),\n8.                 Collectors.counting(),\n9.                 (sum, count) -> sum / count));\n10.         System.out.print(result);\n11.     }\n12. }",
+          options: ["2", "3", "2.5", "15"],
+          answers: [
+            {
+              isCorrect: false,
+              explanation: "Fals. Integer division 15/5 = 3, nu 2.",
+            },
+            {
+              isCorrect: true,
+              explanation:
+                "Corect. teeing() aplică doi collectori și combină rezultatele. sum = 1+2+3+4+5 = 15 (Integer), count = 5 (Long). 15/5 = 3 (integer division deoarece sum este Integer).",
+            },
+            {
+              isCorrect: false,
+              explanation: "Fals. Este integer division, nu floating point.",
+            },
+            {
+              isCorrect: false,
+              explanation: "Fals. 15 este suma, nu rezultatul după combinare.",
+            },
+          ],
+        },
+        {
+          id: 12,
+          text: "Care este rezultatul următoarei secvențe?",
+          description: "ReentrantLock și tryLock",
+          code: '1. import java.util.concurrent.locks.*;\n2. public class LockTest {\n3.     static ReentrantLock lock = new ReentrantLock();\n4.     public static void main(String[] args) {\n5.         lock.lock();\n6.         System.out.print(lock.tryLock() + " ");\n7.         System.out.print(lock.getHoldCount());\n8.         lock.unlock();\n9.         lock.unlock();\n10.     }\n11. }',
+          options: [
+            "false 1",
+            "true 2",
+            "true 1",
+            "Eroare - IllegalMonitorStateException",
+          ],
+          answers: [
+            {
+              isCorrect: false,
+              explanation:
+                "Fals. ReentrantLock permite reacquisition de către același thread.",
+            },
+            {
+              isCorrect: true,
+              explanation:
+                "Corect. ReentrantLock permite același thread să achiziționeze lock-ul de mai multe ori. lock() -> holdCount=1. tryLock() -> succes (true), holdCount=2. Fiecare unlock decrementează holdCount.",
+            },
+            {
+              isCorrect: false,
+              explanation: "Fals. tryLock() incrementează holdCount la 2.",
+            },
+            {
+              isCorrect: false,
+              explanation:
+                "Fals. Ambele unlock sunt valide deoarece holdCount ajunge la 0.",
+            },
+          ],
+        },
+        {
+          id: 13,
+          text: "Care este rezultatul următoarei secvențe?",
+          description: "ForkJoinPool și work stealing",
+          code: '1. import java.util.concurrent.*;\n2. public class ForkJoinTest {\n3.     public static void main(String[] args) {\n4.         ForkJoinPool pool = ForkJoinPool.commonPool();\n5.         int result = pool.invoke(new RecursiveTask<Integer>() {\n6.             protected Integer compute() {\n7.                 return 1 + 1;\n8.             }\n9.         });\n10.         System.out.print(result + " " + pool.getParallelism());\n11.     }\n12. }',
+          options: [
+            "2 1",
+            "2 (numărul de procesoare - 1)",
+            "2 (numărul de procesoare)",
+            "Eroare de compilare",
+          ],
+          answers: [
+            {
+              isCorrect: false,
+              explanation: "Fals. Paralelismul common pool depinde de CPU.",
+            },
+            {
+              isCorrect: true,
+              explanation:
+                "Corect. RecursiveTask compute() returnează 2. ForkJoinPool.commonPool() are parallelism = Runtime.getRuntime().availableProcessors() - 1 (default, minimum 1).",
+            },
+            {
+              isCorrect: false,
+              explanation:
+                "Fals. Common pool rezervă un procesor pentru calling thread.",
+            },
+            {
+              isCorrect: false,
+              explanation: "Fals. Codul este valid.",
+            },
+          ],
+        },
+        {
+          id: 14,
+          text: "Care este rezultatul următoarei secvențe?",
+          description: "Optional chaining",
+          code: '1. import java.util.*;\n2. public class OptChain {\n3.     public static void main(String[] args) {\n4.         Optional<String> opt = Optional.of("test");\n5.         String result = opt\n6.             .filter(s -> s.length() > 2)\n7.             .map(String::toUpperCase)\n8.             .flatMap(s -> Optional.of(s + "!"))\n9.             .orElseThrow();\n10.         System.out.print(result);\n11.     }\n12. }',
+          options: ["test", "TEST", "TEST!", "NoSuchElementException"],
+          answers: [
+            {
+              isCorrect: false,
+              explanation: "Fals. map și flatMap transformă valoarea.",
+            },
+            {
+              isCorrect: false,
+              explanation: "Fals. flatMap adaugă '!' la sfârșit.",
+            },
+            {
+              isCorrect: true,
+              explanation:
+                "Corect. filter: 'test'.length()=4>2 -> trece. map: 'TEST'. flatMap: Optional.of('TEST!') -> 'TEST!'. orElseThrow extrage valoarea.",
+            },
+            {
+              isCorrect: false,
+              explanation: "Fals. Optional-ul nu este gol după filter.",
+            },
+          ],
+        },
+        {
+          id: 15,
+          text: "Care este rezultatul următoarei secvențe?",
+          description: "LinkedHashMap access order",
+          code: '1. import java.util.*;\n2. public class LHMTest {\n3.     public static void main(String[] args) {\n4.         Map<String, Integer> map = new LinkedHashMap<>(16, 0.75f, true);\n5.         map.put("A", 1); map.put("B", 2); map.put("C", 3);\n6.         map.get("A");\n7.         map.put("B", 20);\n8.         System.out.println(map.keySet());\n9.     }\n10. }',
+          options: ["[A, B, C]", "[C, A, B]", "[B, C, A]", "[A, C, B]"],
+          answers: [
+            {
+              isCorrect: false,
+              explanation: "Fals. accessOrder=true reordonează la acces.",
+            },
+            {
+              isCorrect: true,
+              explanation:
+                "Corect. LinkedHashMap cu accessOrder=true reordonează intrarea accesată la sfârșit. Initial: A,B,C. get('A') -> C,B,A. put('B',20) -> C,A,B. Wait, let me recheck: After inserts: A,B,C. get('A') moves A to end: B,C,A. put('B',20) moves B to end: C,A,B.",
+            },
+            {
+              isCorrect: false,
+              explanation:
+                "Fals. put() pe cheie existentă mută intrarea la sfârșit.",
+            },
+            {
+              isCorrect: false,
+              explanation:
+                "Fals. Ordinea după get('A') și put('B') este diferită.",
+            },
+          ],
+        },
+        {
+          id: 16,
+          text: "Care este rezultatul următoarei secvențe?",
+          description: "Spliterator characteristics",
+          code: '1. import java.util.*;\n2. public class SplitTest {\n3.     public static void main(String[] args) {\n4.         List<Integer> list = Arrays.asList(1, 2, 3);\n5.         Set<Integer> set = new HashSet<>(list);\n6.         Spliterator<Integer> ls = list.spliterator();\n7.         Spliterator<Integer> ss = set.spliterator();\n8.         System.out.print(ls.hasCharacteristics(Spliterator.ORDERED) + " ");\n9.         System.out.print(ss.hasCharacteristics(Spliterator.ORDERED));\n10.     }\n11. }',
+          options: ["true true", "false false", "true false", "false true"],
+          answers: [
+            {
+              isCorrect: false,
+              explanation: "Fals. HashSet nu garantează ordinea.",
+            },
+            {
+              isCorrect: false,
+              explanation: "Fals. List păstrează ordinea.",
+            },
+            {
+              isCorrect: true,
+              explanation:
+                "Corect. List (ArrayList) are Spliterator ORDERED - elementele au ordine definită. HashSet NU are ORDERED - nu garantează ordinea elementelor.",
+            },
+            {
+              isCorrect: false,
+              explanation: "Fals. List este ordered, HashSet nu este.",
+            },
+          ],
+        },
+        {
+          id: 17,
+          text: "Care este rezultatul următoarei secvențe?",
+          description: "MethodHandles vs Reflection",
+          code: '1. import java.lang.invoke.*;\n2. public class MHTest {\n3.     private static int secret = 42;\n4.     public static void main(String[] args) throws Throwable {\n5.         MethodHandles.Lookup lookup = MethodHandles.lookup();\n6.         VarHandle vh = lookup.findStaticVarHandle(MHTest.class, "secret", int.class);\n7.         System.out.print(vh.get() + " ");\n8.         vh.set(100);\n9.         System.out.print(secret);\n10.     }\n11. }',
+          options: [
+            "42 42",
+            "42 100",
+            "IllegalAccessException",
+            "Eroare de compilare",
+          ],
+          answers: [
+            {
+              isCorrect: false,
+              explanation: "Fals. VarHandle.set() modifică valoarea.",
+            },
+            {
+              isCorrect: true,
+              explanation:
+                "Corect. MethodHandles.lookup() în aceeași clasă are acces la membrii privați. VarHandle permite get/set direct. secret devine 100.",
+            },
+            {
+              isCorrect: false,
+              explanation: "Fals. lookup() din aceeași clasă are acces full.",
+            },
+            {
+              isCorrect: false,
+              explanation: "Fals. Codul este valid.",
+            },
+          ],
+        },
+        {
+          id: 18,
+          text: "Care este rezultatul următoarei secvențe?",
+          description: "Collectors.collectingAndThen",
+          code: '1. import java.util.*;\n2. import java.util.stream.*;\n3. public class CollectTest {\n4.     public static void main(String[] args) {\n5.         List<String> list = Stream.of("a", "b", "c")\n6.             .collect(Collectors.collectingAndThen(\n7.                 Collectors.toList(),\n8.                 Collections::unmodifiableList));\n9.         System.out.print(list.getClass().getSimpleName() + " ");\n10.         try { list.add("d"); } catch(Exception e) {\n11.             System.out.print(e.getClass().getSimpleName());\n12.         }\n13.     }\n14. }',
+          options: [
+            "ArrayList null",
+            "UnmodifiableList UnsupportedOperationException",
+            "UnmodifiableRandomAccessList UnsupportedOperationException",
+            "ArrayList UnsupportedOperationException",
+          ],
+          answers: [
+            {
+              isCorrect: false,
+              explanation: "Fals. unmodifiableList învelește lista.",
+            },
+            {
+              isCorrect: false,
+              explanation:
+                "Fals. Clasa internă se numește UnmodifiableRandomAccessList.",
+            },
+            {
+              isCorrect: true,
+              explanation:
+                "Corect. collectingAndThen aplică finisher (unmodifiableList) după colectare. Clasa wrapper este UnmodifiableRandomAccessList. add() aruncă UnsupportedOperationException.",
+            },
+            {
+              isCorrect: false,
+              explanation: "Fals. Nu mai este ArrayList după wrapping.",
+            },
+          ],
+        },
+        {
+          id: 19,
+          text: "Care este rezultatul următoarei secvențe?",
+          description: "Proxy și InvocationHandler",
+          code: '1. import java.lang.reflect.*;\n2. interface Greeter { String greet(String name); }\n3. public class ProxyTest {\n4.     public static void main(String[] args) {\n5.         Greeter g = (Greeter) Proxy.newProxyInstance(\n6.             Greeter.class.getClassLoader(),\n7.             new Class[]{Greeter.class},\n8.             (proxy, method, params) -> "Hello, " + params[0] + "!");\n9.         System.out.print(g.greet("World"));\n10.     }\n11. }',
+          options: [
+            "null",
+            "Hello, World!",
+            "Eroare de compilare",
+            "InvocationTargetException",
+          ],
+          answers: [
+            {
+              isCorrect: false,
+              explanation: "Fals. Handler-ul returnează un String.",
+            },
+            {
+              isCorrect: true,
+              explanation:
+                "Corect. Proxy dinamic interceptează apelurile. InvocationHandler primește metoda și parametrii. params[0] = 'World'. Returnează 'Hello, World!'.",
+            },
+            {
+              isCorrect: false,
+              explanation:
+                "Fals. Codul este valid - lambda implementează InvocationHandler.",
+            },
+            {
+              isCorrect: false,
+              explanation: "Fals. Handler-ul nu aruncă excepții.",
+            },
+          ],
+        },
+        {
+          id: 20,
+          text: "Care este rezultatul următoarei secvențe?",
+          description: "ConcurrentHashMap compute operations",
+          code: '1. import java.util.concurrent.*;\n2. public class CHMTest {\n3.     public static void main(String[] args) {\n4.         ConcurrentHashMap<String, Integer> map = new ConcurrentHashMap<>();\n5.         map.put("A", 1);\n6.         map.compute("A", (k, v) -> v == null ? 1 : v + 1);\n7.         map.compute("B", (k, v) -> v == null ? 1 : v + 1);\n8.         map.merge("A", 10, Integer::sum);\n9.         System.out.print(map);\n10.     }\n11. }',
+          options: ["{A=2, B=1}", "{A=12, B=1}", "{A=11, B=1}", "{A=10, B=1}"],
+          answers: [
+            {
+              isCorrect: false,
+              explanation: "Fals. merge() adaugă 10 la valoarea existentă.",
+            },
+            {
+              isCorrect: true,
+              explanation:
+                "Corect. put('A',1) -> A=1. compute('A') -> v=1, return 2 -> A=2. compute('B') -> v=null, return 1 -> B=1. merge('A',10,sum) -> 2+10=12 -> A=12. Final: {A=12, B=1}.",
+            },
+            {
+              isCorrect: false,
+              explanation:
+                "Fals. merge adaugă valoarea nouă la cea existentă folosind funcția.",
+            },
+            {
+              isCorrect: false,
+              explanation: "Fals. merge nu înlocuiește, ci combină valorile.",
+            },
+          ],
+        },
+        {
+          id: 21,
+          text: "Care este rezultatul următoarei secvențe?",
+          description: "ServiceLoader și SPI",
+          code: '1. import java.util.*;\n2. public class SPITest {\n3.     public static void main(String[] args) {\n4.         ServiceLoader<List> loader = ServiceLoader.load(List.class);\n5.         int count = 0;\n6.         for (List l : loader) count++;\n7.         System.out.print(count > 0 ? "Found" : "Empty");\n8.     }\n9. }',
+          options: [
+            "Found",
+            "Empty",
+            "ServiceConfigurationError",
+            "Eroare de compilare",
+          ],
+          answers: [
+            {
+              isCorrect: false,
+              explanation:
+                "Fals. Fără META-INF/services configurate, nu se găsesc implementări.",
+            },
+            {
+              isCorrect: true,
+              explanation:
+                "Corect. ServiceLoader caută în META-INF/services pentru implementări înregistrate. Fără configurare explicită, nu se găsesc servicii pentru List. Iteratorul este gol.",
+            },
+            {
+              isCorrect: false,
+              explanation:
+                "Fals. Lipsă config-ului nu cauzează eroare, doar rezultat gol.",
+            },
+            {
+              isCorrect: false,
+              explanation:
+                "Fals. Codul compilează (deși are raw type warning).",
+            },
+          ],
+        },
+        {
+          id: 22,
+          text: "Care este rezultatul următoarei secvențe?",
+          description: "Class initialization deadlock",
+          code: '1. class A {\n2.     static { System.out.print("A "); new B(); }\n3. }\n4. class B {\n5.     static { System.out.print("B "); new A(); }\n6. }\n7. public class InitDeadlock {\n8.     public static void main(String[] args) {\n9.         new Thread(() -> new A()).start();\n10.         new Thread(() -> new B()).start();\n11.     }\n12. }',
+          options: [
+            "A B A B",
+            "Potențial deadlock la inițializarea claselor",
+            "B A B A",
+            "Eroare de compilare",
+          ],
+          answers: [
+            {
+              isCorrect: false,
+              explanation: "Fals. Dependențele circulare pot cauza deadlock.",
+            },
+            {
+              isCorrect: true,
+              explanation:
+                "Corect. Blocurile statice se execută cu class-level lock. T1 achiziționează lock pe A, încearcă să inițializeze B. T2 achiziționează lock pe B, încearcă să inițializeze A. Deadlock clasic la inițializarea claselor.",
+            },
+            {
+              isCorrect: false,
+              explanation:
+                "Fals. Ordinea depinde de scheduling, dar deadlock este probabil.",
+            },
+            {
+              isCorrect: false,
+              explanation: "Fals. Codul compilează.",
+            },
+          ],
+        },
+        {
+          id: 23,
+          text: "Care este rezultatul următoarei secvențe?",
+          description: "Stream.iterate cu Predicate",
+          code: '1. import java.util.stream.*;\n2. public class IterateTest {\n3.     public static void main(String[] args) {\n4.         Stream.iterate(2, n -> n < 20, n -> n * 2)\n5.               .forEach(n -> System.out.print(n + " "));\n6.     }\n7. }',
+          options: ["2 4 8 16", "2 4 8 16 32", "4 8 16", "2 4 8"],
+          answers: [
+            {
+              isCorrect: true,
+              explanation:
+                "Corect. iterate(seed, hasNext, next) - versiunea cu Predicate (Java 9+). Start: 2. 2<20: print 2, next=4. 4<20: print 4, next=8. 8<20: print 8, next=16. 16<20: print 16, next=32. 32<20: false, stop.",
+            },
+            {
+              isCorrect: false,
+              explanation:
+                "Fals. Condiția se verifică înainte de folosire, 32 nu este < 20.",
+            },
+            {
+              isCorrect: false,
+              explanation: "Fals. Seed-ul (2) este primul element.",
+            },
+            {
+              isCorrect: false,
+              explanation: "Fals. 16 < 20, deci 16 este inclus.",
+            },
+          ],
+        },
+        {
+          id: 24,
+          text: "Care este rezultatul următoarei secvențe?",
+          description: "Collectors.partitioningBy",
+          code: '1. import java.util.*;\n2. import java.util.stream.*;\n3. public class PartitionTest {\n4.     public static void main(String[] args) {\n5.         Map<Boolean, List<Integer>> map = Stream.of(1, 2, 3, 4, 5)\n6.             .collect(Collectors.partitioningBy(n -> n % 2 == 0));\n7.         System.out.print(map.get(true).size() + " " + map.get(false).size());\n8.     }\n9. }',
+          options: ["2 3", "3 2", "2 2", "null null"],
+          answers: [
+            {
+              isCorrect: true,
+              explanation:
+                "Corect. partitioningBy împarte în două grupuri (true/false). n%2==0: true pentru 2,4 (2 elemente), false pentru 1,3,5 (3 elemente).",
+            },
+            {
+              isCorrect: false,
+              explanation: "Fals. Sunt 2 numere pare și 3 impare.",
+            },
+            {
+              isCorrect: false,
+              explanation: "Fals. Numărul total este 5, nu 4.",
+            },
+            {
+              isCorrect: false,
+              explanation:
+                "Fals. partitioningBy garantează ambele chei (true și false) chiar dacă listele sunt goale.",
+            },
+          ],
+        },
+        {
+          id: 25,
+          text: "Care este rezultatul următoarei secvențe?",
+          description: "instanceof cu null",
+          code: '1. public class InstanceofNull {\n2.     public static void main(String[] args) {\n3.         String s = null;\n4.         System.out.print((s instanceof String) + " ");\n5.         System.out.print((s instanceof Object) + " ");\n6.         System.out.print((null instanceof String));\n7.     }\n8. }',
+          options: [
+            "true true true",
+            "false false false",
+            "NullPointerException",
+            "true true false",
+          ],
+          answers: [
+            {
+              isCorrect: false,
+              explanation: "Fals. null instanceof orice tip returnează false.",
+            },
+            {
+              isCorrect: true,
+              explanation:
+                "Corect. instanceof cu null pe partea stângă returnează întotdeauna false, indiferent de tipul testat. Nu aruncă NullPointerException.",
+            },
+            {
+              isCorrect: false,
+              explanation: "Fals. instanceof nu aruncă NPE pentru null.",
+            },
+            {
+              isCorrect: false,
+              explanation:
+                "Fals. s este null, deci toate verificările returnează false.",
+            },
+          ],
+        },
+        {
+          id: 26,
+          text: "Care este rezultatul următoarei secvențe?",
+          description: "StampedLock optimistic reading",
+          code: '1. import java.util.concurrent.locks.*;\n2. public class StampedTest {\n3.     static StampedLock lock = new StampedLock();\n4.     static int value = 10;\n5.     public static void main(String[] args) {\n6.         long stamp = lock.tryOptimisticRead();\n7.         int local = value;\n8.         if (lock.validate(stamp)) {\n9.             System.out.print(local);\n10.         } else {\n11.             System.out.print("Invalid");\n12.         }\n13.     }\n14. }',
+          options: ["10", "Invalid", "Eroare - lock necesar", "0"],
+          answers: [
+            {
+              isCorrect: true,
+              explanation:
+                "Corect. tryOptimisticRead() nu blochează - returnează un stamp. Dacă nimeni nu a scris între timp (single-threaded aici), validate() returnează true. Se printează 10.",
+            },
+            {
+              isCorrect: false,
+              explanation:
+                "Fals. În single-threaded, nu există scrieri concurente.",
+            },
+            {
+              isCorrect: false,
+              explanation: "Fals. Optimistic read nu necesită lock explicit.",
+            },
+            {
+              isCorrect: false,
+              explanation: "Fals. value este inițializat cu 10.",
+            },
+          ],
+        },
+        {
+          id: 27,
+          text: "Care este rezultatul următoarei secvențe?",
+          description: "Inheritance și generic methods",
+          code: '1. class Base {\n2.     <T> T process(T item) { return item; }\n3. }\n4. class Derived extends Base {\n5.     @Override\n6.     <T> T process(T item) {\n7.         System.out.print("Derived ");\n8.         return super.process(item);\n9.     }\n10. }\n11. public class GenericOverride {\n12.     public static void main(String[] args) {\n13.         Base b = new Derived();\n14.         String result = b.process("Hello");\n15.         System.out.print(result);\n16.     }\n17. }',
+          options: [
+            "Hello",
+            "Derived Hello",
+            "Eroare de compilare - nu se poate suprascrie metodă generică",
+            "Derived",
+          ],
+          answers: [
+            {
+              isCorrect: false,
+              explanation:
+                "Fals. Polimorfismul apelează versiunea din Derived.",
+            },
+            {
+              isCorrect: true,
+              explanation:
+                "Corect. Metodele generice pot fi suprascrise. Polimorfismul asigură apelarea Derived.process() care printează 'Derived ' și returnează rezultatul super.process() = 'Hello'.",
+            },
+            {
+              isCorrect: false,
+              explanation:
+                "Fals. Metodele generice pot fi suprascrise cu aceeași semnatură generică.",
+            },
+            {
+              isCorrect: false,
+              explanation: "Fals. Se printează și rezultatul returnat.",
+            },
+          ],
+        },
+        {
+          id: 28,
+          text: "Care este rezultatul următoarei secvențe?",
+          description: "Arrays.asList vs List.of",
+          code: '1. import java.util.*;\n2. public class ListCreation {\n3.     public static void main(String[] args) {\n4.         List<String> list1 = Arrays.asList("A", "B");\n5.         List<String> list2 = List.of("A", "B");\n6.         try { list1.set(0, "X"); System.out.print("1ok "); }\n7.         catch(Exception e) { System.out.print("1fail "); }\n8.         try { list2.set(0, "X"); System.out.print("2ok"); }\n9.         catch(Exception e) { System.out.print("2fail"); }\n10.     }\n11. }',
+          options: ["1ok 2ok", "1fail 2fail", "1ok 2fail", "1fail 2ok"],
+          answers: [
+            {
+              isCorrect: false,
+              explanation:
+                "Fals. List.of() returnează listă complet imutabilă.",
+            },
+            {
+              isCorrect: false,
+              explanation:
+                "Fals. Arrays.asList() permite set(), doar add/remove sunt blocate.",
+            },
+            {
+              isCorrect: true,
+              explanation:
+                "Corect. Arrays.asList() - fixed-size dar permite set() (modifică array-ul backing). List.of() - complet imutabilă, set() aruncă UnsupportedOperationException.",
+            },
+            {
+              isCorrect: false,
+              explanation: "Fals. Arrays.asList permite set().",
+            },
+          ],
+        },
+        {
+          id: 29,
+          text: "Care este rezultatul următoarei secvențe?",
+          description: "ThreadLocal și value isolation",
+          code: '1. public class TLTest {\n2.     static ThreadLocal<Integer> tl = ThreadLocal.withInitial(() -> 0);\n3.     public static void main(String[] args) throws Exception {\n4.         tl.set(10);\n5.         Thread t = new Thread(() -> {\n6.             tl.set(20);\n7.             System.out.print(tl.get() + " ");\n8.         });\n9.         t.start();\n10.         t.join();\n11.         System.out.print(tl.get());\n12.     }\n13. }',
+          options: ["20 20", "20 10", "10 20", "0 10"],
+          answers: [
+            {
+              isCorrect: false,
+              explanation: "Fals. ThreadLocal izolează valorile per thread.",
+            },
+            {
+              isCorrect: true,
+              explanation:
+                "Corect. ThreadLocal păstrează valori separate per thread. Main setează 10. Thread-ul nou setează 20, printează 20. După join, main printează valoarea sa (10).",
+            },
+            {
+              isCorrect: false,
+              explanation: "Fals. Thread-ul nou nu vede valoarea din main.",
+            },
+            {
+              isCorrect: false,
+              explanation:
+                "Fals. Noul thread își setează valoarea proprie la 20, nu folosește default.",
+            },
+          ],
+        },
+        {
+          id: 30,
+          text: "Care este rezultatul următoarei secvențe?",
+          description: "Comparator.comparing și thenComparing",
+          code: '1. import java.util.*;\n2. record Person(String name, int age) {}\n3. public class CompareChain {\n4.     public static void main(String[] args) {\n5.         List<Person> list = new ArrayList<>(List.of(\n6.             new Person("Bob", 25),\n7.             new Person("Ana", 30),\n8.             new Person("Ana", 25)));\n9.         list.sort(Comparator.comparing(Person::name)\n10.                            .thenComparing(Person::age));\n11.         System.out.print(list.get(0).name() + " " + list.get(0).age());\n12.     }\n13. }',
+          options: ["Ana 25", "Ana 30", "Bob 25", "Eroare de compilare"],
+          answers: [
+            {
+              isCorrect: true,
+              explanation:
+                "Corect. Sortare: mai întâi după name (alfabetic), apoi după age. Ana < Bob alfabetic. Între cele două Ana, cea cu age 25 < 30. Primul element: Ana, 25.",
+            },
+            {
+              isCorrect: false,
+              explanation:
+                "Fals. thenComparing sortează crescător după age pentru același name.",
+            },
+            {
+              isCorrect: false,
+              explanation: "Fals. Ana vine înaintea lui Bob alfabetic.",
+            },
+            {
+              isCorrect: false,
+              explanation: "Fals. Record și Comparator.comparing sunt valide.",
+            },
+          ],
+        },
+      ];
+
       const quizzes = {
         examExCB: {
           title: "Examen exemplu - CB",
@@ -5399,6 +6301,10 @@
         setNou3: {
           title: "Set Nou 3 - Avansat",
           data: questionsSetNou3,
+        },
+        setNou4: {
+          title: "Set Nou 4 - Avansat",
+          data: questionsSetNou4,
         },
       };
 
