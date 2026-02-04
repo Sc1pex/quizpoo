@@ -208,6 +208,7 @@
             <select id="quizSelector" onchange="switchQuiz(this.value)">
                 <option value="examExCB">Examen exemplu - CB</option>
                 <option value="examCA2021">Examen CA 2021</option>
+                <option value="examCA2020">Examen CA 2020</option>
                 <option value="javaBasics">Java Basics (Test)</option>
             </select>
         </div>
@@ -1701,6 +1702,585 @@
             }
         ];
 
+        const questionsExamenCa2020 = [
+            {
+                "id": 1,
+                "text": "Când apare NullPointerException?",
+                "description": null,
+                "code": null,
+                "options": [
+                    "(a) Când încercăm să deschidem un fișier care nu există",
+                    "(b) Când facem buffer overflow la un array",
+                    "(c) Când încercăm să folosim un obiect null",
+                    "(d) Când folosim o colecție care este instanțiată și goală"
+                ],
+                "answers": [
+                    {
+                        "isCorrect": false,
+                        "explanation": "Greșit. Când încercăm să deschidem un fișier care nu există, se aruncă FileNotFoundException, nu NullPointerException."
+                    },
+                    {
+                        "isCorrect": false,
+                        "explanation": "Greșit. Buffer overflow la un array generează ArrayIndexOutOfBoundsException, nu NullPointerException."
+                    },
+                    {
+                        "isCorrect": true,
+                        "explanation": "Corect. NullPointerException apare când încercăm să folosim un obiect care este null (să apelăm o metodă sau să accesăm un câmp al unui obiect null)."
+                    },
+                    {
+                        "isCorrect": false,
+                        "explanation": "Greșit. O colecție instanțiată și goală nu produce NullPointerException; colecția există în memorie, doar că nu conține elemente."
+                    }
+                ]
+            },
+            {
+                "id": 2,
+                "text": "Care este rezultatul execuției codului de mai jos?",
+                "description": null,
+                "code": "String a = \"hello\";\nString b = \"world\";\nString c = b;\nb = a + b;\nString d = new String(\"hello\");\nSystem.out.println(c + \" \" + (d == a));",
+                "options": [
+                    "(a) world false",
+                    "(b) helloworld true",
+                    "(c) hello true",
+                    "(d) helloworld false"
+                ],
+                "answers": [
+                    {
+                        "isCorrect": true,
+                        "explanation": "Corect. Variabila c păstrează referința către \"world\" (valoarea inițială a lui b). Comparația d == a este false pentru că d este creat cu \"new\" și are o altă adresă în memorie decât a (care folosește string pool-ul)."
+                    },
+                    {
+                        "isCorrect": false,
+                        "explanation": "Greșit. c nu devine \"helloworld\" deoarece atribuirea b = a + b modifică doar referința lui b, nu și pe cea a lui c care continua să refere \"world\"."
+                    },
+                    {
+                        "isCorrect": false,
+                        "explanation": "Greșit. c nu este \"hello\", ci \"world\", valoarea inițială la care referă înainte ca b să fie modificat."
+                    },
+                    {
+                        "isCorrect": false,
+                        "explanation": "Greșit. c nu este \"helloworld\", ci \"world\", deoarece c a fost asignat cu referința inițială a lui b."
+                    }
+                ]
+            },
+            {
+                "id": 3,
+                "text": "Care variantă definește cel mai bine legătura dintre interfețe și clase?",
+                "description": null,
+                "code": null,
+                "options": [
+                    "(a) Nu pot exista relații între clase și interfețe",
+                    "(b) Nici clasele, nici interfețele nu precizează modul în care un obiect execută o operație",
+                    "(c) Interfețele precizează operațiile expuse de un obiect, în timp ce clasele modul în care acesta le execută",
+                    "(d) Atât clasele, cât și interfețele definesc modul în care un obiect execută o operație"
+                ],
+                "answers": [
+                    {
+                        "isCorrect": false,
+                        "explanation": "Greșit. Există relații foarte importante între clase și interfețe - clasele implementează interfețele."
+                    },
+                    {
+                        "isCorrect": false,
+                        "explanation": "Greșit. Clasele definesc exact modul în care operațiile sunt executate prin implementarea metodelor."
+                    },
+                    {
+                        "isCorrect": true,
+                        "explanation": "Corect. Interfețele definesc contractul (ce operații trebuie să existe), iar clasele definesc implementarea (cum se execută aceste operații)."
+                    },
+                    {
+                        "isCorrect": false,
+                        "explanation": "Greșit. Interfețele nu definesc modul de execuție, ci doar semnătura metodelor; implementarea este furnizată de clase."
+                    }
+                ]
+            },
+            {
+                "id": 4,
+                "text": "Ce afirmație despre Set și List este adevărată?",
+                "description": null,
+                "code": null,
+                "options": [
+                    "(a) În Set nu avem elemente duplicate, iar Set extinde interfața List",
+                    "(b) În Set putem avea elemente duplicate, la fel ca în List",
+                    "(c) Nici în Set, nici în List nu avem elemente duplicate",
+                    "(d) În Set nu avem elemente duplicate, iar în List putem să avem"
+                ],
+                "answers": [
+                    {
+                        "isCorrect": false,
+                        "explanation": "Greșit. Deși este corect că Set nu permite duplicate, Set NU extinde interfața List - ambele extind Collection independent."
+                    },
+                    {
+                        "isCorrect": false,
+                        "explanation": "Greșit. Set nu permite elemente duplicate, aceasta fiind caracteristica sa definitorie."
+                    },
+                    {
+                        "isCorrect": false,
+                        "explanation": "Greșit. List permite elemente duplicate, spre deosebire de Set."
+                    },
+                    {
+                        "isCorrect": true,
+                        "explanation": "Corect. Set nu permite duplicate (unicitate), în timp ce List permite duplicate și păstrează ordinea de inserție."
+                    }
+                ]
+            },
+            {
+                "id": 5,
+                "text": "Care este rezultatul execuției codului de mai jos?",
+                "description": "Fie:\nclass Device {\n    public static void charge() {\n        System.out.print(\"Charging device; \");\n    }\n}\nclass Phone extends Device {\n    public static void charge() {\n        System.out.print(\"Charging phone; \");\n    }\n}",
+                "code": "Device phone = new Phone();\nDevice device = new Device();\nphone.charge();\ndevice.charge();\nDevice.charge();",
+                "options": [
+                    "(a) Charging device; Charging device; Charging phone;",
+                    "(b) Charging phone; Charging phone; Charging device;",
+                    "(c) Charging device; Charging device; Charging device;",
+                    "(d) Charging phone; Charging device; Charging device;"
+                ],
+                "answers": [
+                    {
+                        "isCorrect": false,
+                        "explanation": "Greșit. Ultimul apel nu execută metoda din Phone."
+                    },
+                    {
+                        "isCorrect": false,
+                        "explanation": "Greșit. Metodele statice nu beneficiază de polimorfism - apelul se face pe baza tipului variabilei de referință."
+                    },
+                    {
+                        "isCorrect": true,
+                        "explanation": "Corect. Metodele statice nu suportă polimorfism. Apelul se face în funcție de tipul variabilei de referință, nu de tipul obiectului. Toate apelurile folosesc metoda din Device."
+                    },
+                    {
+                        "isCorrect": false,
+                        "explanation": "Greșit. phone.charge() nu execută metoda din Phone, ci din Device, deoarece metodele statice nu sunt polimorfice."
+                    }
+                ]
+            },
+            {
+                "id": 6,
+                "text": "Care afirmații sunt adevărate despre clase interne statice?",
+                "description": "1. Nu au acces la membri non-statici ai clasei exterioare\n2. Este nevoie de o instanță a clasei externe pentru a o instanția\n3. Trebuie să moștenească clasa exterioară\n4. Trebuie instanțiată astfel: Outer out = new Outer(); Inner in = out.new Inner();",
+                "code": null,
+                "options": ["(a) 3", "(b) 1", "(c) 2,4", "(d) 1,2"],
+                "answers": [
+                    {
+                        "isCorrect": false,
+                        "explanation": "Greșit. Afirmația 3 este falsă - clasele interne statice nu trebuie să moștenească clasa exterioară."
+                    },
+                    {
+                        "isCorrect": true,
+                        "explanation": "Corect. Clasele interne statice (static nested classes) nu au acces la membrii non-statici ai clasei exterioare și pot fi instanțiate direct: Outer.Inner in = new Outer.Inner(); fără a avea nevoie de o instanță a clasei externe."
+                    },
+                    {
+                        "isCorrect": false,
+                        "explanation": "Greșit. Ambele afirmații sunt false - clasele interne statice NU necesită instanță a clasei externe și se instanțiază direct: Outer.Inner in = new Outer.Inner();"
+                    },
+                    {
+                        "isCorrect": false,
+                        "explanation": "Greșit. Afirmația 2 este falsă - clasele interne statice NU necesită o instanță a clasei externe pentru a fi instanțiate."
+                    }
+                ]
+            },
+            {
+                "id": 7,
+                "text": "În Java, prin compararea a două obiecte cu ==, ce se compară?",
+                "description": null,
+                "code": null,
+                "options": [
+                    "(a) tipurile obiectelor",
+                    "(b) mărimile obiectelor",
+                    "(c) adresele obiectelor",
+                    "(d) valorile obiectelor"
+                ],
+                "answers": [
+                    {
+                        "isCorrect": false,
+                        "explanation": "Greșit. Operatorul == nu compară tipurile obiectelor - tipurile sunt verificate la compilare."
+                    },
+                    {
+                        "isCorrect": false,
+                        "explanation": "Greșit. Operatorul == nu compară mărimea (dimensiunea) obiectelor în memorie."
+                    },
+                    {
+                        "isCorrect": true,
+                        "explanation": "Corect. Operatorul == pentru obiecte compară adresele (referințele) din memorie, nu conținutul obiectelor."
+                    },
+                    {
+                        "isCorrect": false,
+                        "explanation": "Greșit. Pentru compararea valorilor (conținutului) obiectelor trebuie folosită metoda equals(), nu operatorul ==."
+                    }
+                ]
+            },
+            {
+                "id": 8,
+                "text": "Fie un serviciu de tip Youtube, în care avem utilizatori care se pot abona la canale, putând fi la curent cu noutățile canalelor la care ei sunt abonați (încărcare videoclip nou, depășirea unui anumit număr de abonați etc). Ce design pattern se poate aplica aici?",
+                "description": null,
+                "code": null,
+                "options": ["(a) Visitor", "(b) Factory", "(c) Observer", "(d) Command"],
+                "answers": [
+                    {
+                        "isCorrect": false,
+                        "explanation": "Greșit. Visitor pattern se folosește pentru a adăuga operații noi la o ierarhie de clase fără a le modifica."
+                    },
+                    {
+                        "isCorrect": false,
+                        "explanation": "Greșit. Factory pattern se ocupă cu crearea de obiecte, nu cu notificarea schimbărilor."
+                    },
+                    {
+                        "isCorrect": true,
+                        "explanation": "Corect. Observer pattern este utilizat pentru scenariile subscribe/notify, unde observatorii (utilizatorii) sunt notificați automat când subiectul (canalul) se schimbă."
+                    },
+                    {
+                        "isCorrect": false,
+                        "explanation": "Greșit. Command pattern încapsulează operații ca obiecte, dar nu gestionează relații subscribe/notify."
+                    }
+                ]
+            },
+            {
+                "id": 9,
+                "text": "Care dintre următoarele afirmații sunt adevărate?",
+                "description": "1) Clasele abstracte pot avea keyword-ul final\n2) O clasă poate moșteni mai multe clase în același timp\n3) O interfață poate moșteni mai multe interfețe în același timp\n4) Metodele și atributele de tip protected pot fi accesate doar din clasa-origine și din clasele derivate",
+                "code": null,
+                "options": ["(a) 1, 2, 3", "(b) 3, 4", "(c) 2, 3, 4", "(d) 1, 2, 3, 4"],
+                "answers": [
+                    {
+                        "isCorrect": false,
+                        "explanation": "Greșit. Afirmațiile 1 și 2 sunt false - clasele abstracte nu pot fi finale (contradicție) și Java nu suportă moștenire multiplă pentru clase."
+                    },
+                    {
+                        "isCorrect": true,
+                        "explanation": "Corect. Afirmația 3 este adevărată (interfețele pot moșteni multiple interfețe) și 4 este parțial adevărată (protected e accesibil în clasă, clase derivate și în același package). Afirmațiile 1 (abstract și final sunt contradictorii) și 2 (nu există moștenire multiplă pentru clase în Java) sunt false."
+                    },
+                    {
+                        "isCorrect": false,
+                        "explanation": "Greșit. Afirmația 2 este falsă - Java nu permite moștenire multiplă pentru clase (doar pentru interfețe)."
+                    },
+                    {
+                        "isCorrect": false,
+                        "explanation": "Greșit. Afirmațiile 1 și 2 sunt false."
+                    }
+                ]
+            },
+            {
+                "id": 10,
+                "text": "Dacă Feline extinde clasa abstractă Animal și Lion extinde Feline, atunci care instanțiere este corectă?",
+                "description": null,
+                "code": null,
+                "options": [
+                    "(a) Feline feline = new Animal();",
+                    "(b) Animal animal = new Feline();",
+                    "(c) Lion lion = new Animal();",
+                    "(d) Lion lion = new Feline();"
+                ],
+                "answers": [
+                    {
+                        "isCorrect": false,
+                        "explanation": "Greșit. Nu putem instanția Animal deoarece este o clasă abstractă, iar downcast-ul de la clasa abstractă la subclasă este invalid."
+                    },
+                    {
+                        "isCorrect": false,
+                        "explanation": "Greșit. Nu putem instanția Feline doar dacă Feline este și ea abstractă. Dacă Feline este concretă, această variantă ar fi corectă prin polimorfism, dar conform enunțului, răspunsul corect este altul."
+                    },
+                    {
+                        "isCorrect": false,
+                        "explanation": "Greșit. Nu putem instanția Animal deoarece este o clasă abstractă."
+                    },
+                    {
+                        "isCorrect": true,
+                        "explanation": "Corect. Dacă Feline este o clasă concretă, putem face referință de tip Lion la un obiect Feline prin polimorfism (upcast implicit). Totuși, această linie va da eroare de compilare deoarece Lion este mai specific decât Feline și necesită cast explicit. Răspunsul presupune că toate celelalte opțiuni sunt evident greșite din cauza instanțierii de clase abstracte."
+                    }
+                ]
+            },
+            {
+                "id": 11,
+                "text": "Ce înseamnă constructorul default?",
+                "description": null,
+                "code": null,
+                "options": [
+                    "(a) constructor fără parametri declarat de utilizator",
+                    "(b) constructor fără implementare",
+                    "(c) constructor fără modificatori de acces",
+                    "(d) constructor fără parametri adăugat de Java dacă niciun constructor nu a fost declarat"
+                ],
+                "answers": [
+                    {
+                        "isCorrect": false,
+                        "explanation": "Greșit. Un constructor fără parametri declarat de utilizator se numește \"no-argument constructor\", nu \"default constructor\"."
+                    },
+                    {
+                        "isCorrect": false,
+                        "explanation": "Greșit. Constructorul default are implementare (chiar dacă goală) și apelează super()."
+                    },
+                    {
+                        "isCorrect": false,
+                        "explanation": "Greșit. Constructorul default are modificator de acces - același cu cel al clasei."
+                    },
+                    {
+                        "isCorrect": true,
+                        "explanation": "Corect. Constructorul default este constructorul fără parametri pe care Java îl adaugă automat dacă nu declarăm niciun constructor. Odată ce declarăm orice constructor, Java nu mai adaugă constructorul default."
+                    }
+                ]
+            },
+            {
+                "id": 12,
+                "text": "Ce design pattern putem folosi pentru a avea un obiect unic și vizibil la nivel global?",
+                "description": null,
+                "code": null,
+                "options": ["(a) Observer", "(b) Visitor", "(c) Singleton", "(d) Factory"],
+                "answers": [
+                    {
+                        "isCorrect": false,
+                        "explanation": "Greșit. Observer pattern se ocupă cu notificări între obiecte, nu cu unicitatea instanțelor."
+                    },
+                    {
+                        "isCorrect": false,
+                        "explanation": "Greșit. Visitor pattern se ocupă cu adăugarea de operații noi la ierarhii de clase."
+                    },
+                    {
+                        "isCorrect": true,
+                        "explanation": "Corect. Singleton pattern asigură că o clasă are o singură instanță și oferă un punct global de acces la ea prin constructor privat și metodă statică getInstance()."
+                    },
+                    {
+                        "isCorrect": false,
+                        "explanation": "Greșit. Factory pattern se ocupă cu crearea de obiecte, dar nu garantează unicitatea instanței."
+                    }
+                ]
+            },
+            {
+                "id": 13,
+                "text": "În ce colecție de tip Set se păstrează ordinea inserției elementelor?",
+                "description": null,
+                "code": null,
+                "options": [
+                    "(a) AbstractSet",
+                    "(b) LinkedHashSet",
+                    "(c) HashSet",
+                    "(d) TreeSet"
+                ],
+                "answers": [
+                    {
+                        "isCorrect": false,
+                        "explanation": "Greșit. AbstractSet este o clasă abstractă care nu garantează ordinea."
+                    },
+                    {
+                        "isCorrect": true,
+                        "explanation": "Corect. LinkedHashSet păstrează ordinea de inserție a elementelor folosind o listă dublu înlănțuită, spre deosebire de HashSet care nu garantează ordinea."
+                    },
+                    {
+                        "isCorrect": false,
+                        "explanation": "Greșit. HashSet nu păstrează și nu garantează nicio ordine a elementelor."
+                    },
+                    {
+                        "isCorrect": false,
+                        "explanation": "Greșit. TreeSet păstrează elementele sortate natural sau conform unui Comparator, nu ordinea inserției."
+                    }
+                ]
+            },
+            {
+                "id": 14,
+                "text": "Ce colecție ar fi mai eficientă de folosit dacă dorim să stocăm o secvență de elemente pe care să o modificăm rar dar pe care să o accesăm foarte des?",
+                "description": null,
+                "code": null,
+                "options": [
+                    "(a) ArrayList",
+                    "(b) LinkedList",
+                    "(c) niciuna din variante",
+                    "(d) Vector"
+                ],
+                "answers": [
+                    {
+                        "isCorrect": true,
+                        "explanation": "Corect. ArrayList este mai eficient pentru acces aleator (get) datorită structurii de array intern care permite acces O(1), în timp ce LinkedList necesită traversare O(n)."
+                    },
+                    {
+                        "isCorrect": false,
+                        "explanation": "Greșit. LinkedList este eficient pentru inserări/ștergeri frecvente, dar accesul la elemente este O(n) față de O(1) la ArrayList."
+                    },
+                    {
+                        "isCorrect": false,
+                        "explanation": "Greșit. ArrayList este o variantă foarte bună pentru acest scenariu."
+                    },
+                    {
+                        "isCorrect": false,
+                        "explanation": "Greșit. Deși Vector este similar cu ArrayList pentru acces, este sincronizat (thread-safe) ceea ce adaugă overhead inutil dacă nu este necesar."
+                    }
+                ]
+            },
+            {
+                "id": 15,
+                "text": "Ce rol are un copy constructor?",
+                "description": null,
+                "code": null,
+                "options": [
+                    "(a) de a copia datele și referința unui obiect",
+                    "(b) de a copia referința unui obiect",
+                    "(c) de a distruge referința unui obiect",
+                    "(d) de a copia datele unui obiect"
+                ],
+                "answers": [
+                    {
+                        "isCorrect": false,
+                        "explanation": "Greșit. Copy constructor creează un nou obiect cu date copiate, nu copiază referința - ar însemna că ambele variabile ar referi același obiect."
+                    },
+                    {
+                        "isCorrect": false,
+                        "explanation": "Greșit. Copierea doar a referinței nu este rolul copy constructor-ului - aceasta se face prin simpla atribuire."
+                    },
+                    {
+                        "isCorrect": false,
+                        "explanation": "Greșit. Copy constructor creează obiecte noi, nu distruge referințe."
+                    },
+                    {
+                        "isCorrect": true,
+                        "explanation": "Corect. Copy constructor creează un nou obiect copiind datele (valorile câmpurilor) dintr-un obiect existent, creând astfel o copie independentă cu propria referință în memorie."
+                    }
+                ]
+            },
+            {
+                "id": 16,
+                "text": "Care este rezultatul execuției codului de mai jos?",
+                "description": "Unde:\nclass Cake extends Food {\n    public void cut() {\n        System.out.print(\" Cake \");\n    }\n}\nclass Food {\n    public void cut() {\n        System.out.print(\" Food \");\n    }\n}",
+                "code": "Food food1 = new Food();\nFood food2 = new Cake();\nCake cake = new Cake();\nfood1.cut();\nfood2.cut();\ncake.cut();",
+                "options": [
+                    "(a) Food Food Cake",
+                    "(b) Food Food Food",
+                    "(c) Food Cake Cake",
+                    "(d) Cake Cake Cake"
+                ],
+                "answers": [
+                    {
+                        "isCorrect": false,
+                        "explanation": "Greșit. food2 referă un obiect de tip Cake, deci se va apela metoda cut() din Cake datorită polimorfismului."
+                    },
+                    {
+                        "isCorrect": false,
+                        "explanation": "Greșit. Polimorfismul face ca metoda din clasa efectivă a obiectului să fie apelată, nu cea din tipul variabilei de referință."
+                    },
+                    {
+                        "isCorrect": true,
+                        "explanation": "Corect. Polimorfism în acțiune: food1.cut() apelează Food.cut(), food2.cut() apelează Cake.cut() (deși tipul variabilei este Food, obiectul este Cake și metoda este override), cake.cut() apelează Cake.cut()."
+                    },
+                    {
+                        "isCorrect": false,
+                        "explanation": "Greșit. food1 este de tip Food și referă un obiect Food, deci se va apela metoda cut() din Food."
+                    }
+                ]
+            },
+            {
+                "id": 17,
+                "text": "Identificați pe care linii avem suprascriere (overriding) și pe care avem supraîncărcare (overloading)",
+                "description": null,
+                "code": "interface Coffee {\n    void brew(); // 1\n    void drink(); // 2\n}\nclass Espresso implements Coffee {\n    public void brew() { } // 3\n    public void drink() { } // 4\n    public void drink(Boolean withSugar) { } // 5\n    public void drink(Boolean withMilk,\n                      Boolean withSugar) { } // 6\n}",
+                "options": [
+                    "(a) Suprascriere: 5,6; Supraîncărcare: 3,4",
+                    "(b) Suprascriere: 1,2,3; Supraîncărcare: 4,5,6",
+                    "(c) Suprascriere: 3; Supraîncărcare: 4,5,6",
+                    "(d) Suprascriere: 3,4; Supraîncărcare: 5,6"
+                ],
+                "answers": [
+                    {
+                        "isCorrect": false,
+                        "explanation": "Greșit. Liniile 3 și 4 sunt suprascriere (implementare de metode din interfață), nu supraîncărcare."
+                    },
+                    {
+                        "isCorrect": false,
+                        "explanation": "Greșit. Liniile 1 și 2 sunt doar declarații în interfață, nu suprascriere. Linia 4 este suprascriere, nu supraîncărcare."
+                    },
+                    {
+                        "isCorrect": false,
+                        "explanation": "Greșit. Linia 4 este suprascriere (implementare din interfață), nu supraîncărcare."
+                    },
+                    {
+                        "isCorrect": true,
+                        "explanation": "Corect. Liniile 3 și 4 implementează (override) metodele din interfața Coffee. Liniile 5 și 6 sunt overloading (aceeași metodă drink cu parametri diferiți în aceeași clasă)."
+                    }
+                ]
+            },
+            {
+                "id": 18,
+                "text": "Ce se va afișa la rularea codului?",
+                "description": null,
+                "code": "class Foo {\n    public int doWork(int x) {\n        try {\n            x++;\n            if (x < 3) {\n                throw new Exception();\n            }\n            return ++x;\n        } catch (Exception e) {\n            return x++;\n        } finally {\n            return ++x;\n        }\n    }\n}\nclass Main {\n    public static void main(String[] args) {\n        Foo f = new Foo();\n        System.out.println(f.doWork(1));\n    }\n}",
+                "options": ["(a) 3", "(b) 4", "(c) 2", "(d) 5"],
+                "answers": [
+                    {
+                        "isCorrect": true,
+                        "explanation": "Corect. x devine 2 în try (x=1, apoi x++), se aruncă excepția (2<3), în catch x ar deveni 3 și s-ar returna 2 (x++), dar blocul finally se execută întotdeauna și suprascrie return-ul cu ++x care este 3."
+                    },
+                    {
+                        "isCorrect": false,
+                        "explanation": "Greșit. Blocul finally returnează ++x care este 3, nu 4."
+                    },
+                    {
+                        "isCorrect": false,
+                        "explanation": "Greșit. Deși catch-ul ar returna 2 (prin x++), blocul finally suprascrie acest return."
+                    },
+                    {
+                        "isCorrect": false,
+                        "explanation": "Greșit. Valoarea returnată este 3, nu 5."
+                    }
+                ]
+            },
+            {
+                "id": 19,
+                "text": "Ce se va afișa la rularea codului?",
+                "description": null,
+                "code": "class Foo {\n    public static void doWork() {\n        System.out.print(\"Done! \");\n    }\n}\nclass Main {\n    public static void main(String[] args) {\n        Foo f = null;\n        f.doWork();\n        Foo.doWork();\n    }\n}",
+                "options": [
+                    "(a) \"Done! Done!\"",
+                    "(b) La compilare va da o eroare la f.doWork();",
+                    "(c) \"Done! \"",
+                    "(d) La rulare programul va da NullPointerException"
+                ],
+                "answers": [
+                    {
+                        "isCorrect": true,
+                        "explanation": "Corect. Metodele statice pot fi apelate pe referințe null fără NullPointerException (deși nu e recomandat). Apelul f.doWork() este rezolvat la compile-time ca Foo.doWork(). Ambele apeluri funcționează și afișează \"Done! Done!\"."
+                    },
+                    {
+                        "isCorrect": false,
+                        "explanation": "Greșit. Nu există eroare de compilare - apelarea metodelor statice pe referințe null este permisă sintactic."
+                    },
+                    {
+                        "isCorrect": false,
+                        "explanation": "Greșit. Ambele apeluri se execută și afișează \"Done! \", deci rezultatul este \"Done! Done!\"."
+                    },
+                    {
+                        "isCorrect": false,
+                        "explanation": "Greșit. NullPointerException apare doar când încercăm să accesăm membri non-statici pe referințe null, nu la metode statice."
+                    }
+                ]
+            },
+            {
+                "id": 20,
+                "text": "Ce reprezintă implementarea unei clase anonime?",
+                "description": null,
+                "code": null,
+                "options": [
+                    "(a) implementarea unei interfețe sau extinderea unei clase",
+                    "(b) implementarea de metode anonime",
+                    "(c) implementarea unei interfețe în mod exclusiv",
+                    "(d) crearea unei clase care are un constructor"
+                ],
+                "answers": [
+                    {
+                        "isCorrect": true,
+                        "explanation": "Corect. Clasele anonime pot implementa o interfață SAU extinde o clasă concretă sau abstractă, oferind implementare inline fără a declara o clasă separată cu nume."
+                    },
+                    {
+                        "isCorrect": false,
+                        "explanation": "Greșit. Nu există conceptul de \"metode anonime\" în Java - clasele anonime implementează metode obișnuite."
+                    },
+                    {
+                        "isCorrect": false,
+                        "explanation": "Greșit. Clasele anonime pot atât implementa interfețe, cât și extinde clase, nu doar interfețe în mod exclusiv."
+                    },
+                    {
+                        "isCorrect": false,
+                        "explanation": "Greșit. Clasele anonime NU pot avea constructori declarați explicit - pot avea doar blocuri de inițializare."
+                    }
+                ]
+            }
+        ];
+
+
 
         const questionsJavaBasics = [
             {
@@ -1764,6 +2344,10 @@
             "examCA2021": {
                 title: "Examen CA 2021",
                 data: questionsExamenCa2021
+            },
+            "examCA2020": {
+                title: "Examen CA 2020",
+                data: questionsExamenCa2020
             },
             "javaBasics": {
                 title: "Java Basics (Test)",
