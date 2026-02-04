@@ -146,6 +146,31 @@
             color: #555;
         }
 
+        .code-wrapper {
+            position: relative;
+        }
+
+        .copy-btn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            padding: 4px 8px;
+            font-size: 0.8rem;
+            background-color: #f8f9fa;
+            color: #333;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            cursor: pointer;
+            z-index: 5;
+            transition: all 0.2s;
+            line-height: 1.2;
+        }
+
+        .copy-btn:hover {
+            background-color: #e2e6ea;
+            border-color: #adb5bd;
+        }
+
         /* Highlight classes for results */
         .option-label.correct {
             background-color: #d4edda;
@@ -1101,7 +1126,11 @@
             let html = '';
 
             questions.forEach((q, index) => {
-                let codeBlock = q.code ? `<pre><code>${escapeHTML(q.code)}</code></pre>` : '';
+                let codeBlock = q.code ? `
+                    <div class="code-wrapper">
+                        <button class="copy-btn" onclick="copyToClipboard(${index}, this)" title="Copy code">Copy</button>
+                        <pre><code>${escapeHTML(q.code)}</code></pre>
+                    </div>` : '';
                 let descriptionHtml = q.description ? `<div class="question-description" style="margin-bottom: 15px; white-space: pre-wrap;">${escapeHTML(q.description)}</div>` : '';
 
                 let optionsHtml = q.options.map((opt, i) => `
@@ -1125,6 +1154,22 @@
             });
 
             container.innerHTML = html;
+        }
+
+        function copyToClipboard(index, btn) {
+            const rawCode = questions[index].code;
+            // Remove line numbers (e.g. "1. ")
+            const cleanCode = rawCode.replace(/^\s*\d+\.\s/gm, '');
+            
+            navigator.clipboard.writeText(cleanCode).then(() => {
+                const originalText = btn.innerText;
+                btn.innerText = 'Copied!';
+                setTimeout(() => {
+                    btn.innerText = originalText;
+                }, 2000);
+            }).catch(err => {
+                console.error('Failed to copy: ', err);
+            });
         }
 
         function checkAnswer(qIndex, selectedValue) {
