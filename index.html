@@ -2201,20 +2201,20 @@
                 "options": ["(a) 3", "(b) 4", "(c) 2", "(d) 5"],
                 "answers": [
                     {
+                        "isCorrect": false,
+                        "explanation": "Greșit. Valoarea returnată este 4, nu 3."
+                    },
+                    {
                         "isCorrect": true,
-                        "explanation": "Corect. x devine 2 în try (x=1, apoi x++), se aruncă excepția (2<3), în catch x ar deveni 3 și s-ar returna 2 (x++), dar blocul finally se execută întotdeauna și suprascrie return-ul cu ++x care este 3."
+                        "explanation": "Corect. x devine 2 în try (x=1, apoi x++), se aruncă excepția (2<3), în catch x++ returnează 2 dar înainte x devine 3, apoi finally execută ++x care face x să devină 4 și returnează 4, suprascriind return-ul din catch."
                     },
                     {
                         "isCorrect": false,
-                        "explanation": "Greșit. Blocul finally returnează ++x care este 3, nu 4."
+                        "explanation": "Greșit. Deși catch-ul ar returna 2 (valoarea lui x înainte de incrementare), blocul finally suprascrie acest return."
                     },
                     {
                         "isCorrect": false,
-                        "explanation": "Greșit. Deși catch-ul ar returna 2 (prin x++), blocul finally suprascrie acest return."
-                    },
-                    {
-                        "isCorrect": false,
-                        "explanation": "Greșit. Valoarea returnată este 3, nu 5."
+                        "explanation": "Greșit. Valoarea returnată este 4, nu 5."
                     }
                 ]
             },
