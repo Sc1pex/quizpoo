@@ -207,7 +207,7 @@
                     "id": 1,
                     "text": "Care este rezultatul următoarei secvențe?",
                     "description": null,
-                    "code": "1. package pkgA;\n2. public class Foo {\n3. int a = 5;\n4. protected int b = 6;\n5. public int c = 7;\n6. }\n\n3. package pkgB;\n4. import pkgA.*;\n5. public class Baz {\n6. public static void main(String[] args) {\n7. Foo f = new Foo();\n8. System.out.print(\" \" + f.a);\n9. System.out.print(\" \" + f.b);\n10. System.out.print(\" \" + f.c);\n11. }\n12. }",
+                    "code": "1. package pkgA;\n2. public class Foo {\n3.     int a = 5;\n4.     protected int b = 6;\n5.     public int c = 7;\n6. }\n\n3. package pkgB;\n4. import pkgA.*;\n5. public class Baz {\n6.     public static void main(String[] args) {\n7.         Foo f = new Foo();\n8.         System.out.print(\" \" + f.a);\n9.         System.out.print(\" \" + f.b);\n10.         System.out.print(\" \" + f.c);\n11.     }\n12. }",
                     "options": [
                         "5 6 7",
                         "5 urmat de eroare",
@@ -237,7 +237,7 @@
                     "id": 2,
                     "text": "Care este rezultatul următoarei secvențe?",
                     "description": null,
-                    "code": "4. class Announce {\n5. public static void main(String[] args) {\n6. for(int __x = 0; __x < 3; __x++) ;\n7. int #lb = 7;\n8. long [] x [5];\n9. Boolean []ba[];\n10. enum Traffic { RED, YELLOW, GREEN };\n11. }\n12. }",
+                    "code": "4. class Announce {\n5.     public static void main(String[] args) {\n6.         for(int __x = 0; __x < 3; __x++) ;\n7.         int #lb = 7;\n8.         long [] x [5];\n9.         Boolean []ba[];\n10.         enum Traffic { RED, YELLOW, GREEN };\n11.     }\n12. }",
                     "options": [
                         "Compilare cu succes",
                         "Eroare de compilare la linia 6",
@@ -267,7 +267,7 @@
                     "id": 3,
                     "text": "Care este rezultatul următoarei secvențe?",
                     "description": null,
-                    "code": "class Top {\n public Top(String s) { System.out.print(\"B\"); }\n}\npublic class Bottom2 extends Top {\n public Bottom2(String s) { System.out.print(\"D\");}\n public static void main(String [] args) {\n new Bottom2(\"C\");\n System.out.println(\" \");\n} }",
+                    "code": "class Top {\n    public Top(String s) { System.out.print(\"B\"); }\n}\npublic class Bottom2 extends Top {\n    public Bottom2(String s) { System.out.print(\"D\");}\n    public static void main(String [] args) {\n        new Bottom2(\"C\");\n        System.out.println(\" \");\n    }\n}",
                     "options": [
                         "Eroare de compilare",
                         "BD",
@@ -327,7 +327,7 @@
                     "id": 5,
                     "text": "Care este rezultatul următoarei secvențe?",
                     "description": null,
-                    "code": "1. class MyException extends RuntimeException { }\n2. public class Houdini {\n3. public static void main(String[] args) throws Exception {\n4. throw new MyException();\n5. System.out.println(\"success\");\n6. } }",
+                    "code": "1. class MyException extends RuntimeException { }\n2. public class Houdini {\n3.     public static void main(String[] args) throws Exception {\n4.         throw new MyException();\n5.         System.out.println(\"success\");\n6.     }\n}",
                     "options": [
                         "succes",
                         "Eroare de compilare la linia 3",
@@ -357,7 +357,7 @@
                     "id": 6,
                     "text": "Care este rezultatul următoarei secvențe?",
                     "description": null,
-                    "code": "3. class Alpha {\n4. static String s = \" \";\n5. protected Alpha() { s += \"alpha \"; }\n6. }\n7. class SubAlpha extends Alpha {\n8. private SubAlpha() { s += \"sub \"; }\n9. }\n10. public class SubSubAlpha extends Alpha {\n11. private SubSubAlpha() { s += \"subsub \"; }\n12. public static void main(String[] args) {\n13. new SubSubAlpha();\n14. System.out.println(s);\n15. }\n16. }",
+                    "code": "3. class Alpha {\n4.     static String s = \" \";\n5.     protected Alpha() { s += \"alpha \"; }\n6. }\n7. class SubAlpha extends Alpha {\n8.     private SubAlpha() { s += \"sub \"; }\n9. }\n10. public class SubSubAlpha extends Alpha {\n11.     private SubSubAlpha() { s += \"subsub \"; }\n12.     public static void main(String[] args) {\n13.         new SubSubAlpha();\n14.         System.out.println(s);\n15.     }\n16. }",
                     "options": [
                         "subsub",
                         "sub subsub",
@@ -387,7 +387,7 @@
                     "id": 7,
                     "text": "Cate obiecte sunt eligibile sa fie colectate de GC la atingerea secventei indicate?",
                     "description": null,
-                    "code": "class CardBoard {\n Short story = 200;\n CardBoard go(CardBoard cb) {\n cb = null;\n return cb;\n }\n public static void main(String[] args) {\n CardBoard c1 = new CardBoard();\n CardBoard c2 = new CardBoard();\n CardBoard c3 = c1.go(c2);\n c1 = null;\n // secventa rulare GC\n} }",
+                    "code": "class CardBoard {\n    Short story = 200;\n    CardBoard go(CardBoard cb) {\n        cb = null;\n        return cb;\n    }\n    public static void main(String[] args) {\n        CardBoard c1 = new CardBoard();\n        CardBoard c2 = new CardBoard();\n        CardBoard c3 = c1.go(c2);\n        c1 = null;\n        // secventa rulare GC\n    }\n}",
                     "options": [
                         "0",
                         "1",
@@ -447,7 +447,7 @@
                     "id": 9,
                     "text": "Care este rezultatul următoarei secvențe?",
                     "description": null,
-                    "code": "3. public class KaChung {\n4. public static void main(String[] args) {\n5. String s = \"\";\n6. if(Integer.parseInt(\"011\") == Integer.parseInt(\"9\")) s += 1;\n7. if(021 == Integer.valueOf(\"17\")) s += 2;\n8. if(1024 == new Integer(1024)) s += 3;\n9. System.out.println(s);\n10. } }",
+                    "code": "3. public class KaChung {\n4.     public static void main(String[] args) {\n5.         String s = \"\";\n6.         if(Integer.parseInt(\"011\") == Integer.parseInt(\"9\")) s += 1;\n7.         if(021 == Integer.valueOf(\"17\")) s += 2;\n8.         if(1024 == new Integer(1024)) s += 3;\n9.         System.out.println(s);\n10.     }\n}",
                     "options": [
                         "2",
                         "3",
@@ -477,7 +477,7 @@
                     "id": 10,
                     "text": "Care este rezultatul următoarei secvențe?",
                     "description": null,
-                    "code": "3. public static void main(String[] args) {\n4. try {\n5. throw new Error();\n6. }\n7. catch (Error e) {\n8. try { throw new RuntimeException(); }\n9. catch (Throwable t) { }\n10. }\n11. System.out.println(\"oioioi\");\n12. }",
+                    "code": "3. public static void main(String[] args) {\n4.     try {\n5.         throw new Error();\n6.     }\n7.     catch (Error e) {\n8.         try { throw new RuntimeException(); }\n9.         catch (Throwable t) { }\n10.     }\n11.     System.out.println(\"oioioi\");\n12. }",
                     "options": [
                         "oioioi",
                         "Eroare de compilare la linia 5",
@@ -486,20 +486,20 @@
                     ],
                     "answers": [
                         {
-                            "isCorrect": false,
-                            "explanation": "Fals. Există o eroare de compilare în cod."
-                        },
-                        {
-                            "isCorrect": false,
-                            "explanation": "Fals. Se poate arunca un Error fără probleme."
-                        },
-                        {
-                            "isCorrect": false,
-                            "explanation": "Fals. Se poate arunca RuntimeException fără probleme."
-                        },
-                        {
                             "isCorrect": true,
-                            "explanation": "Corect. La linia 8 se deschide un bloc try, dar linia 9 conține catch fără acolade pentru blocul try. Sintaxa corectă ar fi: try { throw new RuntimeException(); } catch (Throwable t) { }. Lipsa acoladelor pentru try cauzează eroare de compilare."
+                            "explanation": "Corect. Excepția Error este prinsă la linia 7. În interiorul blocului catch, se aruncă RuntimeException la linia 8, care este prinsă de catch-ul de la linia 9. Programul continuă normal și afișează 'oioioi' la linia 11."
+                        },
+                        {
+                            "isCorrect": false,
+                            "explanation": "Fals. Aruncarea unui Error este permisă în Java."
+                        },
+                        {
+                            "isCorrect": false,
+                            "explanation": "Fals. Sintaxa este validă - try-catch poate fi scris pe o singură linie când este simplu."
+                        },
+                        {
+                            "isCorrect": false,
+                            "explanation": "Fals. Sintaxa este validă - catch-ul prinde corect excepția aruncată în try-ul de pe aceeași linie."
                         }
                     ]
                 },
@@ -507,7 +507,7 @@
                     "id": 11,
                     "text": "Care este rezultatul următoarei secvențe?",
                     "description": null,
-                    "code": "class Bird {\n{ System.out.print(\"b1 \"); }\n public Bird() { System.out.print(\"b2 \"); }\n}\nclass Raptor extends Bird {\n static { System.out.print(\"r1 \"); }\n public Raptor() { System.out.print(\"r2 \"); }\n { System.out.print(\"r3 \"); }\n static { System.out.print(\"r4 \"); }\n}\nclass Hawk extends Raptor {\n public static void main(String[] args) {\n System.out.print(\"pre \");\n new Hawk();\n System.out.println(\"hawk \");\n }\n}",
+                    "code": "class Bird {\n    { System.out.print(\"b1 \"); }\n    public Bird() { System.out.print(\"b2 \"); }\n}\nclass Raptor extends Bird {\n    static { System.out.print(\"r1 \"); }\n    public Raptor() { System.out.print(\"r2 \"); }\n    { System.out.print(\"r3 \"); }\n    static { System.out.print(\"r4 \"); }\n}\nclass Hawk extends Raptor {\n    public static void main(String[] args) {\n        System.out.print(\"pre \");\n        new Hawk();\n        System.out.println(\"hawk \");\n    }\n}",
                     "options": [
                         "pre b1 b2 r3 r2 hawk",
                         "pre b2 b1 r2 r3 hawk",
@@ -537,7 +537,7 @@
                     "id": 12,
                     "text": "Care este rezultatul următoarei secvențe?",
                     "description": null,
-                    "code": "3. public class Ouch {\n4. static int ouch = 7;\n5. public static void main(String[] args) {\n6. new Ouch().go(ouch);\n7. System.out.print(\" \" + ouch);\n8. }\n9. void go(int ouch) {\n10. ouch++;\n11. for(int ouch = 3; ouch < 6; ouch++)\n12. ;\n13. System.out.print(\" \" + ouch);\n14. }\n15. }",
+                    "code": "3. public class Ouch {\n4.     static int ouch = 7;\n5.     public static void main(String[] args) {\n6.         new Ouch().go(ouch);\n7.         System.out.print(\" \" + ouch);\n8.     }\n9.     void go(int ouch) {\n10.         ouch++;\n11.         for(int ouch = 3; ouch < 6; ouch++)\n12.             ;\n13.         System.out.print(\" \" + ouch);\n14.     }\n15. }",
                     "options": [
                         "Eroare de compilare",
                         "5 7",
@@ -567,7 +567,7 @@
                     "id": 13,
                     "text": "Care afirmatie este corecta in momentul atingerii liniei 14?",
                     "description": null,
-                    "code": "3. class Dozens {\n4. int[] dz = {1,2,3,4,5,6,7,8,9,10,11,12};\n5. }\n6. public class Eggs {\n7. public static void main(String[] args) {\n8. Dozens [] da = new Dozens[3];\n9. da[0] = new Dozens();\n10. Dozens d = new Dozens();\n11. da[1] = d;\n12. d = null;\n13. da[1] = null;\n14. // secventa rulare GC\n15. }\n16. }",
+                    "code": "3. class Dozens {\n4.     int[] dz = {1,2,3,4,5,6,7,8,9,10,11,12};\n5. }\n6. public class Eggs {\n7.     public static void main(String[] args) {\n8.         Dozens [] da = new Dozens[3];\n9.         da[0] = new Dozens();\n10.         Dozens d = new Dozens();\n11.         da[1] = d;\n12.         d = null;\n13.         da[1] = null;\n14.         // secventa rulare GC\n15.     }\n16. }",
                     "options": [
                         "1 obiect este preluat de GC",
                         "2 obiecte sunt preluate de GC",
@@ -595,9 +595,9 @@
                 },
                 {
                     "id": 14,
-                    "text": "Pornind de la declaratia?\n\nSi avand urmatoarele secvente de cod:\n\nF1. if(f1 == f2)\nF2. if(f1 == f2[2][1])\nF3. if(x == f2[0][0])\nF4. if(f1 == f2[1,1])\nF5. if(f3 == f2[2])\n\nCare afirmatie este corecta",
-                    "description": null,
-                    "code": "1. class Comp {\n2. public static void main(String[] args) {\n3. float f1 = 2.3f;\n4. float[][] f2 = {{42.0f}, {1.7f, 2.3f}, {2.6f, 2.7f}};\n5. float[] f3 = {2.7f};\n6. Long x = 42L;\n7. // inserati o secventa de cod aici\n8. System.out.println(\"true\");\n9. }\n10.}",
+                    "text": "Pornind de la declaratia?\n\nSi avand urmatoarele secvente de cod:\n\nCare afirmatie este corecta",
+                    "description": "F1. if(f1 == f2)\nF2. if(f1 == f2[2][1])\nF3. if(x == f2[0][0])\nF4. if(f1 == f2[1,1])\nF5. if(f3 == f2[2])",
+                    "code": "1. class Comp {\n2.     public static void main(String[] args) {\n3.         float f1 = 2.3f;\n4.         float[][] f2 = {{42.0f}, {1.7f, 2.3f}, {2.6f, 2.7f}};\n5.         float[] f3 = {2.7f};\n6.         Long x = 42L;\n7.         // inserati o secventa de cod aici\n8.         System.out.println(\"true\");\n9.     }\n10. }",
                     "options": [
                         "1 secv va compila si 1 secv va intoarce true",
                         "2 secv vor compila si 1 secv va intoarce true",
@@ -627,7 +627,7 @@
                     "id": 15,
                     "text": "Care este rezultatul următoarei secvențe?",
                     "description": null,
-                    "code": "3. interface Vessel { }\n4. interface Toy { }\n5. class Boat implements Vessel { }\n6. class Speedboat extends Boat implements Toy { }\n7. public class Tree {\n8. public static void main(String[] args) {\n9. String s = \"0\";\n10. Boat b = new Boat();\n11. Boat b2 = new Speedboat();\n12. Speedboat s2 = new Speedboat();\n13. if((b instanceof Vessel) && (b2 instanceof Toy)) s += \"1\";\n14. if((s2 instanceof Vessel) && (s2 instanceof Toy)) s += \"2\";\n15. System.out.println(s);\n16. }\n17. }",
+                    "code": "3. interface Vessel { }\n4. interface Toy { }\n5. class Boat implements Vessel { }\n6. class Speedboat extends Boat implements Toy { }\n7. public class Tree {\n8.     public static void main(String[] args) {\n9.         String s = \"0\";\n10.         Boat b = new Boat();\n11.         Boat b2 = new Speedboat();\n12.         Speedboat s2 = new Speedboat();\n13.         if((b instanceof Vessel) && (b2 instanceof Toy)) s += \"1\";\n14.         if((s2 instanceof Vessel) && (s2 instanceof Toy)) s += \"2\";\n15.         System.out.println(s);\n16.     }\n17. }",
                     "options": [
                         "0",
                         "01",
@@ -657,7 +657,7 @@
                     "id": 16,
                     "text": "Care este rezultatul următoarei secvențe?",
                     "description": null,
-                    "code": "3. public class Circles {\n4. public static void main(String[] args) {\n5. int[] ia = {1,3,5,7,9};\n6. for(int x : ia) {\n7. for(int j = 0; j < 3; j++) {\n8. if(x > 4 && x < 8) continue;\n9. System.out.print(\" \" + x);\n10. if(j == 1) break;\n11. continue;\n12. }\n13. continue;\n14. }\n15. }\n16. }",
+                    "code": "3. public class Circles {\n4.     public static void main(String[] args) {\n5.         int[] ia = {1,3,5,7,9};\n6.         for(int x : ia) {\n7.             for(int j = 0; j < 3; j++) {\n8.                 if(x > 4 && x < 8) continue;\n9.                 System.out.print(\" \" + x);\n10.                 if(j == 1) break;\n11.                 continue;\n12.             }\n13.             continue;\n14.         }\n15.     }\n16. }",
                     "options": [
                         "1 3 9",
                         "5 5 7 7",
@@ -687,7 +687,7 @@
                     "id": 17,
                     "text": "Care afirmatie este corecta?",
                     "description": null,
-                    "code": "3. public class Theory {\n4. public static void main(String[] args) {\n5. String s1 = \"abc\";\n6. String s2 = s1;\n7. s1 += \"d\";\n8. System.out.println(s1 + \" \" + s2 + \" \" + (s1==s2));\n9.\n10. StringBuffer sb1 = new StringBuffer(\"abc\");\n11. StringBuffer sb2 = sb1;\n12. sb1.append(\"d\");\n13. System.out.println(sb1 + \" \" + sb2 + \" \" + (sb1==sb2));\n14. }\n15. }",
+                    "code": "3. public class Theory {\n4.     public static void main(String[] args) {\n5.         String s1 = \"abc\";\n6.         String s2 = s1;\n7.         s1 += \"d\";\n8.         System.out.println(s1 + \" \" + s2 + \" \" + (s1==s2));\n9.\n10.         StringBuffer sb1 = new StringBuffer(\"abc\");\n11.         StringBuffer sb2 = sb1;\n12.         sb1.append(\"d\");\n13.         System.out.println(sb1 + \" \" + sb2 + \" \" + (sb1==sb2));\n14.     }\n15. }",
                     "options": [
                         "Prima linie este abc abc false",
                         "Prima linie este abcd abc false",
@@ -717,7 +717,7 @@
                     "id": 18,
                     "text": "Care declaratie este admisibila?",
                     "description": null,
-                    "code": "public static void main(String[] args) {\n // inserati declaratia\n for (int i = 0; i <= 10; i++) {\n List<Integer> row = new ArrayList<Integer>();\n for (int j = 0; j <= 10; j++)\n row.add(i * j);\n table.add(row);\n }\n for (List<Integer> row : table)\n System.out.println(row);\n}",
+                    "code": "public static void main(String[] args) {\n    // inserati declaratia\n    for (int i = 0; i <= 10; i++) {\n        List<Integer> row = new ArrayList<Integer>();\n        for (int j = 0; j <= 10; j++)\n            row.add(i * j);\n        table.add(row);\n    }\n    for (List<Integer> row : table)\n        System.out.println(row);\n}",
                     "options": [
                         "List<List<Integer>> table = new List<List<Integer>>();",
                         "List<List<Integer>> table = new ArrayList<List<Integer>>();",
@@ -747,7 +747,7 @@
                     "id": 19,
                     "text": "Care este rezultatul următoarei secvențe?",
                     "description": null,
-                    "code": "3. import java.util.*;\n4. class Dog { int size; Dog(int s) { size = s; } }\n5. public class FirstGrade {\n6. public static void main(String[] args) {\n7. TreeSet<Integer> i = new TreeSet<Integer>();\n8. TreeSet<Dog> d = new TreeSet<Dog>();\n9.\n10. d.add(new Dog(1)); d.add(new Dog(2)); d.add(new Dog(1));\n11. i.add(1); i.add(2); i.add(1);\n12. System.out.println(d.size() + \" \" + i.size());\n13. }\n14. }",
+                    "code": "3. import java.util.*;\n4. class Dog { int size; Dog(int s) { size = s; } }\n5. public class FirstGrade {\n6.     public static void main(String[] args) {\n7.         TreeSet<Integer> i = new TreeSet<Integer>();\n8.         TreeSet<Dog> d = new TreeSet<Dog>();\n9.\n10.         d.add(new Dog(1)); d.add(new Dog(2)); d.add(new Dog(1));\n11.         i.add(1); i.add(2); i.add(1);\n12.         System.out.println(d.size() + \" \" + i.size());\n13.     }\n14. }",
                     "options": [
                         "1 2",
                         "2 2",
@@ -807,7 +807,7 @@
                     "id": 21,
                     "text": "Care este rezultatul următoarei secvențe?",
                     "description": null,
-                    "code": "1. public class HorseTest {\n2. public static void main(String[] args) {\n3. class Horse {\n4. public String name;\n5. public Horse(String s) {\n6. name = s;\n7. }\n8. }\n9. Object obj = new Horse(\"Zippo\");\n10. System.out.println(obj.name);\n11. }\n12. }",
+                    "code": "1. public class HorseTest {\n2.     public static void main(String[] args) {\n3.         class Horse {\n4.             public String name;\n5.             public Horse(String s) {\n6.                 name = s;\n7.             }\n8.         }\n9.         Object obj = new Horse(\"Zippo\");\n10.         System.out.println(obj.name);\n11.     }\n12. }",
                     "options": [
                         "Exceptie de rulare la linia 10",
                         "Eroare de compilare la linia 3",
@@ -837,7 +837,7 @@
                     "id": 22,
                     "text": "Care este rezultatul următoarei secvențe?",
                     "description": null,
-                    "code": "5. class A { void m() { System.out.println(\"outer\"); } }\n6. public class TestInners {\n7. public static void main(String[] args) {\n8. new TestInners().go();\n9. }\n10. void go() {\n11. new A().m();\n12. class A { void m() { System.out.println(\"inner\"); } }\n13. }\n14. class A { void m() { System.out.println(\"middle\"); } }\n15. }",
+                    "code": "5. class A { void m() { System.out.println(\"outer\"); } }\n6. public class TestInners {\n7.     public static void main(String[] args) {\n8.         new TestInners().go();\n9.     }\n10.     void go() {\n11.         new A().m();\n12.         class A { void m() { System.out.println(\"inner\"); } }\n13.     }\n14.     class A { void m() { System.out.println(\"middle\"); } }\n15. }",
                     "options": [
                         "inner",
                         "middle",
@@ -847,15 +847,15 @@
                     "answers": [
                         {
                             "isCorrect": false,
-                            "explanation": "Fals. Clasa A locală (inner) este declarată după utilizare la linia 11."
-                        },
-                        {
-                            "isCorrect": false,
-                            "explanation": "Fals. Clasa A member (middle) nu este vizibilă în metoda go() când se apelează new A() la linia 11."
+                            "explanation": "Fals. Clasa A locală (inner) este declarată după apelul la linia 11, deci nu este vizibilă la momentul apelului."
                         },
                         {
                             "isCorrect": true,
-                            "explanation": "Corect. La linia 11, new A() se referă la clasa outer A (din linia 5), deoarece clasa locală A din linia 12 nu este încă declarată la momentul apelului. Se afișează 'outer'."
+                            "explanation": "Corect. La linia 11, new A() se referă la clasa member A (middle) din linia 14, care este vizibilă în metoda go(). Clasa locală A din linia 12 nu este vizibilă încă, iar clasa outer A nu este vizibilă direct în metoda de instanță. Se afișează 'middle'."
+                        },
+                        {
+                            "isCorrect": false,
+                            "explanation": "Fals. Clasa outer A nu este cea mai apropiată în scope-ul metodei go()."
                         },
                         {
                             "isCorrect": false,
@@ -867,7 +867,7 @@
                     "id": 23,
                     "text": "Care este rezultatul următoarei secvențe?",
                     "description": null,
-                    "code": "3. public class Navel {\n4. private int size = 7;\n5. private static int length = 3;\n6. public static void main(String[] args) {\n7. new Navel().go();\n8. }\n9. void go() {\n10. int size = 5;\n11. System.out.println(new Gazer().adder());\n12. }\n13. class Gazer {\n14. int adder() { return size * length; }\n15. }\n16. }",
+                    "code": "3. public class Navel {\n4.     private int size = 7;\n5.     private static int length = 3;\n6.     public static void main(String[] args) {\n7.         new Navel().go();\n8.     }\n9.     void go() {\n10.         int size = 5;\n11.         System.out.println(new Gazer().adder());\n12.     }\n13.     class Gazer {\n14.         int adder() { return size * length; }\n15.     }\n16. }",
                     "options": [
                         "15",
                         "21",
@@ -897,7 +897,7 @@
                     "id": 24,
                     "text": "Care este rezultatul următoarei secvențe?",
                     "description": null,
-                    "code": "class MyThread extends Thread {\n MyThread() {\n System.out.print(\" MyThread\");\n }\n public void run() { System.out.print(\" bar\"); }\n public void run(String s) { System.out.print(\" baz\"); }\n}\npublic class TestThreads {\n public static void main (String [] args) {\n Thread t = new MyThread() {\n public void run() { System.out.print(\" foo\"); }\n };\n t.start();\n} }",
+                    "code": "class MyThread extends Thread {\n    MyThread() {\n        System.out.print(\" MyThread\");\n    }\n    public void run() { System.out.print(\" bar\"); }\n    public void run(String s) { System.out.print(\" baz\"); }\n}\npublic class TestThreads {\n    public static void main (String [] args) {\n        Thread t = new MyThread() {\n            public void run() { System.out.print(\" foo\"); }\n        };\n        t.start();\n    }\n}",
                     "options": [
                         "foo",
                         "MyThread foo",
@@ -927,7 +927,7 @@
                     "id": 25,
                     "text": "Care este rezultatul următoarei secvențe?",
                     "description": null,
-                    "code": "1. public class Argue {\n2. static boolean b;\n3. static int x = 0;\n4. public static void main(String[] args) {\n5. int guess = (int)(Math.random() * 5);\n6. if(guess < 0) assert false;\n7. assert b = true;\n8. assert x = 0;\n9. assert x == 0;\n10. } }",
+                    "code": "1. public class Argue {\n2.     static boolean b;\n3.     static int x = 0;\n4.     public static void main(String[] args) {\n5.         int guess = (int)(Math.random() * 5);\n6.         if(guess < 0) assert false;\n7.         assert b = true;\n8.         assert x = 0;\n9.         assert x == 0;\n10.     }\n}",
                     "options": [
                         "Eroare de compilare la linia 6",
                         "Eroare de compilare la linia 7",
@@ -957,7 +957,7 @@
                     "id": 26,
                     "text": "Care este rezultatul următoarei secvențe?",
                     "description": null,
-                    "code": "2. import java.util.*;\n3. public class AndOver {\n4. public static void main(String[] args) {\n5. List g = new ArrayList();\n6. g.add(new Gaited(\"Eyra\"));\n7. g.add(new Gaited(\"Vafi\"));\n8. g.add(new Gaited(\"Andi\"));\n9. Iterator i2 = g.iterator();\n10. while(i2.hasNext()) {\n11. System.out.print(i2.next().name + \" \");\n12. } } }\n13. class Gaited {\n14. public String name;\n15. Gaited(String n) { name = n; }\n16. }",
+                    "code": "2. import java.util.*;\n3. public class AndOver {\n4.     public static void main(String[] args) {\n5.         List g = new ArrayList();\n6.         g.add(new Gaited(\"Eyra\"));\n7.         g.add(new Gaited(\"Vafi\"));\n8.         g.add(new Gaited(\"Andi\"));\n9.         Iterator i2 = g.iterator();\n10.         while(i2.hasNext()) {\n11.             System.out.print(i2.next().name + \" \");\n12.         }\n13.     }\n}\n13. class Gaited {\n14.     public String name;\n15.     Gaited(String n) { name = n; }\n16. }",
                     "options": [
                         "Eroare de rulare",
                         "Andi Eyra Vafi",
@@ -987,7 +987,7 @@
                     "id": 27,
                     "text": "Care este rezultatul următoarei secvențe?",
                     "description": null,
-                    "code": "2. public class Maize {\n3. public static void main(String[] args) {\n4. String s = \"12\";\n5. s.concat(\"ab\");\n6. s = go(s);\n7. System.out.println(s);\n8. }\n9. static String go(String s) {\n10. s.concat(\"56\");\n11. return s;\n12. } }",
+                    "code": "2. public class Maize {\n3.     public static void main(String[] args) {\n4.         String s = \"12\";\n5.         s.concat(\"ab\");\n6.         s = go(s);\n7.         System.out.println(s);\n8.     }\n9.     static String go(String s) {\n10.         s.concat(\"56\");\n11.         return s;\n12.     }\n}",
                     "options": [
                         "ab",
                         "12",
@@ -1017,7 +1017,7 @@
                     "id": 28,
                     "text": "Care este rezultatul următoarei secvențe?",
                     "description": null,
-                    "code": "13. int count = 0;\n14. outer:\n15. for(int x = 0; x < 5; x++) {\n16. middle:\n17. for(int y = 0; y < 5; y++) {\n18. if(y == 1) continue middle;\n19. if(y == 3) break middle;\n20. count++;\n21. }\n22. if(x > 2) continue outer;\n23. count = count + 10;\n24. }\n25. System.out.println(\"count: \" + count);",
+                    "code": "13. int count = 0;\n14. outer:\n15. for(int x = 0; x < 5; x++) {\n16.     middle:\n17.     for(int y = 0; y < 5; y++) {\n18.         if(y == 1) continue middle;\n19.         if(y == 3) break middle;\n20.         count++;\n21.     }\n22.     if(x > 2) continue outer;\n23.     count = count + 10;\n24. }\n25. System.out.println(\"count: \" + count);",
                     "options": [
                         "count: 33",
                         "count: 40",
@@ -1026,20 +1026,20 @@
                     ],
                     "answers": [
                         {
+                            "isCorrect": false,
+                            "explanation": "Fals. Calculul corect dă un rezultat diferit."
+                        },
+                        {
                             "isCorrect": true,
-                            "explanation": "Corect. Pentru fiecare x (0-4), bucla interioară execută count++ pentru y=0,2 (2 ori/iterație = 10 total). count += 10 se execută pentru x=0,1,2 (3 ori = 30). Total: 10 + 30 = 40... Analiză detaliată: x=0: y=0(count=1), y=2(count=2), apoi count+=10(count=12). x=1: count=14, apoi count=24. x=2: count=26, apoi count=36. x=3,4: count=38, count=40. Rezultat incorect în cheie - ar trebui 40, dar conform PDF răspunsul corect marcat este A (33)."
+                            "explanation": "Corect. Pentru fiecare iterație x (0-4), bucla interioară execută count++ pentru y=0 și y=2 (y=1 face continue, y=3 face break), deci 2 incrementări per iterație exterioară = 10 total. Apoi count+=10 se execută doar pentru x=0,1,2 (când x>2 se face continue outer), deci 3×10 = 30. Total: 10 + 30 = 40."
                         },
                         {
                             "isCorrect": false,
-                            "explanation": "Fals. Calculul nu dă acest rezultat."
+                            "explanation": "Fals. Calculul nu ține cont de break-ul de la middle când y==3."
                         },
                         {
                             "isCorrect": false,
-                            "explanation": "Fals. Calculul nu dă acest rezultat."
-                        },
-                        {
-                            "isCorrect": false,
-                            "explanation": "Fals. Calculul nu dă acest rezultat."
+                            "explanation": "Fals. Calculul nu ține cont de continue outer când x>2."
                         }
                     ]
                 },
@@ -1077,7 +1077,7 @@
                     "id": 30,
                     "text": "Care este rezultatul următoarei secvențe?",
                     "description": null,
-                    "code": "2. public class Clover extends Harrier {\n3. String bark() { return \"feed me \"; }\n4. public static void main(String[] args) {\n5. Dog[] dogs = new Dog[3];\n6. dogs[0] = new Harrier();\n7. dogs[1] = (Dog)new Clover();\n8. dogs[2] = (Dog)new Harrier();\n9. for(Dog d: dogs) System.out.print(d.bark());\n10. } }\n11. class Dog { String bark() { return \"bark \"; } }\n12. class Harrier extends Dog { String bark() { return \"woof \"; } }",
+                    "code": "2. public class Clover extends Harrier {\n3.     String bark() { return \"feed me \"; }\n4.     public static void main(String[] args) {\n5.         Dog[] dogs = new Dog[3];\n6.         dogs[0] = new Harrier();\n7.         dogs[1] = (Dog)new Clover();\n8.         dogs[2] = (Dog)new Harrier();\n9.         for(Dog d: dogs) System.out.print(d.bark());\n10.     }\n}\n11. class Dog { String bark() { return \"bark \"; } }\n12. class Harrier extends Dog { String bark() { return \"woof \"; } }",
                     "options": [
                         "bark bark bark",
                         "woof bark bark",
@@ -1160,7 +1160,7 @@
             const rawCode = questions[index].code;
             // Remove line numbers (e.g. "1. ")
             const cleanCode = rawCode.replace(/^\s*\d+\.\s/gm, '');
-            
+
             navigator.clipboard.writeText(cleanCode).then(() => {
                 const originalText = btn.innerText;
                 btn.innerText = 'Copied!';
