@@ -1975,16 +1975,16 @@
                         "explanation": "Greșit. Nu putem instanția Animal deoarece este o clasă abstractă, iar downcast-ul de la clasa abstractă la subclasă este invalid."
                     },
                     {
-                        "isCorrect": false,
-                        "explanation": "Greșit. Nu putem instanția Feline doar dacă Feline este și ea abstractă. Dacă Feline este concretă, această variantă ar fi corectă prin polimorfism, dar conform enunțului, răspunsul corect este altul."
+                        "isCorrect": true,
+                        "explanation": "Corect. Dacă Feline este o clasă concretă (nu abstractă), putem instanția un obiect de tip Feline și îl putem referi prin variabila de tip Animal datorită polimorfismului (upcast de la subclasă la superclasă)."
                     },
                     {
                         "isCorrect": false,
                         "explanation": "Greșit. Nu putem instanția Animal deoarece este o clasă abstractă."
                     },
                     {
-                        "isCorrect": true,
-                        "explanation": "Corect. Dacă Feline este o clasă concretă, putem face referință de tip Lion la un obiect Feline prin polimorfism (upcast implicit). Totuși, această linie va da eroare de compilare deoarece Lion este mai specific decât Feline și necesită cast explicit. Răspunsul presupune că toate celelalte opțiuni sunt evident greșite din cauza instanțierii de clase abstracte."
+                        "isCorrect": false,
+                        "explanation": "Greșit. Nu putem face downcast implicit de la Feline la Lion fără un cast explicit, și chiar cu cast ar da ClassCastException la runtime dacă obiectul nu este de fapt un Lion."
                     }
                 ]
             },
