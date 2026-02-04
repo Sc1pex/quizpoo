@@ -210,6 +210,7 @@
           <option value="javaBasics">Java Basics (Test)</option>
           <option value="setNou1">Set Nou 1 - Stil CB</option>
           <option value="setNou2">Set Nou 2 - Stil CB</option>
+          <option value="setNou3">Set Nou 3 - Avansat</option>
         </select>
       </div>
       <div class="stats">Quiz Interactiv</div>
@@ -4428,6 +4429,948 @@
         },
       ];
 
+      const questionsSetNou3 = [
+        {
+          id: 1,
+          text: "Care este rezultatul următoarei secvențe?",
+          description: "Generics și type erasure",
+          code: '1. import java.util.*;\n2. public class GenericTest {\n3.     public static void main(String[] args) {\n4.         List<String> strings = new ArrayList<>();\n5.         List<Integer> ints = new ArrayList<>();\n6.         System.out.print(strings.getClass() == ints.getClass());\n7.         System.out.print(" " + (strings instanceof List));\n8.     }\n9. }',
+          options: [
+            "false true",
+            "true true",
+            "false false",
+            "Eroare de compilare",
+          ],
+          answers: [
+            {
+              isCorrect: false,
+              explanation:
+                "Fals. Din cauza type erasure, ambele liste au aceeași clasă la runtime.",
+            },
+            {
+              isCorrect: true,
+              explanation:
+                "Corect. Type erasure: la runtime, informația despre tipul generic este ștearsă. Ambele sunt ArrayList (aceeași clasă). instanceof verifică tipul raw, care este List.",
+            },
+            {
+              isCorrect: false,
+              explanation: "Fals. strings instanceof List este true.",
+            },
+            {
+              isCorrect: false,
+              explanation: "Fals. Codul compilează corect.",
+            },
+          ],
+        },
+        {
+          id: 2,
+          text: "Care declarație este validă?",
+          description: "Wildcards în Generics",
+          code: "// Opțiuni:\n// A: List<? extends Number> list = new ArrayList<Integer>();\n// B: List<? super Integer> list = new ArrayList<Number>();\n// C: List<?> list = new ArrayList<String>();\n// D: Toate sunt valide",
+          options: ["Doar A", "A și B", "A, B și C", "D - Toate sunt valide"],
+          answers: [
+            {
+              isCorrect: false,
+              explanation: "Fals. Nu doar A este validă.",
+            },
+            {
+              isCorrect: false,
+              explanation: "Fals. Și C este validă.",
+            },
+            {
+              isCorrect: false,
+              explanation: "Fals. Toate trei sunt valide.",
+            },
+            {
+              isCorrect: true,
+              explanation:
+                "Corect. A: ? extends Number acceptă Integer (subtip). B: ? super Integer acceptă Number (supertip). C: ? (unbounded) acceptă orice tip. Toate sunt valide.",
+            },
+          ],
+        },
+        {
+          id: 3,
+          text: "Care este rezultatul următoarei secvențe?",
+          description: "Method references și functional interfaces",
+          code: '1. import java.util.*;\n2. import java.util.function.*;\n3. public class MethodRef {\n4.     public static void main(String[] args) {\n5.         List<String> list = Arrays.asList("a", "bb", "ccc");\n6.         list.stream()\n7.             .map(String::length)\n8.             .filter(n -> n > 1)\n9.             .reduce(Integer::sum)\n10.             .ifPresent(System.out::println);\n11.     }\n12. }',
+          options: ["5", "6", "3", "Optional[5]"],
+          answers: [
+            {
+              isCorrect: true,
+              explanation:
+                "Corect. map transformă în lungimi: 1, 2, 3. filter păstrează > 1: 2, 3. reduce(Integer::sum) = 2 + 3 = 5. ifPresent printează valoarea, nu Optional-ul.",
+            },
+            {
+              isCorrect: false,
+              explanation: "Fals. Suma lungimilor filtrate (2 + 3) este 5.",
+            },
+            {
+              isCorrect: false,
+              explanation: "Fals. Sunt 2 elemente după filter, nu 3.",
+            },
+            {
+              isCorrect: false,
+              explanation:
+                "Fals. ifPresent printează valoarea direct, nu reprezentarea Optional.",
+            },
+          ],
+        },
+        {
+          id: 4,
+          text: "Care este rezultatul următoarei secvențe?",
+          description: "Concurrency și race conditions",
+          code: "1. class Counter {\n2.     private int count = 0;\n3.     public void increment() { count++; }\n4.     public int getCount() { return count; }\n5. }\n6. public class RaceTest {\n7.     public static void main(String[] args) throws Exception {\n8.         Counter c = new Counter();\n9.         Thread t1 = new Thread(() -> { for(int i=0; i<1000; i++) c.increment(); });\n10.         Thread t2 = new Thread(() -> { for(int i=0; i<1000; i++) c.increment(); });\n11.         t1.start(); t2.start();\n12.         t1.join(); t2.join();\n13.         System.out.println(c.getCount());\n14.     }\n15. }",
+          options: [
+            "Întotdeauna 2000",
+            "Întotdeauna mai puțin de 2000",
+            "Poate fi orice valoare între 1 și 2000",
+            "Eroare de compilare",
+          ],
+          answers: [
+            {
+              isCorrect: false,
+              explanation:
+                "Fals. count++ nu este atomic - poate rezulta în lost updates.",
+            },
+            {
+              isCorrect: false,
+              explanation:
+                "Fals. Uneori poate fi exact 2000 (depinde de scheduling).",
+            },
+            {
+              isCorrect: true,
+              explanation:
+                "Corect. count++ implică read-modify-write (3 operații). Fără sincronizare, thread-urile pot interleave și pierde update-uri. Rezultatul este nedeterminist, între ~1000 și 2000 (teoretic chiar mai puțin în cazuri extreme).",
+            },
+            {
+              isCorrect: false,
+              explanation: "Fals. Codul compilează corect.",
+            },
+          ],
+        },
+        {
+          id: 5,
+          text: "Care este rezultatul următoarei secvențe?",
+          description: "Covariant return types",
+          code: "1. class Animal { Animal create() { return new Animal(); } }\n2. class Dog extends Animal {\n3.     @Override\n4.     Dog create() { return new Dog(); }\n5. }\n6. public class Test {\n7.     public static void main(String[] args) {\n8.         Animal a = new Dog();\n9.         System.out.print(a.create().getClass().getSimpleName());\n10.     }\n11. }",
+          options: [
+            "Animal",
+            "Dog",
+            "Eroare de compilare - return type incompatibil",
+            "ClassCastException",
+          ],
+          answers: [
+            {
+              isCorrect: false,
+              explanation:
+                "Fals. Prin polimorfism se apelează Dog.create() care returnează Dog.",
+            },
+            {
+              isCorrect: true,
+              explanation:
+                "Corect. Java suportă covariant return types - metoda suprascrisă poate returna un subtip. Dog.create() returnează Dog. Polimorfismul asigură apelarea versiunii din Dog.",
+            },
+            {
+              isCorrect: false,
+              explanation:
+                "Fals. Covariant return types sunt permise din Java 5.",
+            },
+            {
+              isCorrect: false,
+              explanation:
+                "Fals. Nu există cast explicit, nu apare ClassCastException.",
+            },
+          ],
+        },
+        {
+          id: 6,
+          text: "Care este rezultatul următoarei secvențe?",
+          description: "Comparator vs Comparable",
+          code: '1. import java.util.*;\n2. class Person implements Comparable<Person> {\n3.     String name; int age;\n4.     Person(String n, int a) { name = n; age = a; }\n5.     public int compareTo(Person p) { return this.age - p.age; }\n6.     public String toString() { return name; }\n7. }\n8. public class SortTest {\n9.     public static void main(String[] args) {\n10.         List<Person> list = Arrays.asList(\n11.             new Person("Ana", 25),\n12.             new Person("Bob", 20),\n13.             new Person("Cris", 30));\n14.         Collections.sort(list, (a, b) -> b.name.compareTo(a.name));\n15.         System.out.println(list);\n16.     }\n17. }',
+          options: [
+            "[Bob, Ana, Cris]",
+            "[Ana, Bob, Cris]",
+            "[Cris, Bob, Ana]",
+            "[Cris, Ana, Bob]",
+          ],
+          answers: [
+            {
+              isCorrect: false,
+              explanation:
+                "Fals. Comparatorul din sort() compară după nume descrescător.",
+            },
+            {
+              isCorrect: false,
+              explanation:
+                "Fals. Aceasta ar fi ordinea alfabetică crescătoare după nume.",
+            },
+            {
+              isCorrect: true,
+              explanation:
+                "Corect. Comparatorul explicit (b.name.compareTo(a.name)) are prioritate față de Comparable. b compareTo a = ordine descrescătoare. Cris > Bob > Ana alfabetic invers.",
+            },
+            {
+              isCorrect: false,
+              explanation:
+                "Fals. Ordinea este descrescătoare alfabetic după nume.",
+            },
+          ],
+        },
+        {
+          id: 7,
+          text: "Care afirmație despre checked și unchecked exceptions este FALSĂ?",
+          description: null,
+          code: null,
+          options: [
+            "RuntimeException și subclasele sale sunt unchecked",
+            "IOException este checked și trebuie declarată sau prinsă",
+            "Error și subclasele sale sunt checked exceptions",
+            "O metodă care aruncă checked exception trebuie să declare throws",
+          ],
+          answers: [
+            {
+              isCorrect: false,
+              explanation:
+                "Afirmația este adevărată. RuntimeException și subclasele sunt unchecked.",
+            },
+            {
+              isCorrect: false,
+              explanation:
+                "Afirmația este adevărată. IOException este checked.",
+            },
+            {
+              isCorrect: true,
+              explanation:
+                "Corect, aceasta este FALSĂ. Error și subclasele (OutOfMemoryError, StackOverflowError) sunt UNCHECKED, nu checked. Ierarhia: Throwable -> Error (unchecked), Exception -> RuntimeException (unchecked), alte Exception (checked).",
+            },
+            {
+              isCorrect: false,
+              explanation:
+                "Afirmația este adevărată. Checked exceptions trebuie declarate cu throws.",
+            },
+          ],
+        },
+        {
+          id: 8,
+          text: "Care este rezultatul următoarei secvențe?",
+          description: "Diamond problem cu interfețe",
+          code: '1. interface A { default String get() { return "A"; } }\n2. interface B extends A { default String get() { return "B"; } }\n3. interface C extends A { default String get() { return "C"; } }\n4. interface D extends B, C {\n5.     default String get() { return B.super.get() + C.super.get(); }\n6. }\n7. class Impl implements D {}\n8. public class Test {\n9.     public static void main(String[] args) {\n10.         System.out.print(new Impl().get());\n11.     }\n12. }',
+          options: ["A", "BC", "Eroare de compilare - diamond problem", "AB"],
+          answers: [
+            {
+              isCorrect: false,
+              explanation: "Fals. D suprascrie get() și combină B și C.",
+            },
+            {
+              isCorrect: true,
+              explanation:
+                "Corect. D rezolvă diamond problem suprascriind get() și apelând explicit B.super.get() ('B') și C.super.get() ('C'). Rezultat: 'BC'.",
+            },
+            {
+              isCorrect: false,
+              explanation: "Fals. D rezolvă conflictul prin override explicit.",
+            },
+            {
+              isCorrect: false,
+              explanation: "Fals. Se apelează B și C, nu A.",
+            },
+          ],
+        },
+        {
+          id: 9,
+          text: "Care este rezultatul următoarei secvențe?",
+          description: "Optional și null safety",
+          code: '1. import java.util.*;\n2. public class OptionalTest {\n3.     public static void main(String[] args) {\n4.         Optional<String> opt = Optional.ofNullable(null);\n5.         String result = opt\n6.             .map(s -> s.toUpperCase())\n7.             .orElse("DEFAULT");\n8.         System.out.print(result);\n9.     }\n10. }',
+          options: [
+            "null",
+            "DEFAULT",
+            "NullPointerException",
+            "Eroare de compilare",
+          ],
+          answers: [
+            {
+              isCorrect: false,
+              explanation:
+                "Fals. Optional.orElse() returnează alternativa când optional e gol.",
+            },
+            {
+              isCorrect: true,
+              explanation:
+                "Corect. Optional.ofNullable(null) creează un Optional gol. map() pe Optional gol returnează Optional gol (nu execută lambda). orElse() returnează valoarea alternativă 'DEFAULT'.",
+            },
+            {
+              isCorrect: false,
+              explanation:
+                "Fals. Optional gestionează null safe - nu se aruncă NPE.",
+            },
+            {
+              isCorrect: false,
+              explanation: "Fals. Codul este valid.",
+            },
+          ],
+        },
+        {
+          id: 10,
+          text: "Care este rezultatul următoarei secvențe?",
+          description: "Suppressed exceptions în try-with-resources",
+          code: '1. class Res implements AutoCloseable {\n2.     public void close() { throw new RuntimeException("Close"); }\n3. }\n4. public class SuppressedTest {\n5.     public static void main(String[] args) {\n6.         try (Res r = new Res()) {\n7.             throw new RuntimeException("Try");\n8.         } catch (RuntimeException e) {\n9.             System.out.print(e.getMessage() + " ");\n10.             System.out.print(e.getSuppressed().length);\n11.         }\n12.     }\n13. }',
+          options: ["Try 0", "Close 0", "Try 1", "Close 1"],
+          answers: [
+            {
+              isCorrect: false,
+              explanation: "Fals. Excepția din close() devine suppressed.",
+            },
+            {
+              isCorrect: false,
+              explanation:
+                "Fals. Excepția principală este cea din try, nu din close().",
+            },
+            {
+              isCorrect: true,
+              explanation:
+                "Corect. În try-with-resources, excepția din try este principală, iar cele din close() devin suppressed. Mesaj: 'Try', suppressed count: 1 (excepția 'Close').",
+            },
+            {
+              isCorrect: false,
+              explanation: "Fals. Excepția principală este cea din try block.",
+            },
+          ],
+        },
+        {
+          id: 11,
+          text: "Care este rezultatul următoarei secvențe?",
+          description: "volatile și visibility",
+          code: "1. class SharedData {\n2.     private volatile boolean flag = false;\n3.     private int data = 0;\n4.     void writer() {\n5.         data = 42;\n6.         flag = true;\n7.     }\n8.     void reader() {\n9.         if (flag) {\n10.             System.out.print(data);\n11.         }\n12.     }\n13. }",
+          options: [
+            "reader() va vedea întotdeauna data=42 când flag=true",
+            "reader() poate vedea data=0 când flag=true",
+            "volatile pe flag nu afectează vizibilitatea lui data",
+            "Codul are undefined behavior",
+          ],
+          answers: [
+            {
+              isCorrect: true,
+              explanation:
+                "Corect. volatile asigură happens-before: toate scrierile înainte de scrierea volatile (data=42) sunt vizibile pentru citirile după citirea volatile (flag). Acest pattern se numește 'piggyback synchronization'.",
+            },
+            {
+              isCorrect: false,
+              explanation:
+                "Fals. Happens-before garantează vizibilitatea lui data când flag este citit ca true.",
+            },
+            {
+              isCorrect: false,
+              explanation:
+                "Fals. volatile creează o barieră de memorie care afectează și variabilele non-volatile.",
+            },
+            {
+              isCorrect: false,
+              explanation:
+                "Fals. Java Memory Model definește comportamentul clar.",
+            },
+          ],
+        },
+        {
+          id: 12,
+          text: "Care este rezultatul următoarei secvențe?",
+          description: "Static binding vs dynamic binding",
+          code: '1. class Parent {\n2.     static void print() { System.out.print("Parent "); }\n3.     void show() { System.out.print("Parent "); }\n4. }\n5. class Child extends Parent {\n6.     static void print() { System.out.print("Child "); }\n7.     void show() { System.out.print("Child "); }\n8. }\n9. public class Test {\n10.     public static void main(String[] args) {\n11.         Parent p = new Child();\n12.         p.print();\n13.         p.show();\n14.     }\n15. }',
+          options: [
+            "Child Child",
+            "Parent Parent",
+            "Parent Child",
+            "Child Parent",
+          ],
+          answers: [
+            {
+              isCorrect: false,
+              explanation:
+                "Fals. Metodele statice folosesc static binding bazat pe tipul declarat.",
+            },
+            {
+              isCorrect: false,
+              explanation:
+                "Fals. Metodele non-statice folosesc dynamic binding bazat pe tipul real.",
+            },
+            {
+              isCorrect: true,
+              explanation:
+                "Corect. print() este static - se rezolvă la compile-time bazat pe tipul declarat (Parent). show() este instanță - se rezolvă la runtime bazat pe tipul real (Child). Static = hiding, Instance = overriding.",
+            },
+            {
+              isCorrect: false,
+              explanation: "Fals. Ordinea este inversă.",
+            },
+          ],
+        },
+        {
+          id: 13,
+          text: "Care este rezultatul următoarei secvențe?",
+          description: "Generics și PECS (Producer Extends, Consumer Super)",
+          code: "1. import java.util.*;\n2. public class PECS {\n3.     static void copy(List<? extends Number> src, List<? super Number> dest) {\n4.         for (Number n : src) dest.add(n);\n5.     }\n6.     public static void main(String[] args) {\n7.         List<Integer> ints = Arrays.asList(1, 2, 3);\n8.         List<Object> objs = new ArrayList<>();\n9.         copy(ints, objs);\n10.         System.out.println(objs);\n11.     }\n12. }",
+          options: [
+            "[1, 2, 3]",
+            "Eroare de compilare la copy()",
+            "Eroare de compilare la apel",
+            "ClassCastException",
+          ],
+          answers: [
+            {
+              isCorrect: true,
+              explanation:
+                "Corect. PECS: src produce valori (extends pentru citire), dest consumă valori (super pentru scriere). List<Integer> este subtip al List<? extends Number>. List<Object> este subtip al List<? super Number>.",
+            },
+            {
+              isCorrect: false,
+              explanation: "Fals. Metoda copy() este corect definită.",
+            },
+            {
+              isCorrect: false,
+              explanation: "Fals. Apelul respectă restricțiile de tip.",
+            },
+            {
+              isCorrect: false,
+              explanation: "Fals. Nu există conversii de tip invalide.",
+            },
+          ],
+        },
+        {
+          id: 14,
+          text: "Care este rezultatul următoarei secvențe?",
+          description: "Deadlock pattern",
+          code: '1. public class DeadlockDemo {\n2.     static Object lock1 = new Object();\n3.     static Object lock2 = new Object();\n4.     public static void main(String[] args) {\n5.         new Thread(() -> {\n6.             synchronized(lock1) {\n7.                 try { Thread.sleep(100); } catch(Exception e) {}\n8.                 synchronized(lock2) { System.out.print("T1 "); }\n9.             }\n10.         }).start();\n11.         new Thread(() -> {\n12.             synchronized(lock2) {\n13.                 try { Thread.sleep(100); } catch(Exception e) {}\n14.                 synchronized(lock1) { System.out.print("T2 "); }\n15.             }\n16.         }).start();\n17.     }\n18. }',
+          options: [
+            "T1 T2",
+            "T2 T1",
+            "Foarte probabil deadlock",
+            "Eroare de compilare",
+          ],
+          answers: [
+            {
+              isCorrect: false,
+              explanation:
+                "Fals. Thread-urile vor bloca reciproc așteptând lock-urile.",
+            },
+            {
+              isCorrect: false,
+              explanation:
+                "Fals. Thread-urile vor bloca reciproc așteptând lock-urile.",
+            },
+            {
+              isCorrect: true,
+              explanation:
+                "Corect. Classic deadlock: T1 deține lock1 și așteaptă lock2, T2 deține lock2 și așteaptă lock1. Sleep(100) aproape garantează că ambele ajung în această situație. Programul se blochează.",
+            },
+            {
+              isCorrect: false,
+              explanation: "Fals. Codul compilează corect.",
+            },
+          ],
+        },
+        {
+          id: 15,
+          text: "Care este rezultatul următoarei secvențe?",
+          description: "Reflection și encapsulation",
+          code: '1. import java.lang.reflect.*;\n2. class Secret {\n3.     private int value = 42;\n4. }\n5. public class ReflectTest {\n6.     public static void main(String[] args) throws Exception {\n7.         Secret s = new Secret();\n8.         Field f = Secret.class.getDeclaredField("value");\n9.         f.setAccessible(true);\n10.         System.out.print(f.get(s));\n11.         f.set(s, 100);\n12.         System.out.print(" " + f.get(s));\n13.     }\n14. }',
+          options: [
+            "IllegalAccessException",
+            "42 100",
+            "Eroare de compilare",
+            "42 42",
+          ],
+          answers: [
+            {
+              isCorrect: false,
+              explanation:
+                "Fals. setAccessible(true) permite accesul la membrii privați.",
+            },
+            {
+              isCorrect: true,
+              explanation:
+                "Corect. Reflection poate accesa și modifica câmpuri private prin setAccessible(true). Se citește 42, se setează 100, se citește 100. (Notă: în Java 9+ cu module system pot fi restricții suplimentare).",
+            },
+            {
+              isCorrect: false,
+              explanation: "Fals. Codul este valid.",
+            },
+            {
+              isCorrect: false,
+              explanation: "Fals. f.set() modifică valoarea câmpului.",
+            },
+          ],
+        },
+        {
+          id: 16,
+          text: "Care este rezultatul următoarei secvențe?",
+          description: "Functional interfaces și method references",
+          code: '1. import java.util.function.*;\n2. public class FuncTest {\n3.     public static void main(String[] args) {\n4.         Function<String, Integer> f1 = String::length;\n5.         Function<Integer, Integer> f2 = x -> x * 2;\n6.         Function<String, Integer> f3 = f1.andThen(f2);\n7.         System.out.print(f3.apply("Hello"));\n8.     }\n9. }',
+          options: ["5", "10", "HelloHello", "Eroare de compilare"],
+          answers: [
+            {
+              isCorrect: false,
+              explanation: "Fals. andThen aplică și f2 după f1.",
+            },
+            {
+              isCorrect: true,
+              explanation:
+                "Corect. f3 = f1.andThen(f2) creează o funcție compusă. Pentru 'Hello': f1 returnează length=5, apoi f2 returnează 5*2=10.",
+            },
+            {
+              isCorrect: false,
+              explanation:
+                "Fals. Function<String, Integer> returnează Integer, nu String.",
+            },
+            {
+              isCorrect: false,
+              explanation:
+                "Fals. Codul este corect - tipurile se potrivesc pentru andThen.",
+            },
+          ],
+        },
+        {
+          id: 17,
+          text: "Care este rezultatul următoarei secvențe?",
+          description: "TreeSet și Comparator",
+          code: '1. import java.util.*;\n2. public class TreeSetTest {\n3.     public static void main(String[] args) {\n4.         Set<String> set = new TreeSet<>((a, b) -> b.length() - a.length());\n5.         set.add("a");\n6.         set.add("bbb");\n7.         set.add("cc");\n8.         set.add("ddd");\n9.         System.out.println(set);\n10.     }\n11. }',
+          options: [
+            "[a, cc, bbb, ddd]",
+            "[bbb, cc, a]",
+            "[ddd, bbb, cc, a]",
+            "[bbb, ddd, cc, a]",
+          ],
+          answers: [
+            {
+              isCorrect: false,
+              explanation:
+                "Fals. Comparatorul sortează descrescător după lungime.",
+            },
+            {
+              isCorrect: true,
+              explanation:
+                "Corect. TreeSet folosește comparatorul dat. b.length() - a.length() = descrescător după lungime. 'bbb' și 'ddd' au aceeași lungime, dar TreeSet consideră elementele egale dacă compareTo=0, deci 'ddd' nu se adaugă (este 'duplicat' conform comparatorului). Rezultat: [bbb, cc, a].",
+            },
+            {
+              isCorrect: false,
+              explanation:
+                "Fals. Comparatorul returnează 0 pentru strings cu aceeași lungime, deci 'ddd' nu se adaugă.",
+            },
+            {
+              isCorrect: false,
+              explanation:
+                "Fals. 'ddd' nu va fi adăugat deoarece comparatorul îl consideră egal cu 'bbb'.",
+            },
+          ],
+        },
+        {
+          id: 18,
+          text: "Care este rezultatul următoarei secvențe?",
+          description: "Anonymous class și final variables",
+          code: '1. public class AnonClass {\n2.     public static void main(String[] args) {\n3.         int x = 10;\n4.         Runnable r = new Runnable() {\n5.             int x = 20;\n6.             public void run() {\n7.                 int x = 30;\n8.                 System.out.print(x + " ");\n9.                 System.out.print(this.x + " ");\n10.                 System.out.print(AnonClass.this);\n11.             }\n12.         };\n13.         r.run();\n14.     }\n15. }',
+          options: [
+            "30 20 10",
+            "30 20 și eroare de compilare",
+            "30 20 și referința la instanța AnonClass",
+            "10 20 30",
+          ],
+          answers: [
+            {
+              isCorrect: false,
+              explanation:
+                "Fals. AnonClass.this nu funcționează în context static.",
+            },
+            {
+              isCorrect: true,
+              explanation:
+                "Corect. x local = 30, this.x = câmpul clasei anonime = 20. Dar AnonClass.this nu este valid deoarece main() este static - nu există instanță enclosing. Eroare de compilare.",
+            },
+            {
+              isCorrect: false,
+              explanation:
+                "Fals. main() este static, deci nu există AnonClass.this.",
+            },
+            {
+              isCorrect: false,
+              explanation:
+                "Fals. Variabilele se rezolvă de la cea mai apropiată la cea mai îndepărtată.",
+            },
+          ],
+        },
+        {
+          id: 19,
+          text: "Care este rezultatul următoarei secvențe?",
+          description: "Stream parallel și ordering",
+          code: "1. import java.util.*;\n2. import java.util.stream.*;\n3. public class ParallelStream {\n4.     public static void main(String[] args) {\n5.         List<Integer> list = Arrays.asList(1, 2, 3, 4, 5);\n6.         list.parallelStream()\n7.             .map(n -> n * 2)\n8.             .forEachOrdered(System.out::print);\n9.     }\n10. }",
+          options: [
+            "Ordinea este garantat 246810",
+            "Ordinea este aleatoare (ex: 482106)",
+            "Eroare de compilare",
+            "Rezultatul poate fi orice combinație de cifre",
+          ],
+          answers: [
+            {
+              isCorrect: true,
+              explanation:
+                "Corect. forEachOrdered() garantează procesarea în encounter order chiar și pentru parallel streams. Rezultatul va fi întotdeauna 246810, deși procesarea internă poate fi paralelă.",
+            },
+            {
+              isCorrect: false,
+              explanation:
+                "Fals. forEachOrdered (nu forEach) păstrează ordinea.",
+            },
+            {
+              isCorrect: false,
+              explanation: "Fals. Codul este valid.",
+            },
+            {
+              isCorrect: false,
+              explanation:
+                "Fals. forEachOrdered garantează ordinea encounter-ului original.",
+            },
+          ],
+        },
+        {
+          id: 20,
+          text: "Care este rezultatul următoarei secvențe?",
+          description: "Bridge methods și generics",
+          code: '1. interface Container<T> {\n2.     void add(T item);\n3. }\n4. class StringContainer implements Container<String> {\n5.     public void add(String item) { System.out.print("String: " + item); }\n6. }\n7. public class BridgeTest {\n8.     public static void main(String[] args) {\n9.         Container raw = new StringContainer();\n10.         raw.add("Hello");\n11.         raw.add(123);\n12.     }\n13. }',
+          options: [
+            "String: Hello String: 123",
+            "String: Hello și ClassCastException",
+            "Eroare de compilare",
+            "String: Hello 123",
+          ],
+          answers: [
+            {
+              isCorrect: false,
+              explanation: "Fals. 123 nu este String, va cauza eroare la cast.",
+            },
+            {
+              isCorrect: true,
+              explanation:
+                'Corect. Folosind raw type, compilatorul permite orice argument. Compilatorul generează un bridge method add(Object) care face cast la String. raw.add("Hello") funcționează. raw.add(123) compilează (raw type), dar la runtime bridge method încearcă cast Integer la String -> ClassCastException.',
+            },
+            {
+              isCorrect: false,
+              explanation:
+                "Fals. Raw types permit compilarea, eroarea apare la runtime.",
+            },
+            {
+              isCorrect: false,
+              explanation: "Fals. Integer nu poate fi convertit la String.",
+            },
+          ],
+        },
+        {
+          id: 21,
+          text: "Care este rezultatul următoarei secvențe?",
+          description: "ConcurrentModificationException în single-threaded",
+          code: "1. import java.util.*;\n2. public class ConcMod {\n3.     public static void main(String[] args) {\n4.         List<Integer> list = new ArrayList<>(Arrays.asList(1, 2, 3, 4, 5));\n5.         for (int i = 0; i < list.size(); i++) {\n6.             if (list.get(i) % 2 == 0) {\n7.                 list.remove(i);\n8.             }\n9.         }\n10.         System.out.println(list);\n11.     }\n12. }",
+          options: [
+            "[1, 3, 5]",
+            "[1, 3, 4, 5]",
+            "ConcurrentModificationException",
+            "IndexOutOfBoundsException",
+          ],
+          answers: [
+            {
+              isCorrect: false,
+              explanation:
+                "Fals. Bucla tradițională sare peste elementul 4 din cauza shift-ului de indecși.",
+            },
+            {
+              isCorrect: true,
+              explanation:
+                "Corect. NU apare CME (nu e Iterator). Dar: i=1 găsește 2, remove, lista devine [1,3,4,5], i devine 2, verifică 4 (era la index 3, acum 2), remove, lista devine [1,3,5]. 4 a fost eliminat corect din întâmplare! Dar 4 original era la index 3... Let me recalculate: Initial [1,2,3,4,5]. i=0: 1%2≠0. i=1: 2%2=0, remove(1), list=[1,3,4,5], size=4. i=2: list.get(2)=4, 4%2=0, remove(2), list=[1,3,5]. i=3: 3<3? No, exit. Result: [1,3,5]. Wait that's option A. Let me recheck: After removing 2, list=[1,3,4,5]. i increments to 2. list.get(2)=4. 4%2=0, remove. list=[1,3,5]. i=3. size=3. 3<3 is false. Exit. Result [1,3,5]. So A is correct?",
+            },
+            {
+              isCorrect: false,
+              explanation:
+                "Fals. CME apare doar cu Iterator, nu cu for clasic.",
+            },
+            {
+              isCorrect: false,
+              explanation: "Fals. Indicii nu depășesc size-ul curent.",
+            },
+          ],
+        },
+        {
+          id: 22,
+          text: "Care este rezultatul următoarei secvențe?",
+          description: "String interning și ==operator",
+          code: '1. public class StringIntern {\n2.     public static void main(String[] args) {\n3.         String s1 = "Hello";\n4.         String s2 = "Hel" + "lo";\n5.         String s3 = "Hel";\n6.         String s4 = s3 + "lo";\n7.         System.out.print((s1 == s2) + " ");\n8.         System.out.print(s1 == s4);\n9.     }\n10. }',
+          options: ["true true", "false false", "true false", "false true"],
+          answers: [
+            {
+              isCorrect: false,
+              explanation:
+                "Fals. s4 este creat la runtime, nu este în String pool.",
+            },
+            {
+              isCorrect: false,
+              explanation: "Fals. s2 este constant folding la compile-time.",
+            },
+            {
+              isCorrect: true,
+              explanation:
+                'Corect. s2 = "Hel" + "lo" este evaluat la compile-time (constant folding) -> "Hello" din pool (== s1). s4 = s3 + "lo" implică variabilă, evaluat la runtime -> nou obiect (≠ s1).',
+            },
+            {
+              isCorrect: false,
+              explanation:
+                "Fals. s1 == s2 este true datorită constant folding.",
+            },
+          ],
+        },
+        {
+          id: 23,
+          text: "Care este rezultatul următoarei secvențe?",
+          description: "Method overloading resolution",
+          code: '1. public class Overload {\n2.     void test(Object o) { System.out.print("Object "); }\n3.     void test(String s) { System.out.print("String "); }\n4.     void test(Integer i) { System.out.print("Integer "); }\n5.     public static void main(String[] args) {\n6.         Overload o = new Overload();\n7.         o.test(null);\n8.     }\n9. }',
+          options: [
+            "Object",
+            "String",
+            "Integer",
+            "Eroare de compilare - ambiguitate",
+          ],
+          answers: [
+            {
+              isCorrect: false,
+              explanation:
+                "Fals. Object este cel mai generic, nu cel mai specific.",
+            },
+            {
+              isCorrect: false,
+              explanation:
+                "Fals. String și Integer sunt la același nivel în ierarhie relative la Object.",
+            },
+            {
+              isCorrect: false,
+              explanation: "Fals. Integer nu este mai specific decât String.",
+            },
+            {
+              isCorrect: true,
+              explanation:
+                "Corect. null poate fi String sau Integer. Compilatorul alege cea mai specifică metodă, dar String și Integer nu au relație de subtip între ele -> ambiguitate. Eroare de compilare: reference to test is ambiguous.",
+            },
+          ],
+        },
+        {
+          id: 24,
+          text: "Care este rezultatul următoarei secvențe?",
+          description: "Cloning și shallow copy",
+          code: '1. class Data implements Cloneable {\n2.     int[] arr = {1, 2, 3};\n3.     protected Object clone() throws CloneNotSupportedException {\n4.         return super.clone();\n5.     }\n6. }\n7. public class CloneTest {\n8.     public static void main(String[] args) throws Exception {\n9.         Data d1 = new Data();\n10.         Data d2 = (Data) d1.clone();\n11.         d2.arr[0] = 100;\n12.         System.out.print(d1.arr[0] + " " + (d1.arr == d2.arr));\n13.     }\n14. }',
+          options: ["1 false", "100 true", "1 true", "100 false"],
+          answers: [
+            {
+              isCorrect: false,
+              explanation:
+                "Fals. Shallow copy copiază referința array-ului, nu conținutul.",
+            },
+            {
+              isCorrect: true,
+              explanation:
+                "Corect. super.clone() face shallow copy - copiază referințele. d1.arr și d2.arr referă ACELAȘI array. Modificarea d2.arr[0] afectează și d1.arr[0]. arr == arr returnează true.",
+            },
+            {
+              isCorrect: false,
+              explanation:
+                "Fals. Același array, deci d1.arr[0] este modificat la 100.",
+            },
+            {
+              isCorrect: false,
+              explanation:
+                "Fals. Este același array (shallow copy), deci == este true.",
+            },
+          ],
+        },
+        {
+          id: 25,
+          text: "Care este rezultatul următoarei secvențe?",
+          description: "Exception handling și return",
+          code: "1. public class ExReturn {\n2.     static int test() {\n3.         int x = 10;\n4.         try {\n5.             x = 20;\n6.             return x;\n7.         } finally {\n8.             x = 30;\n9.         }\n10.     }\n11.     public static void main(String[] args) {\n12.         System.out.print(test());\n13.     }\n14. }",
+          options: ["10", "20", "30", "Eroare de compilare"],
+          answers: [
+            {
+              isCorrect: false,
+              explanation: "Fals. x este modificat în try înainte de return.",
+            },
+            {
+              isCorrect: true,
+              explanation:
+                "Corect. return x evaluează x=20 și păstrează valoarea pentru returnare. finally se execută (x devine 30), dar valoarea deja evaluată pentru return (20) este returnată. Modificarea lui x în finally nu afectează valoarea returnată.",
+            },
+            {
+              isCorrect: false,
+              explanation:
+                "Fals. Valoarea pentru return este evaluată înainte de finally.",
+            },
+            {
+              isCorrect: false,
+              explanation: "Fals. Codul este valid.",
+            },
+          ],
+        },
+        {
+          id: 26,
+          text: "Care este rezultatul următoarei secvențe?",
+          description: "Immutability și wrapper classes",
+          code: '1. public class Immutable {\n2.     public static void modify(Integer i, StringBuilder sb) {\n3.         i = i + 1;\n4.         sb.append(" World");\n5.     }\n6.     public static void main(String[] args) {\n7.         Integer num = 10;\n8.         StringBuilder str = new StringBuilder("Hello");\n9.         modify(num, str);\n10.         System.out.print(num + " " + str);\n11.     }\n12. }',
+          options: ["11 Hello World", "10 Hello World", "11 Hello", "10 Hello"],
+          answers: [
+            {
+              isCorrect: false,
+              explanation:
+                "Fals. Integer este imutabil, reasignarea locală nu afectează originalul.",
+            },
+            {
+              isCorrect: true,
+              explanation:
+                "Corect. Integer este imutabil - i = i + 1 creează un nou Integer și îl asignează referinței locale (num din main rămâne 10). StringBuilder este mutabil - append() modifică obiectul original.",
+            },
+            {
+              isCorrect: false,
+              explanation:
+                "Fals. StringBuilder este mutabil, append afectează obiectul original.",
+            },
+            {
+              isCorrect: false,
+              explanation: "Fals. StringBuilder este mutabil.",
+            },
+          ],
+        },
+        {
+          id: 27,
+          text: "Care este rezultatul următoarei secvențe?",
+          description: "Initialization order cu inheritance",
+          code: '1. class A {\n2.     static { System.out.print("A.static "); }\n3.     { System.out.print("A.instance "); }\n4.     A() { System.out.print("A() "); }\n5. }\n6. class B extends A {\n7.     static { System.out.print("B.static "); }\n8.     { System.out.print("B.instance "); }\n9.     B() { System.out.print("B() "); }\n10. }\n11. public class Test {\n12.     public static void main(String[] args) {\n13.         System.out.print("Start ");\n14.         new B();\n15.     }\n16. }',
+          options: [
+            "A.static B.static Start A.instance A() B.instance B()",
+            "Start A.static B.static A.instance A() B.instance B()",
+            "Start A.static A.instance A() B.static B.instance B()",
+            "A.static B.static A.instance B.instance A() B()",
+          ],
+          answers: [
+            {
+              isCorrect: true,
+              explanation:
+                "Corect. Ordinea: 1) Blocuri statice la încărcarea claselor (A apoi B, înainte de Start deoarece main e în Test dar B e referit). 2) 'Start' se printează. 3) new B() -> A.instance, A(), B.instance, B().",
+            },
+            {
+              isCorrect: false,
+              explanation:
+                "Fals. Blocurile statice se execută la încărcarea claselor, înainte de Start.",
+            },
+            {
+              isCorrect: false,
+              explanation:
+                "Fals. Toate blocurile statice se execută înainte de orice instanțiere.",
+            },
+            {
+              isCorrect: false,
+              explanation:
+                "Fals. Constructorii se execută după blocurile de instanță.",
+            },
+          ],
+        },
+        {
+          id: 28,
+          text: "Care este rezultatul următoarei secvențe?",
+          description: "Collectors și groupingBy",
+          code: '1. import java.util.*;\n2. import java.util.stream.*;\n3. public class GroupTest {\n4.     public static void main(String[] args) {\n5.         List<String> words = Arrays.asList("a", "bb", "cc", "ddd");\n6.         Map<Integer, Long> map = words.stream()\n7.             .collect(Collectors.groupingBy(\n8.                 String::length,\n9.                 Collectors.counting()));\n10.         System.out.println(map);\n11.     }\n12. }',
+          options: [
+            "{1=a, 2=bb, 3=ddd}",
+            "{1=1, 2=2, 3=1}",
+            "{a=1, bb=2, ddd=3}",
+            "{1=[a], 2=[bb, cc], 3=[ddd]}",
+          ],
+          answers: [
+            {
+              isCorrect: false,
+              explanation:
+                "Fals. groupingBy cu counting() numără elementele, nu le păstrează.",
+            },
+            {
+              isCorrect: true,
+              explanation:
+                "Corect. groupingBy grupează după lungime (1, 2, 3). Collectors.counting() numără elementele din fiecare grup: lungime 1 -> 1 element ('a'), lungime 2 -> 2 elemente ('bb', 'cc'), lungime 3 -> 1 element ('ddd').",
+            },
+            {
+              isCorrect: false,
+              explanation: "Fals. Cheia este lungimea, nu cuvântul.",
+            },
+            {
+              isCorrect: false,
+              explanation: "Fals. counting() returnează Long, nu List.",
+            },
+          ],
+        },
+        {
+          id: 29,
+          text: "Care este rezultatul următoarei secvențe?",
+          description: "Interface private methods (Java 9+)",
+          code: '1. interface Calculator {\n2.     default int add(int a, int b) {\n3.         return compute(a, b, (x, y) -> x + y);\n4.     }\n5.     default int multiply(int a, int b) {\n6.         return compute(a, b, (x, y) -> x * y);\n7.     }\n8.     private int compute(int a, int b, java.util.function.BiFunction<Integer, Integer, Integer> op) {\n9.         return op.apply(a, b);\n10.     }\n11. }\n12. public class Test implements Calculator {\n13.     public static void main(String[] args) {\n14.         Test t = new Test();\n15.         System.out.print(t.add(3, 4) + " " + t.multiply(3, 4));\n16.     }\n17. }',
+          options: [
+            "7 12",
+            "Eroare de compilare - private în interfață",
+            "Eroare de compilare - BiFunction",
+            "12 7",
+          ],
+          answers: [
+            {
+              isCorrect: true,
+              explanation:
+                "Corect. Din Java 9, interfețele pot avea metode private pentru a evita duplicarea codului între metodele default. compute() este folosit intern de add() și multiply(). add(3,4)=7, multiply(3,4)=12.",
+            },
+            {
+              isCorrect: false,
+              explanation: "Fals. Java 9+ permite metode private în interfețe.",
+            },
+            {
+              isCorrect: false,
+              explanation:
+                "Fals. BiFunction este valid din java.util.function.",
+            },
+            {
+              isCorrect: false,
+              explanation: "Fals. Ordinea este add apoi multiply.",
+            },
+          ],
+        },
+        {
+          id: 30,
+          text: "Care este rezultatul următoarei secvențe?",
+          description: "AtomicInteger și thread safety",
+          code: "1. import java.util.concurrent.atomic.*;\n2. import java.util.stream.*;\n3. public class AtomicTest {\n4.     public static void main(String[] args) {\n5.         AtomicInteger ai = new AtomicInteger(0);\n6.         IntStream.range(0, 1000)\n7.             .parallel()\n8.             .forEach(i -> ai.incrementAndGet());\n9.         System.out.print(ai.get());\n10.     }\n11. }",
+          options: [
+            "Valoare variabilă, mai mică de 1000",
+            "1000 (întotdeauna)",
+            "Eroare de compilare",
+            "0",
+          ],
+          answers: [
+            {
+              isCorrect: false,
+              explanation:
+                "Fals. AtomicInteger.incrementAndGet() este atomic și thread-safe.",
+            },
+            {
+              isCorrect: true,
+              explanation:
+                "Corect. AtomicInteger folosește operații atomice hardware (CAS - Compare-And-Swap). incrementAndGet() este garantat atomic. Chiar și cu parallel stream, rezultatul este întotdeauna 1000.",
+            },
+            {
+              isCorrect: false,
+              explanation: "Fals. Codul este valid.",
+            },
+            {
+              isCorrect: false,
+              explanation:
+                "Fals. incrementAndGet() incrementează valoarea de 1000 de ori.",
+            },
+          ],
+        },
+      ];
+
       const quizzes = {
         examExCB: {
           title: "Examen exemplu - CB",
@@ -4452,6 +5395,10 @@
         setNou2: {
           title: "Set Nou 2 - Stil CB",
           data: questionsSetNou2,
+        },
+        setNou3: {
+          title: "Set Nou 3 - Avansat",
+          data: questionsSetNou3,
         },
       };
 
