@@ -180,6 +180,7 @@
             {
                 id: 1,
                 text: "Având în vedere codul de mai jos, care dintre afirmațiile sunt adevărate în ceea ce privește conceptul de imutabilitate aplicat în cazul clasei Student?",
+                description: "1. Câmpurile clasei sunt declarate final.\n2. Clasa oferă doar metode de acces (getteri), fără metode de modificare (setteri).\n3. Starea internă a obiectului poate fi modificată direct.\n4. Metodele getter returnează o copie a obiectelor mutabile referențiate.\n5. Clasa oferă metode de tip setter pentru toate câmpurile.",
                 code: `class Student {
     long id;
     List<Double> grades;
@@ -190,8 +191,6 @@
                     "1, 2, 5",
                     "1, 3, 5"
                 ],
-                correct: 1, // Index 1 = "1, 2, 4"
-                details: "1. Ambele câmpuri final; 2. Doar getteri; 4. Getter-ul returnează o copie.",
                 answers: [
                     {isCorrect: false, explanation: "Nu toate afirmațiile enumerate sunt corecte pentru imutabilitate."},
                     {isCorrect: true, explanation: "Corect. Pentru imutabilitate: 1. Câmpurile trebuie să fie final; 2. Să existe doar getteri; 4. Getter-ul pentru colecții trebuie să returneze o copie (defensive copy)."},
@@ -202,6 +201,7 @@
             {
                 id: 2,
                 text: "Care dintre afirmațiile de mai jos sunt adevărate referitor la colecții?",
+                description: "1. HashSet garantează păstrarea ordinii elementelor inserate.\n2. LinkedHashMap păstrează ordinea inserției elementelor.\n3. ArrayList sortează automat elementele la inserare.\n4. TreeSet nu păstrează ordinea inserției, ci sortează elementele conform ordinii naturale sau a unui comparator.",
                 code: null,
                 options: [
                     "toate",
@@ -209,8 +209,6 @@
                     "1, 2, 3",
                     "1, 3"
                 ],
-                correct: 1, // Index 1 = "2 și 4"
-                details: "2. LinkedHashMap păstrează ordinea; 4. TreeSet nu păstrează ordinea inserției (le sortează).",
                 answers: [
                     {isCorrect: false, explanation: "Nu toate afirmațiile sunt adevărate (de exemplu, HashSet nu garantează ordinea)."},
                     {isCorrect: true, explanation: "Corect. 2. LinkedHashMap păstrează ordinea inserției; 4. TreeSet sortează elementele (nu păstrează ordinea inserției)."},
@@ -221,6 +219,7 @@
             {
                 id: 3,
                 text: "Care dintre următoarele afirmații despre clase abstracte în Java sunt FALSE?",
+                description: "1. O clasă abstractă nu poate fi instanțiată direct.\n2. Putem defini constructori într-o clasă abstractă.\n3. O clasă poate fi abstractă fără a conține metode abstracte.\n4. Java nu suportă moștenire multiplă de clase (o clasă nu poate extinde mai multe clase).",
                 code: null,
                 options: [
                     "1, 2",
@@ -228,18 +227,17 @@
                     "3, 4",
                     "1, 3, 4"
                 ],
-                correct: 2, // Index 2 = "3, 4"
-                details: "3. O clasă poate fi abstractă fără metode abstracte. 4. Java nu suportă moștenire multiplă de clase.",
                 answers: [
-                    {isCorrect: false, explanation: "Afirmațiile 1 și 2 nu sunt cele vizate ca fiind false."},
-                    {isCorrect: false, explanation: "Afirmația 1 nu este falsă."},
-                    {isCorrect: true, explanation: "Corect conform grilei. (Notă: În Java, 3 și 4 sunt de fapt afirmații ADEVARATE, dar sunt selectate aici conform cheii de răspuns furnizate)."},
+                    {isCorrect: false, explanation: "Afirmațiile 1 și 2 sunt adevărate."},
+                    {isCorrect: false, explanation: "Afirmația 1 este adevărată."},
+                    {isCorrect: true, explanation: "Corect conform cheii (deși teoretic 3 și 4 sunt ADEVĂRATE în Java, contextul grilei le cerea ca răspuns)."},
                     {isCorrect: false, explanation: "Include afirmații care nu sunt vizate."}
                 ]
             },
             {
                 id: 4,
                 text: "Care dintre următoarele afirmații despre interfețe și clase abstracte sunt ADEVĂRATE?",
+                description: "1. O interfață poate implementa o altă interfață.\n2. O interfață poate moșteni (extends) mai multe interfețe simultan.\n3. O clasă abstractă nu poate implementa o interfață.\n4. O clasă concretă poate implementa mai multe interfețe.",
                 code: null,
                 options: [
                     "1, 2, 3",
@@ -247,13 +245,11 @@
                     "1, 2, 3, 4",
                     "2, 3, 4"
                 ],
-                correct: 1, // Index 1 = "2, 4"
-                details: "2. Interfața poate moșteni mai multe interfețe. 4. O clasă poate implementa mai multe interfețe.",
                 answers: [
-                    {isCorrect: false, explanation: "Afirmațiile 1 sau 3 conțin erori teoretice."},
+                    {isCorrect: false, explanation: "Afirmația 1 este greșită (o interfață extinde, nu implementează altă interfață)."},
                     {isCorrect: true, explanation: "Corect. 2. Interfețele suportă moștenire multiplă; 4. Clasele pot implementa multiple interfețe."},
                     {isCorrect: false, explanation: "Nu toate afirmațiile de la 1 la 4 sunt adevărate."},
-                    {isCorrect: false, explanation: "Include afirmația 3 care este probabil falsă."}
+                    {isCorrect: false, explanation: "Include afirmația 3 care este falsă (clasele abstracte POT implementa interfețe)."}
                 ]
             },
             {
@@ -266,7 +262,6 @@
                     "Cuvântul final în fața unei variabile arată că acea variabilă poate fi asignată o singură dată",
                     "Cuvântul final în fața unei variabile arată că acea variabilă nu poate fi moștenită"
                 ],
-                correct: 2,
                 answers: [
                     {isCorrect: false, explanation: "Greșit. 'final' la metode previne suprascrierea (overriding), nu accesul."},
                     {isCorrect: false, explanation: "Greșit. O clasă 'final' nu poate fi moștenită, dar poate fi instanțiată."},
@@ -284,7 +279,6 @@
                     "construirea de obiecte complexe și ascunderea modului lor de funcționare",
                     "posibilitatea suprascrierii (overriding) metodelor"
                 ],
-                correct: 3,
                 answers: [
                     {isCorrect: false, explanation: "Aceasta este o parte fundamentală a încapsulării."},
                     {isCorrect: false, explanation: "Getteri și setteri sunt mecanisme standard de încapsulare."},
@@ -314,7 +308,6 @@
                     "Old shininess: null | New shininess: 0",
                     "Old shininess: null | New shininess: 10"
                 ],
-                correct: 1, // Index 1 = 0 | 0
                 answers: [
                     {isCorrect: false, explanation: "Greșit. Metoda change reasignează referința locală 's', deci obiectul original nu este modificat."},
                     {isCorrect: true, explanation: "Corect. Deoarece Java transmite referințele prin valoare, reasignarea 's = new Star()' în interiorul metodei nu afectează variabila 'star' din main."},
@@ -332,7 +325,6 @@
                     "List<Integer> list = new ArrayList<Integer>();",
                     "ArrayList<Object> list = new ArrayList<Integer>();"
                 ],
-                correct: 2,
                 answers: [
                     {isCorrect: false, explanation: "Greșit. Genericele trebuie să fie identice (invariant), nu poți pune ArrayList<Object> într-o referință de List<Integer>."},
                     {isCorrect: false, explanation: "Greșit. List este o interfață și nu poate fi instanțiată direct cu 'new List()'."},
@@ -350,7 +342,6 @@
                     "Factory Pattern",
                     "Observer Pattern"
                 ],
-                correct: 1, // Visitor
                 answers: [
                     {isCorrect: false, explanation: "Builder se ocupă de construcția obiectelor complexe."},
                     {isCorrect: true, explanation: "Corect. Visitor permite adăugarea de noi operații pe o structură de obiecte fără a modifica clasele obiectelor."},
@@ -368,7 +359,6 @@
                     "Builder Pattern",
                     "Observer Pattern"
                 ],
-                correct: 1, // Factory
                 answers: [
                     {isCorrect: false, explanation: "Singleton garantează o singură instanță."},
                     {isCorrect: true, explanation: "Corect. Factory Method sau Abstract Factory abstractizează procesul de instanțiere față de client."},
@@ -391,7 +381,6 @@
                     "nu avem Singleton aici",
                     "Singleton cu inițializare în blocuri statice"
                 ],
-                correct: 1,
                 answers: [
                     {isCorrect: false, explanation: "Eager initialization ar crea obiectul la încărcarea clasei, nu la apelul getInstance()."},
                     {isCorrect: true, explanation: "Corect. Obiectul este creat doar atunci când este solicitat prima dată (lazy)."},
@@ -416,7 +405,6 @@ public class Test {
                     "execute2 din Test, execute2 din MyTest",
                     "execute2 din MyTest"
                 ],
-                correct: 2, // execute2 (protected) is visible
                 answers: [
                     {isCorrect: false, explanation: "execute1 are vizibilitate default (package-private) și nu poate fi accesată din alt pachet (mytest)."},
                     {isCorrect: false, explanation: "execute3 este private și nu se moștenește."},
@@ -434,7 +422,6 @@ public class Test {
                     "o metodă statică implementată într-o interfață",
                     "nu putem avea metode default într-o interfață"
                 ],
-                correct: 1,
                 answers: [
                     {isCorrect: false, explanation: "Metodele abstracte nu au corp/implementare."},
                     {isCorrect: true, explanation: "Corect. Metodele 'default' permit adăugarea de funcționalitate în interfețe păstrând compatibilitatea retroactivă."},
@@ -457,7 +444,6 @@ documentViewer.openDocument(file2);`,
                     "Adobe is opening pdf Opening csv",
                     "Opening document Opening csv"
                 ],
-                correct: 0, // "Opening document Cannot open csv"
                 answers: [
                     {isCorrect: true, explanation: "Corect. Dacă AdobeReader nu suprascrie corect metodele pentru tipurile specifice sau dacă apelul este legat static la tipul DocumentViewer."},
                     {isCorrect: false, explanation: "Presupune că polimorfismul a funcționat parțial."},
@@ -477,7 +463,6 @@ documentViewer.openDocument(file2);`,
                     "ADB",
                     "BDA"
                 ],
-                correct: 1, // ACB
                 answers: [
                     {isCorrect: false, explanation: "Ordinea de execuție nu produce acest rezultat."},
                     {isCorrect: true, explanation: "Corect conform fluxului de execuție a metodelor statice și a instanțierii."},
@@ -495,7 +480,6 @@ documentViewer.openDocument(file2);`,
                     "clasă nested non-statică",
                     "clasă nested statică"
                 ],
-                correct: 1, // Conform grilei, lambda este tratat similar cu clasa anonimă
                 answers: [
                     {isCorrect: false, explanation: "Clasele locale au nume și sunt definite într-un bloc."},
                     {isCorrect: true, explanation: "Corect. Expresiile Lambda sunt implementări de interfețe funcționale, similare conceptual cu clasele anonime."},
@@ -517,7 +501,6 @@ documentViewer.openDocument(file2);`,
                     "goodluck:goodluck",
                     "goodluck:luckgoodluck"
                 ],
-                correct: 2,
                 answers: [
                     {isCorrect: false, explanation: "String-urile sunt imutabile, 'a' rămâne 'good'."},
                     {isCorrect: false, explanation: "Formatarea outputului nu corespunde."},
@@ -538,7 +521,6 @@ documentViewer.openDocument(file2);`,
                     "Suprascriere: 3, 4, Supraincărcare: 1, 2",
                     "Suprascriere: 3, 4, Supraincărcare: 1"
                 ],
-                correct: 1,
                 answers: [
                     {isCorrect: false, explanation: "Lipsește linia 2 de la suprascriere."},
                     {isCorrect: true, explanation: "Corect. 1 și 2 implementează metodele din interfață (suprascriere), 3 și 4 adaugă parametri noi aceleiași metode (supraîncărcare)."},
@@ -556,7 +538,6 @@ documentViewer.openDocument(file2);`,
                     "in memoria cache",
                     "memoria externă"
                 ],
-                correct: 1,
                 answers: [
                     {isCorrect: false, explanation: "Pe stivă (Stack) se stochează variabilele locale și apelurile de metode."},
                     {isCorrect: true, explanation: "Corect. Toate obiectele în Java sunt alocate pe Heap."},
@@ -574,7 +555,6 @@ documentViewer.openDocument(file2);`,
                     "pentru a reduce elementele la unul singur",
                     "pentru a crea o copie identică"
                 ],
-                correct: 1,
                 answers: [
                     {isCorrect: false, explanation: "Pentru filtrare se folosește metoda filter()."},
                     {isCorrect: true, explanation: "Corect. map() transformă fiecare element al fluxului într-un alt element."},
@@ -603,6 +583,7 @@ documentViewer.openDocument(file2);`,
 
             questions.forEach((q, index) => {
                 let codeBlock = q.code ? `<pre><code>${escapeHTML(q.code)}</code></pre>` : '';
+                let descriptionHtml = q.description ? `<div class="question-description" style="margin-bottom: 15px; white-space: pre-wrap;">${escapeHTML(q.description)}</div>` : '';
 
                 let optionsHtml = q.options.map((opt, i) => `
                     <li class="option-item">
@@ -616,6 +597,7 @@ documentViewer.openDocument(file2);`,
                 html += `
                     <div class="question-card" id="card-${index}">
                         <div class="question-text">${index + 1}. ${escapeHTML(q.text)}</div>
+                        ${descriptionHtml}
                         ${codeBlock}
                         <ul class="options">${optionsHtml}</ul>
                         <div class="result-box" id="result-${index}"></div>
@@ -639,20 +621,26 @@ documentViewer.openDocument(file2);`,
             resultBox.style.display = 'block';
             resultBox.className = 'result-box';
 
-            if (selectedValue === q.correct) {
+            const selectedAnswer = q.answers[selectedValue];
+
+            if (selectedAnswer.isCorrect) {
                 currentScore++;
                 resultBox.innerHTML = "Corect!";
                 resultBox.classList.add('correct-answer');
                 document.getElementById(`label-${qIndex}-${selectedValue}`).classList.add('correct');
             } else {
-                resultBox.innerHTML = `Greșit. Varianta corectă era: "${escapeHTML(q.options[q.correct])}"`;
+                // Find correct answer index
+                const correctIndex = q.answers.findIndex(a => a.isCorrect);
+                const correctOptionText = q.options[correctIndex];
+
+                resultBox.innerHTML = `Greșit. Varianta corectă era: "${escapeHTML(correctOptionText)}"`;
                 resultBox.classList.add('wrong-answer');
                 document.getElementById(`label-${qIndex}-${selectedValue}`).classList.add('incorrect');
-                document.getElementById(`label-${qIndex}-${q.correct}`).classList.add('correct');
+                document.getElementById(`label-${qIndex}-${correctIndex}`).classList.add('correct');
             }
 
-            if (q.details) {
-                resultBox.innerHTML += `<div class="explanation">${escapeHTML(q.details)}</div>`;
+            if (selectedAnswer.explanation) {
+                resultBox.innerHTML += `<div class="explanation">${escapeHTML(selectedAnswer.explanation)}</div>`;
             }
 
             answeredCount++;
